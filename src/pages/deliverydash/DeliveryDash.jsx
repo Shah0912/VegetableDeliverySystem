@@ -5,23 +5,17 @@ import PickupList from "./PickupList";
 import { DeliveryProvider } from "./DeliveryContext";
 
 import "./DeliveryDash.css";
-import { Container, Row, Col } from "react-bootstrap";
+import { CardDeck, Container } from "react-bootstrap";
 
 export const DeliveryDash = () => {
   return (
     <DeliveryProvider>
       <Container className="mt-5">
-        <Row>
-          <Col>
-            <Vehicle />
-          </Col>
-          <Col>
-            <DeliveryList />
-          </Col>
-          <Col>
-            <PickupList />
-          </Col>
-        </Row>
+        <CardDeck>
+          <Vehicle />
+          <DeliveryList />
+          <PickupList />
+        </CardDeck>
       </Container>
     </DeliveryProvider>
   );

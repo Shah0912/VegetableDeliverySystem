@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 body {
-  background-color: #aee9f5;
+  background-color: #ffefc4;
   flex-direction: column;
   align-items: center;
   /* justify-content: center; */
@@ -70,11 +70,6 @@ h4 {
   color: #c0392b;
 }
 
-label {
-  display: inline-block;
-  margin: 10px 0;
-}
-
 .btn {
   cursor: pointer;
 
@@ -85,9 +80,7 @@ label {
   font-size: 16px;
   margin: 10px 0 30px;
   padding: 10px;
-  width: 100%;
 }
-
 .btn:focus,
 .delete-btn:focus {
   outline: 0;

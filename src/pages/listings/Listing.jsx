@@ -1,9 +1,19 @@
 import React from "react";
+import ProductCard from "./ProductCard";
+
+import { CardColumns, Card, Container } from "react-bootstrap";
 const Listing = () => {
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <Container className="mt-5">
+      <CardColumns>
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+        <ProductCard />
+      </CardColumns>
+    </Container>
   );
 };
 
