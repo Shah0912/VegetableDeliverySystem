@@ -1,5 +1,19 @@
 const express = require('express');
 const path = require('path');
+const pool = require("./db");
+
+
+//const {Client} = require('pg');
+
+
+/* const client = new Client({
+    "user": "dbadmin",
+    "password" : "admin",
+    "host" : "localhost",
+    "port" : 5432,
+    "database" : "deliverySystem"
+}) */
+//client.connect();
 
 const app = express();
 const router = express.Router();
