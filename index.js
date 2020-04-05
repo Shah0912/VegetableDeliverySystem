@@ -30,6 +30,8 @@ function randomGen()
         });
 }
 
+
+//Add this function to login and register page too
 function stringToHash(string) { 
                   
     var hash = 0; 
