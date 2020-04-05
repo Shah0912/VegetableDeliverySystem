@@ -4,13 +4,13 @@ import AddCrop from "./AddCrop";
 import { CultivationContext } from "./FarmerContext";
 import Crop from "./Crop";
 const CropsList = () => {
-  const [crops, setCrops] = useContext(CultivationContext);
+  const { crops } = useContext(CultivationContext);
   return (
     <Container>
       <Card
         style={{
           width: "18rem",
-          display: "flex"
+          display: "flex",
         }}
       >
         <Card.Body>
@@ -18,7 +18,7 @@ const CropsList = () => {
             Crops under Cultivation
           </Card.Title>
           <ul id="list" className="list">
-            {crops.map(crop => (
+            {crops.map((crop) => (
               <Crop key={crop.id} crop={crop} />
             ))}
           </ul>

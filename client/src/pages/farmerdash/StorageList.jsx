@@ -3,19 +3,19 @@ import { Card, Container } from "react-bootstrap";
 import { StorageContext } from "./FarmerContext";
 import StorageCrop from "./StorageCrop";
 const StorageList = () => {
-  const [crops, setCrops] = useContext(StorageContext);
+  const { crops } = useContext(StorageContext);
   return (
     <Container>
       <Card
         style={{
           width: "18rem",
-          display: "flex"
+          display: "flex",
         }}
       >
         <Card.Body>
           <Card.Title className="text-center">Crops in Storage</Card.Title>
           <ul id="list" className="list">
-            {crops.map(crop => (
+            {crops.map((crop) => (
               <StorageCrop key={crop.id} crop={crop} />
             ))}
           </ul>
