@@ -3,7 +3,9 @@ const path = require('path');
 const pool = require("./db");
 const randomstring = require('randomstring');
 const cors = require('cors');
-
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+let length = 20;
 
 //const {Client} = require('pg');
 
@@ -26,7 +28,7 @@ const router = express.Router();
 function randomGen()
 {
     return randomstring.generate({
-            length: 20,
+            length: length,
             charset: '0123456789'
         });
 }
@@ -66,14 +68,121 @@ app.get('/', (req,res)=>{
 
 }); */
 
-app.post('/reg',(req,res)=>{
 
+
+//REGISTRATION WITHOUT PHONE NUMBERS......
+app.post('/reg',async (req,res)=>{
+    try
+    {
+        console.log("Here");
+        const name = req.body.name;
+        const dob = req.body.dateofBirth;
+        const street = req.body.street;
+        const state = req.body.state;
+        const locality = req.body.locality;
+        const pin = req.body.pinCode;
+        let p = req.body.password;
+        let password = p.slice(0,p.length - 20);
+        const h = bcrypt.hashSync(password, saltRounds);
+        //console.log('THis is ',h);
+        let newEntry;
+        if(req.body.type == "F")
+        newEntry = await pool.query("INSERT INTO farmer (name,date_of_birth,farmer_rating,street,state,locality,pincode,password) values ($1,$2,0,$3,$4,$5,$6,$7);",
+        [name,dob,street,state,locality,pin,h]
+        );
+        else if(req.body.type == "C")
+        newEntry = await pool.query("INSERT INTO customer (name,date_of_birth,farmer_rating,street,state,locality,pincode,password) values ($1,$2,0,$3,$4,$5,$6,$7);",
+        [name,dob,street,state,locality,pin,h]
+        );
+        else
+        newEntry = await pool.query("INSERT INTO delivery_person (name,date_of_birth,farmer_rating,street,state,locality,pincode,password) values ($1,$2,0,$3,$4,$5,$6,$7);",
+        [name,dob,street,state,locality,pin,h]
+        );
+          
+        res.json(newEntry);
+    }   
+    catch(error){
+        console.error(error.message);
+    }
 });
+
+
+
 
 /* app.get('/auth', (req,res)=>{
 
 }); */
 
+
+
+app.post('/auth', async (req,res)=>{
+    try
+    {
+        const id = req.body.id;
+        const password = req.body.password;
+        console.log(id);
+        let hash;
+        if(id[0]=="F")
+        {
+            hash = await pool.query("SELECT password FROM farmer WHERE farmerid = $1",[id]);
+            //console.log(hash.rows[0].password);     
+            //console.log('hash', typeof(hash));
+            //console.log('password', typeof(password));
+            const ans = bcrypt.compareSync(password, hash.rows[0].password);   
+            if(ans)
+            //Send to the dashboard
+            {
+                console.log("congratulations");
+            }
+            else  
+            //ERROR
+            {
+                console.log("AUTHENTICATION FAILED");
+            }  
+                
+        }
+        else if(id[0] == "C")
+        {
+            hash = await pool.query("SELECT password FROM customer WHERE customerid = $1",[id]);
+            //console.log(hash.rows[0].password);     
+            //console.log('hash', typeof(hash));
+            //console.log('password', typeof(password));
+            const ans = bcrypt.compareSync(password, hash.rows[0].password);   
+            if(ans)
+            //Send to the dashboard
+            {
+                console.log("congratulations");
+            }
+            else  
+            //ERROR
+            {
+                console.log("AUTHENTICATION FAILED");
+            }
+        }   
+        else
+        {
+            hash = await pool.query("SELECT password FROM delivery_person WHERE DeliveryId = $1",[id]);
+            //console.log(hash.rows[0].password);     
+            //console.log('hash', typeof(hash));
+            //console.log('password', typeof(password));
+            const ans = bcrypt.compareSync(password, hash.rows[0].password);   
+            if(ans)
+            //Send to the dashboard
+            {
+                console.log("congratulations");
+            }
+            else  
+            //ERROR
+            {
+                console.log("AUTHENTICATION FAILED");
+            }
+        }
+    }
+    catch(error){
+        console.error(error.message)
+    }
+
+});
 
 
 
