@@ -27,6 +27,7 @@ CREATE TABLE Farmer
   State VARCHAR(255) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
   PinCode VARCHAR(7) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   PRIMARY KEY (FarmerId)
 );
 
@@ -64,6 +65,7 @@ CREATE TABLE Delivery_Person
   State VARCHAR(255) NOT NULL,
   PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   PRIMARY KEY (DeliveryId)
 );
 
@@ -95,6 +97,7 @@ CREATE TABLE Customer
   State VARCHAR(255) NOT NULL,
   Pin_Code VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
   PRIMARY KEY (CustomerId)
 );
 
@@ -112,7 +115,7 @@ CREATE TABLE Feedback
 CREATE TABLE Delivery_Person_Phone_Number
 (
   Phone_Number VARCHAR(10) NOT NULL,
-  DeliveryId INT NOT NULL,
+  DeliveryId VARCHAR(255) NOT NULL,
   PRIMARY KEY (Phone_Number, DeliveryId),
   FOREIGN KEY (DeliveryId) REFERENCES Delivery_Person(DeliveryId)
 );
