@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const pool = require("./db");
+const randomstring = require('randomstring')
 
 
 //const {Client} = require('pg');
@@ -19,6 +20,31 @@ const app = express();
 const router = express.Router();
 
 
+// While calling login page generate a few random bits and send them.
+//Function to generate random bits
+function randomGen()
+{
+    return randomstring.generate({
+            length: 20,
+            charset: '0123456789'
+        });
+}
+
+function stringToHash(string) { 
+                  
+    var hash = 0; 
+      
+    if (string.length == 0) return hash; 
+      
+    for (i = 0; i < string.length; i++) { 
+        char = string.charCodeAt(i); 
+        hash = ((hash << 5) - hash) + char; 
+        hash = hash & hash; 
+    } 
+      
+    return hash; 
+}
+
 const PORT = process.env.PORT || 5000;
 
 app.get('/', (req,res)=>{
@@ -27,4 +53,5 @@ app.get('/', (req,res)=>{
 
 app.listen(PORT,() =>{
     console.log(`Server Started on port: ${PORT}`);
+    //console.log(randomGen());
 });
