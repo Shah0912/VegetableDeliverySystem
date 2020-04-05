@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const pool = require("./db");
-const randomstring = require('randomstring')
+const randomstring = require('randomstring');
+const cors = require('cors');
 
 
 //const {Client} = require('pg');
@@ -49,9 +50,33 @@ function stringToHash(string) {
 
 const PORT = process.env.PORT || 5000;
 
+app.use('/farmer',require('./routes/farmer'));
+app.use('/delivery',require('./routes/delivery'));
+app.use('/customer',require('./routes/customer'));
+
+app.use(cors());
+app.use(express.json());
+
 app.get('/', (req,res)=>{
     res.send()
 });
+
+
+/* app.get('/reg', (req,res)=>{
+
+}); */
+
+app.post('/reg',(req,res)=>{
+
+});
+
+/* app.get('/auth', (req,res)=>{
+
+}); */
+
+
+
+
 
 app.listen(PORT,() =>{
     console.log(`Server Started on port: ${PORT}`);
