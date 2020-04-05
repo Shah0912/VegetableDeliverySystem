@@ -119,3 +119,21 @@ CREATE TABLE Delivery_Person_Phone_Number
   PRIMARY KEY (Phone_Number, DeliveryId),
   FOREIGN KEY (DeliveryId) REFERENCES Delivery_Person(DeliveryId)
 );
+
+
+CREATE TABLE Farmer_Phone_Number
+(
+  Phone_Number VARCHAR(10) NOT NULL,
+  FarmerId VARCHAR(255) NOT NULL,
+  PRIMARY KEY (Phone_Number, FarmerId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
+);
+
+
+CREATE TABLE Customer_Phone_Number
+(
+  Phone_Number VARCHAR(10) NOT NULL,
+  CustomerId VARCHAR(255) NOT NULL,
+  PRIMARY KEY (Phone_Number, CustomerId),
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+);
