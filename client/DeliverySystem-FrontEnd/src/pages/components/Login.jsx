@@ -1,29 +1,58 @@
-import React, { Component,useState } from 'react'
+import React, { useContext,useState } from 'react'
 import { Card, Container } from "react-bootstrap";
 import './s.css'
-class Login extends Component {
-    
-    
-  render() {
-    
+import link from "react-router-dom"
+import { GlobalContext } from '../context/GlobalContext';
 
-       
+
+function Login() {
+
+  const[edetails,setedetails]=useState('');
+  const[pdetails,setpdetails]=useState('');
+ const {addDetails}=useContext(GlobalContext);
+   //console.log(addDetails)
+ 
+  // console.log(setldetails)
+  
+    const mStyle={
+      background:"black",
+      width:'500px',
+       height:'500px',
+       color:"white"
+    }
+       const onSubmit = e =>{
+         e.preventDefault();
+         const newDetails =
+         {
+           id:Math.floor(Math.random()*100000000),
+           edetails,
+           pdetails
+         }
+        
+         addDetails(newDetails)
+         console.log('email:',edetails)
+         console.log( 'password:', pdetails)
+       }
+   
     return (
-         
-      <div>
-          {/* <div className="row mt-5">
-    <div className="col-md-6 m-auto">*/}
-      <div className="card card-body"> 
+   
+      <div >
+          <div className="row-md-100 mt-5">
+    <div className="col-md-1000">
+      <div className="card card-body" style={mStyle}> 
         <h1 className="text-center mb-3">
           <i className="fas fa-sign-in-alt"></i>  Login</h1>
        
-        <form  action="/" method="POST">
+        <form  onSubmit={onSubmit} action="/NavBars"method="POST">
+         
           <div className="form-group">
-            <span >Email</span>
+            <span className="badge badge-danger m-2">Email</span>
             <br/>
             <input 
-             
+              
               type="email"
+              value={edetails}
+              onChange={(e) => setedetails(e.target.value)}
               id="email"
               name="email"
               className="form-control"
@@ -31,9 +60,11 @@ class Login extends Component {
             />
           </div>
           <div className="form-group">
-            <label for="password">Password</label>
+            <span className="badge badge-danger m-2" htmlFor="password">Password</span>
             <br/>
             <input
+             value={pdetails}
+             onChange={(e) => setpdetails(e.target.value)}
               type="password"
               id="password"
               name="password"
@@ -41,18 +72,30 @@ class Login extends Component {
               placeholder="Enter Password"
             />
           </div>
-          <button type="submit" className="btn btn-primary btn-block">Login</button>
+          <button
+           link="true" to="/NavBars"
+           type="submit"
+           className="btn btn-danger
+            btn-block"
+            
+            >Login</button>
         </form>
-        <p className="lead mt-4">
-          No Account? <a href="/users/register">Register</a>
-        </p>
-       </div> 
-  {/*  </div>
-  // </div>*/}
-    </div>
+        <p  className="lead mt-4">
+          No Account? <a href="/Register">Register</a>
          
+        </p>
         
-    )
-  }
+
+       </div> 
+   </div>
+   </div>
+    </div>
+  //  {ldetails.map(ldetail =>(
+  //   <li>{ldetail.email}</li>
+  //   ))}
+      
+    
+    );
+    
 }
 export default Login;
