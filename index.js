@@ -82,6 +82,8 @@ app.post('/reg',async (req,res)=>{
         const locality = req.body.locality;
         const pin = req.body.pinCode;
         let p = req.body.password;
+        
+
         let password = p.slice(0,p.length - 20);
         const h = bcrypt.hashSync(password, saltRounds);
         //console.log('THis is ',h);
@@ -118,8 +120,7 @@ app.post('/reg',async (req,res)=>{
 app.post('/auth', async (req,res)=>{
     try
     {
-        const id = req.body.id;
-        const password = req.body.password;
+        const {id,password} = req.body;
         console.log(id);
         let hash;
         if(id[0]=="F")
@@ -183,6 +184,19 @@ app.post('/auth', async (req,res)=>{
     }
 
 });
+
+
+app.post('/feedback',async (req,res)=>{
+    try {
+        const {reviewee,friedliness,knowledge,efficiency,quality,comment} = req.body;
+        console.log(req.body);
+        
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+
 
 
 
