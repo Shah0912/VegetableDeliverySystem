@@ -1,8 +1,7 @@
 export default (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      const newState = state.filter((crop) => crop.id !== action.payload.id);
-      return newState;
+      return [...state, action.payload];
 
     default:
       return state;

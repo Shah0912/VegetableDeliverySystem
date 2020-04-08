@@ -2,12 +2,12 @@ import React, { useContext, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 /* import "./s.css"; */
 import link from "react-router-dom";
-import { GlobalContext } from "../context/GlobalContext";
+import { UserContext } from "../context/UserContext";
 
 function Login() {
   const [edetails, setedetails] = useState("");
   const [pdetails, setpdetails] = useState("");
-  const { addDetails } = useContext(GlobalContext);
+  const { addDetails } = useContext(UserContext);
   //console.log(addDetails)
 
   // console.log(setldetails)

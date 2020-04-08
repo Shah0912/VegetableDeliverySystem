@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Card, Container } from "react-bootstrap";
 /* import './s.css' */
 
-import { GlobalContext } from "../context/GlobalContext";
+import { UserContext } from "../context/UserContext";
 
 function Register() {
   const [Name, setName] = useState("");
@@ -14,7 +14,7 @@ function Register() {
   const [Password, setPassword] = useState("");
   const [Cpassword, setCpassword] = useState("");
 
-  const { addRegister } = useContext(GlobalContext);
+  const { addRegister } = useContext(UserContext);
 
   const mStyle = {
     background: "black",

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { CartContext } from "./ProductContext";
 import {
   Card,
   Modal,
@@ -8,18 +9,25 @@ import {
   Button,
   Form,
   Container,
+  Toast,
 } from "react-bootstrap";
-const ProductCard = () => {
-  const imsrc =
-    "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2014/01/potatoes-411975_1280.jpg";
+
+const ProductCard = ({ product }) => {
+  const [show, setShow] = useState(false);
+  const { addToCart } = useContext(CartContext);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    addToCart(product);
+    setShow(true);
+  };
   const [lgShow, setLgShow] = useState(false);
   return (
     <div>
       <Card onClick={() => setLgShow(true)} style={{ cursor: "pointer" }}>
-        <Card.Img variant="top" src={imsrc} />
+        <Card.Img variant="top" src={product.image} />
         <Card.Body>
-          <Card.Title>BATATA</Card.Title>
-          <Card.Text>This is a listing for fresh fresh BATATA.</Card.Text>
+          <Card.Title>{product.name}</Card.Title>
+          <Card.Text>Freshly grown {product.name}</Card.Text>
         </Card.Body>
       </Card>
       <Modal
@@ -40,7 +48,7 @@ const ProductCard = () => {
               <Col xs={6} sm={5}>
                 <img
                   className="rounded"
-                  src={imsrc}
+                  src={product.image}
                   style={{
                     display: "block",
                     maxWidth: "300px",
@@ -52,16 +60,26 @@ const ProductCard = () => {
               </Col>
               <Col sm={7}>
                 <ListGroup variant="flush">
-                  <ListGroup.Item>POTATO</ListGroup.Item>
-                  <ListGroup.Item>Price per kg: Rs. 50</ListGroup.Item>
+                  <ListGroup.Item>{product.name}</ListGroup.Item>
+                  <ListGroup.Item>Price per kg: {product.price}</ListGroup.Item>
                   <ListGroup.Item>
                     <Form>
                       <Form.Group as={Row}>
                         <Col sm={10}>
-                          <Form.Control type="number" placeholder="Quantity" />
+                          <Form.Control
+                            type="number"
+                            placeholder="Quantity"
+                            onChange={(e) => {
+                              product.quantity = e.target.value;
+                            }}
+                          />
                         </Col>
                         <Col sm={10}>
-                          <Button variant="success" style={{ width: "50%" }}>
+                          <Button
+                            variant="success"
+                            style={{ width: "50%" }}
+                            onClick={onSubmit}
+                          >
                             Add To Cart
                           </Button>
                         </Col>
