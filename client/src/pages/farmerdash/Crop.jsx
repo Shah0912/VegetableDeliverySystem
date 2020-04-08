@@ -7,7 +7,6 @@ export default function Crop({ crop }) {
   const [lgShow, setLgShow] = useState(false);
   const { addCrop } = useContext(StorageContext);
   const { moveCrop } = useContext(CultivationContext);
-
   const onSubmit = (e) => {
     e.preventDefault();
     moveCrop(crop);
