@@ -140,3 +140,80 @@ CREATE TABLE Customer_Phone_Number
   PRIMARY KEY (Phone_Number, CustomerId),
   FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
 );
+
+
+
+
+
+
+
+CREATE TABLE Grown_By
+(
+  CropId INT NOT NULL,
+  FarmerId VARCHAR(255) NOT NULL,
+  PRIMARY KEY (CropId, FarmerId),
+  FOREIGN KEY (CropId) REFERENCES Crop(CropId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
+
+);
+
+CREATE TABLE Cultivating
+(
+  CropId INT NOT NULL,
+  FarmerId VARCHAR(255) NOT NULL,
+  Size INT NOT NULL,
+  PRIMARY KEY (CropId, FarmerId),
+  FOREIGN KEY (CropId) REFERENCES Crop(CropId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
+
+);
+
+CREATE TABLE Ordered
+(
+  CropId INT NOT NULL,
+  OrderId INT NOT NULL,
+  PRIMARY KEY (CropId, OrderId),
+  FOREIGN KEY (CropId) REFERENCES Crop(CropId),
+  FOREIGN KEY (OrderId) REFERENCES Orders(OrderId)
+
+);
+
+CREATE TABLE Gives_to
+(
+  FarmerId VARCHAR(255) NOT NULL,
+  DeliveryId VARCHAR(255) NOT NULL,
+  PRIMARY KEY (FarmerId,  DeliveryId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
+  FOREIGN KEY (DeliveryId) REFERENCES  Delivery_Person(DeliveryId),
+);
+
+CREATE TABLE DEvaluates
+(
+  DeliveryId VARCHAR(255) NOT NULL,
+  PRIMARY KEY (DeliveryId),
+  FOREIGN KEY (DeliveryId) REFERENCES Delivery_Person(DeliveryId)
+);
+
+CREATE TABLE CEvaluates
+(
+  CustomerId VARCHAR(255) NOT NULL,
+  PRIMARY KEY (CustomerId),
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+);
+
+
+CREATE TABLE FEvaluates
+(
+   FarmerId VARCHAR(255) NOT NULL,
+   PRIMARY KEY (FarmerId),
+   FOREIGN KEY (FarmerId) REFERENCES  Farmer(FarmerId)
+);
+
+CREATE TABLE Delivers_To
+(
+  DeliveryId VARCHAR(255) NOT NULL,
+  CustomerId VARCHAR(255) NOT NULL,
+  PRIMARY KEY (CustomerId, DeliveryId),
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId),
+  FOREIGN KEY (DeliveryId) REFERENCES Delivery_Person(DeliveryId)
+);
