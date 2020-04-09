@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 const FarmerNav = () => {
   return (
     <React.Fragment>
@@ -13,10 +13,14 @@ const FarmerNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="#home">Dashboard</Nav.Link>
-            <Nav.Link href="/listing">Add Phone Number</Nav.Link>
-            <Nav.Link>Feedback</Nav.Link>
-            <Nav.Link href="#pricing">Log-Out</Nav.Link>
+            <Nav.Link href="/delivery">Dashboard</Nav.Link>
+            <Nav.Link href="#">Add Phone Number</Nav.Link>
+            <Nav.Link href="/feedback">Feedback</Nav.Link>
+          </Nav>
+          <Nav className="ml-auto">
+            <NavDropdown title="Welcome Michael Scott!">
+              <NavDropdown.Item href="/">LogOut</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

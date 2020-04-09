@@ -1,11 +1,10 @@
 export default (state, action) => {
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD_PICKUP":
       return [...state, action.payload];
-    case "DELETE_FROM_CART":
-      const newState = state.filter(
-        (product) => product.id !== action.payload.id
-      );
+
+    case "IS_PICKEDUP":
+      const newState = state.filter((crop) => crop.id !== action.payload.id);
       return newState;
 
     default:

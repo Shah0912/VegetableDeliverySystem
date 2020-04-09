@@ -147,11 +147,19 @@ export const CartProvider = (props) => {
       type: "ADD_TO_CART",
       payload: product,
     });
-    console.log(state);
+  }
+
+  function deleteFromCart(product) {
+    dispatch({
+      type: "DELETE_FROM_CART",
+      payload: product,
+    });
   }
 
   return (
-    <CartContext.Provider value={{ cartItems: state, addToCart }}>
+    <CartContext.Provider
+      value={{ cartItems: state, addToCart, deleteFromCart }}
+    >
       {props.children}
     </CartContext.Provider>
   );

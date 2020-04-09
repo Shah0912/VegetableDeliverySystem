@@ -1,9 +1,12 @@
-import React, { useState, createContext } from "react";
+import React, { useReducer, useState, createContext } from "react";
+import PickupReducer from "./PickupReducer";
+import DeliveryReducer from "./DeliveryReducer";
 
+export const PickupContext = createContext();
 export const DeliveryContext = createContext();
 
-export const DeliveryProvider = props => {
-  const [deliveries, setDeliveries] = useState([
+export const PickupProvider = (props) => {
+  const pickups = [
     {
       id: 1,
       cust_number: 123456789,
@@ -13,7 +16,7 @@ export const DeliveryProvider = props => {
       cust_add: "fsdsf;fsl;ksfsf",
       pickup_add: "sdffsfdsfsflskfdslfk",
       isPickedup: false,
-      isDelivered: false
+      isDelivered: false,
     },
     {
       id: 2,
@@ -24,7 +27,7 @@ export const DeliveryProvider = props => {
       cust_add: "fsdsf;fsl;ksfsf",
       pickup_add: "sdffsfdsfsflskfdslfk",
       isPickedup: false,
-      isDelivered: false
+      isDelivered: false,
     },
     {
       id: 3,
@@ -35,7 +38,7 @@ export const DeliveryProvider = props => {
       cust_add: "fsdsf;fsl;ksfsf",
       pickup_add: "sdffsfdsfsflskfdslfk",
       isPickedup: false,
-      isDelivered: false
+      isDelivered: false,
     },
     {
       id: 4,
@@ -46,12 +49,56 @@ export const DeliveryProvider = props => {
       cust_add: "fsdsf;fsl;ksfsf",
       pickup_add: "sdffsfdsfsflskfdslfk",
       isPickedup: false,
-      isDelivered: false
-    }
-  ]);
+      isDelivered: false,
+    },
+  ];
+
+  const [state, dispatch] = useReducer(PickupReducer, pickups);
+
+  function addPickup(pickup) {
+    dispatch({
+      type: "ADD_PICKUP",
+      payload: pickup,
+    });
+  }
+  function isPickedup(pickup) {
+    dispatch({
+      type: "IS_PICKEDUP",
+      payload: pickup,
+    });
+  }
+  return (
+    <PickupContext.Provider
+      value={{
+        pickups: state,
+        addPickup,
+        isPickedup,
+      }}
+    >
+      {props.children}
+    </PickupContext.Provider>
+  );
+};
+
+export const DeliveryProvider = (props) => {
+  const deliveries = [];
+
+  const [state, dispatch] = useReducer(DeliveryReducer, deliveries);
+
+  function addDelivery(delivery) {
+    dispatch({
+      type: "ADD_DELIVERY",
+      payload: delivery,
+    });
+  }
 
   return (
-    <DeliveryContext.Provider value={[deliveries, setDeliveries]}>
+    <DeliveryContext.Provider
+      value={{
+        deliveries: state,
+        addDelivery,
+      }}
+    >
       {props.children}
     </DeliveryContext.Provider>
   );

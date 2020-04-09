@@ -1,8 +1,6 @@
-import React, { useContext } from "react";
-import { CartContext } from "../listings/ProductContext";
-import { Navbar, Nav, Badge, NavDropdown } from "react-bootstrap";
-const CustomerNav = () => {
-  const { cartItems } = useContext(CartContext);
+import React from "react";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+const DeliveryNav = () => {
   return (
     <React.Fragment>
       <Navbar
@@ -11,13 +9,13 @@ const CustomerNav = () => {
         expand="md"
         style={{ display: "flex" }}
       >
-        <Navbar.Brand href="/listing">Delivery App</Navbar.Brand>
+        <Navbar.Brand href="#home">Delivery App</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/checkout">
-              MyCart <Badge variant="dark">{cartItems.length}</Badge>
-            </Nav.Link>
+            <Nav.Link href="/delivery">Dashboard</Nav.Link>
+            <Nav.Link href="/listing">Add Phone Number</Nav.Link>
+            <Nav.Link href="/feedback">Feedback</Nav.Link>
           </Nav>
           <Nav className="ml-auto">
             <NavDropdown title="Welcome Michael Scott!">
@@ -29,5 +27,4 @@ const CustomerNav = () => {
     </React.Fragment>
   );
 };
-
-export default CustomerNav;
+export default DeliveryNav;

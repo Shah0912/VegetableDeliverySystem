@@ -31,7 +31,7 @@ export default function Delivery({ delivery }) {
             <ListGroup.Item>Delivery id: {delivery.id}</ListGroup.Item>
             <ListGroup.Item>
               Delivery Contents:{" "}
-              {delivery.content.map(item => (
+              {delivery.content.map((item) => (
                 <li>{item}</li>
               ))}
             </ListGroup.Item>
@@ -48,7 +48,9 @@ export default function Delivery({ delivery }) {
             size="lg"
             onClick={() => {
               delivery.isDelivered = true;
+              setLgShow(false);
             }}
+            style={{ width: "50%", margin: "auto", marginTop: "15px" }}
           >
             Delivery Complete
           </Button>
