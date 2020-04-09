@@ -3,7 +3,7 @@ import CropsList from "./CropsList";
 import StorageList from "./StorageList";
 import OrderList from "./OrderList";
 import Feedback from "./Feedback";
-import FarmerNav from "../components/FarmerNav";
+import FarmerNav from "../navbars/FarmerNav";
 import {
   CultivationProvider,
   StorageProvider,
