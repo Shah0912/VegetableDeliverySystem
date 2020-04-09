@@ -89,15 +89,15 @@ app.post('/reg',async (req,res)=>{
         //console.log('THis is ',h);
         let newEntry;
         if(req.body.type == "F")
-        newEntry = await pool.query("INSERT INTO farmer (name,date_of_birth,farmer_rating,street,state,locality,pincode,password) values ($1,$2,0,$3,$4,$5,$6,$7);",
+        newEntry = await pool.query("INSERT INTO farmer (name,date_of_birth,farmer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7);",
         [name,dob,street,state,locality,pin,h]
         );
         else if(req.body.type == "C")
-        newEntry = await pool.query("INSERT INTO customer (name,date_of_birth,farmer_rating,street,state,locality,pincode,password) values ($1,$2,0,$3,$4,$5,$6,$7);",
+        newEntry = await pool.query("INSERT INTO customer (name,date_of_birth,customer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7);",
         [name,dob,street,state,locality,pin,h]
         );
         else
-        newEntry = await pool.query("INSERT INTO delivery_person (name,date_of_birth,farmer_rating,street,state,locality,pincode,password) values ($1,$2,0,$3,$4,$5,$6,$7);",
+        newEntry = await pool.query("INSERT INTO delivery_person (name,date_of_birth,delivery_person_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7);",
         [name,dob,street,state,locality,pin,h]
         );
           
@@ -140,6 +140,7 @@ app.post('/auth', async (req,res)=>{
             {
                 console.log("AUTHENTICATION FAILED");
             }  
+            res.json(ans);
                 
         }
         else if(id[0] == "C")
@@ -159,6 +160,7 @@ app.post('/auth', async (req,res)=>{
             {
                 console.log("AUTHENTICATION FAILED");
             }
+            res.json(ans);
         }   
         else
         {
@@ -177,6 +179,7 @@ app.post('/auth', async (req,res)=>{
             {
                 console.log("AUTHENTICATION FAILED");
             }
+            res.json(ans);
         }
     }
     catch(error){
@@ -188,9 +191,79 @@ app.post('/auth', async (req,res)=>{
 
 app.post('/feedback',async (req,res)=>{
     try {
-        const {reviewee,friedliness,knowledge,efficiency,quality,comment} = req.body;
-        console.log(req.body);
-        
+        const {reviewer,reviewee,friendliness,knowledge,efficiency,quality,comment} = req.body;
+        //console.log(req.body);
+        if(reviewer[0] == reviewee[0])
+        {
+            console.log("ERROR: Cant review person with same occupation");
+            res.json("false");
+        }
+        else
+        {
+            if(reviewee[0] == "F")
+            {
+                const check = await pool.query("SELECT EXISTS(SELECT 1 FROM farmer WHERE farmerid = $1 LIMIT 1);",[reviewee]);
+                //console.log(check.rows[0].exists);        
+                if(check.rows[0].exists)
+                {
+                    const value = (parseFloat(friendliness) + parseFloat(knowledge) + parseFloat(efficiency) + parseFloat(quality))/4;
+                    console.log(value);
+                    const prerating = await pool.query("SELECT farmer_rating,nor FROM farmer WHERE farmerid = $1",[reviewee]);
+                    console.log(prerating.rows[0]);
+                    const newrating = (parseFloat(prerating.rows[0].farmer_rating)*prerating.rows[0].nor + value)/(prerating.rows[0].nor + 1);
+                    console.log(newrating);
+                    const feedback = await pool.query("UPDATE farmer SET farmer_rating = $1, nor = $2 WHERE farmerid = $3",[newrating,prerating.rows[0].nor+1,reviewee]);
+                    console.log(feedback);
+                    res.json(feedback);
+                }
+                else
+                {
+                    console.log("user doesnt exist");
+                }
+            }
+            else if(reviewee[0] == "C")
+            {
+                const check = await pool.query("SELECT EXISTS(SELECT 1 FROM customer WHERE customerid = $1 LIMIT 1);",[reviewee]);
+                //console.log(check.rows[0].exists);        
+                if(check.rows[0].exists)
+                {
+                    const value = (parseFloat(friendliness) + parseFloat(knowledge) + parseFloat(efficiency) + parseFloat(quality))/4;
+                    console.log(value);
+                    const prerating = await pool.query("SELECT customer_rating,nor FROM customer WHERE customerid = $1",[reviewee]);
+                    console.log(prerating.rows[0]);
+                    const newrating = (parseFloat(prerating.rows[0].customer_rating)*prerating.rows[0].nor + value)/(prerating.rows[0].nor + 1);
+                    console.log(newrating);
+                    const feedback = await pool.query("UPDATE customer SET customer_rating = $1, nor = $2 WHERE customerid = $3",[newrating,prerating.rows[0].nor+1,reviewee]);
+                    console.log(feedback);
+                    res.json(feedback);
+                }
+                else
+                {
+                    console.log("user doesnt exist");
+                }
+            }
+            else if(reviewee[0] == "D")
+            {
+                const check = await pool.query("SELECT EXISTS(SELECT 1 FROM delivery_person WHERE deliveryid = $1 LIMIT 1);",[reviewee]);
+                //console.log(check.rows[0].exists);        
+                if(check.rows[0].exists)
+                {
+                    const value = (parseFloat(friendliness) + parseFloat(knowledge) + parseFloat(efficiency) + parseFloat(quality))/4;
+                    console.log(value);
+                    const prerating = await pool.query("SELECT delivery_person_rating,nor FROM delivery_person WHERE deliveryid = $1",[reviewee]);
+                    console.log(prerating.rows[0]);
+                    const newrating = (parseFloat(prerating.rows[0].delivery_person_rating)*prerating.rows[0].nor + value)/(prerating.rows[0].nor + 1);
+                    console.log(newrating);
+                    const feedback = await pool.query("UPDATE delivery_person SET delivery_person_rating = $1, nor = $2 WHERE deliveryid = $3",[newrating,prerating.rows[0].nor+1,reviewee]);
+                    console.log(feedback);
+                    res.json(feedback);
+                }
+                else
+                {
+                    console.log("user doesnt exist");
+                }
+            }
+        }
     } catch (error) {
         console.error(error.message);
     }
