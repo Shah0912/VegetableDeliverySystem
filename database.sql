@@ -20,6 +20,7 @@ SELECT setval('customer_id_seq',100);
 CREATE TABLE Farmer
 (
   FarmerId VARCHAR(255) DEFAULT 'F' || nextval('farmer_id_seq') NOT NULL,
+  Nor INT NOT NULL,
   Name VARCHAR(255) NOT NULL,
   Date_Of_Birth DATE NOT NULL,
   Farmer_Rating INT NOT NULL,
@@ -58,6 +59,7 @@ CREATE TABLE Storage
 CREATE TABLE Delivery_Person
 (
   Delivery_Person_Rating INT NOT NULL,
+  Nor INT NOT NULL,
   DeliveryId VARCHAR(255) DEFAULT 'D' || nextval('delivery_person_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
   Date_of_Birth DATE NOT NULL,
@@ -89,13 +91,13 @@ CREATE TABLE Orders
 CREATE TABLE Customer
 (
   Customer_Rating INT NOT NULL,
+  Nor INT NOT NULL,
   CustomerId VARCHAR(255) DEFAULT 'C' || nextval('customer_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
   Date_of_Birth DATE NOT NULL,
-  Phone_Number VARCHAR(10) NOT NULL,
   Street VARCHAR(255) NOT NULL,
   State VARCHAR(255) NOT NULL,
-  Pin_Code VARCHAR(7) NOT NULL,
+  PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   PRIMARY KEY (CustomerId)
