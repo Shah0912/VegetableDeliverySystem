@@ -23,7 +23,8 @@ CREATE TABLE Farmer
   Nor INT NOT NULL,
   Name VARCHAR(255) NOT NULL,
   Date_Of_Birth DATE NOT NULL,
-  Farmer_Rating INT NOT NULL,
+  Farmer_Rating VARCHAR(10) NOT NULL,
+  nor INT DEFAULT(0),
   Street VARCHAR(255) NOT NULL,
   State VARCHAR(255) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
@@ -58,8 +59,8 @@ CREATE TABLE Storage
 
 CREATE TABLE Delivery_Person
 (
-  Delivery_Person_Rating INT NOT NULL,
-  Nor INT NOT NULL,
+  Delivery_Person_Rating VARCHAR(10) NOT NULL,
+  nor INT DEFAULT(0),
   DeliveryId VARCHAR(255) DEFAULT 'D' || nextval('delivery_person_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
   Date_of_Birth DATE NOT NULL,
@@ -90,8 +91,8 @@ CREATE TABLE Orders
 
 CREATE TABLE Customer
 (
-  Customer_Rating INT NOT NULL,
-  Nor INT NOT NULL,
+  Customer_Rating VARCHAR(10) NOT NULL,
+  nor INT DEFAULT(0),
   CustomerId VARCHAR(255) DEFAULT 'C' || nextval('customer_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
   Date_of_Birth DATE NOT NULL,
