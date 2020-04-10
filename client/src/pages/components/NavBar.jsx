@@ -1,6 +1,6 @@
 import React from "react";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-export const NavBar = () => {
+const NavBar = () => {
   return (
     <React.Fragment>
       <Navbar
@@ -21,3 +21,5 @@ export const NavBar = () => {
     </React.Fragment>
   );
 };
+
+export default NavBar;

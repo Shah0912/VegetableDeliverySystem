@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import ProductCard from "./ProductCard";
+import NavBar from "../components/NavBar";
+import { ProductContext, CartProvider } from "./ProductContext";
 
 import { CardColumns, Card, Container } from "react-bootstrap";
 const Listing = () => {
+  const { products } = useContext(ProductContext);
+
   return (
-    <Container className="mt-5">
-      <CardColumns>
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-      </CardColumns>
-    </Container>
+    <React.Fragment>
+      <NavBar />
+      <Container className="mt-5">
+        <h1>Our Products For Sale:</h1>
+
+        <CardColumns>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </CardColumns>
+      </Container>
+    </React.Fragment>
   );
 };
 

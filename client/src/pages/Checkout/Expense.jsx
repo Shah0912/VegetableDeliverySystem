@@ -1,37 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, ListGroup } from "react-bootstrap";
+import { CartContext } from "../listings/ProductContext";
 
 const Expense = () => {
+  const { cartItems } = useContext(CartContext);
   return (
     <div>
       <h3>Total Expense</h3>
-      {/* <ul id="list" className="list">
-        <li>
-          <span>First</span>
-        </li>
-        <li>
-          <span>First</span>
-        </li>
-        <li>
-          <span>First</span>
-        </li>
-        <li>
-          <span>First</span>
-        </li>
-      </ul> */}
       <ListGroup variant="flush">
-        <ListGroup.Item variant="light">
-          <span>First</span>
-        </ListGroup.Item>
-        <ListGroup.Item variant="light">
-          <span>First</span>
-        </ListGroup.Item>
-        <ListGroup.Item variant="light">
-          <span>First</span>
-        </ListGroup.Item>
-        <ListGroup.Item variant="light">
-          <span>First</span>
-        </ListGroup.Item>
+        {cartItems.map((cartItem) => (
+          <ListGroup.Item variant="light">
+            <span>{cartItem.price}</span>
+          </ListGroup.Item>
+        ))}
       </ListGroup>
       <Button variant="info" style={{ width: "100%" }}>
         Place Order
