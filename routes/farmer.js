@@ -5,7 +5,6 @@ const pool = require("../db");
 
 router.use(express.json());
 
-
 //Dashboard
 /* router.get('/',(req,res)=>{
 
