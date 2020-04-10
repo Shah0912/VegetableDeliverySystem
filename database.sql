@@ -43,7 +43,8 @@ CREATE TABLE Crop
   Season VARCHAR(255) NOT NULL,
   Age INT NOT NULL,
   Location VARCHAR(255) NOT NULL,
-  PRIMARY KEY (CropId)
+  PRIMARY KEY (CropId,FarmerId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
 );
 
 CREATE TABLE Storage
