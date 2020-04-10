@@ -36,15 +36,15 @@ CREATE TABLE Farmer
 CREATE TABLE Crop
 (
   CropId INT NOT NULL,
+  FarmerId VARCHAR(255),
   Rate INT NOT NULL,
   Name VARCHAR(255) NOT NULL,
   FarmSize INT NOT NULL,
   FarmAge INT NOT NULL,
   Season VARCHAR(255) NOT NULL,
-  Age INT NOT NULL,
-  Location VARCHAR(255) NOT NULL,
+  FOREIGN KEY(Location) REFERENCES Farmer(location),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
   PRIMARY KEY (CropId,FarmerId),
-  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
 );
 
 CREATE TABLE Storage

@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const pool = require("./db");
+const pool = require("../db");
+
+
+router.use(express.json());
 
 
 //Dashboard
@@ -10,9 +13,25 @@ const pool = require("./db");
 
 //Cultivating
 router.post('/growing',async (req,res)=>{
-    //check if crop is present in the database
-    // const {farmerid,cropid,}
-    // const check = await pool.query("SELECT EXISTS(SELECT 1 FROM crops where farmerid = $1 AND cropid = $2)",[]);
+    try {
+        const {farmerid,name,rate,type,farmage,farmsize} = req.body;
+        //console.log(req.body);
+        //console.log(farmerid);
+        const check = await pool.query("SELECT EXISTS(SELECT 1 FROM farmer where farmerid = $1 LIMIT 1);",[farmerid]);
+    
+        console.log(check.rows[0].exists);
+        //if(check.rows[0].exists)
+        {
+
+        }
+        else
+        {
+            console.log("Farmer doesnt exist in the database, Please register first");
+        }
+
+    } catch (error) {
+        console.error(error.message)
+    }
 });
 
 
