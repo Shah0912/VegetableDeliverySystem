@@ -114,7 +114,32 @@ export const ProductProvider = (props) => {
 export const CartContext = createContext();
 
 export const CartProvider = (props) => {
-  const cartItems = [];
+  const cartItems = [
+    {
+      id: 1,
+      name: "Potato",
+      price: 50,
+      quantity: 0,
+      image:
+        "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2014/01/potatoes-411975_1280.jpg",
+    },
+    {
+      id: 2,
+      name: "Onion",
+      price: 40,
+      quantity: 0,
+      image:
+        "https://cdn.theatlantic.com/thumbor/TxEw_yjPER1uluJjP8qc0nNRHpw=/0x72:1000x635/720x405/media/img/mt/2015/05/shutterstock_247399801/original.jpg",
+    },
+    {
+      id: 3,
+      name: "Potato",
+      price: 50,
+      quantity: 0,
+      image:
+        "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2014/01/potatoes-411975_1280.jpg",
+    },
+  ];
   const [state, dispatch] = useReducer(CartReducer, cartItems);
 
   function addToCart(product) {
@@ -122,11 +147,19 @@ export const CartProvider = (props) => {
       type: "ADD_TO_CART",
       payload: product,
     });
-    console.log(state);
+  }
+
+  function deleteFromCart(product) {
+    dispatch({
+      type: "DELETE_FROM_CART",
+      payload: product,
+    });
   }
 
   return (
-    <CartContext.Provider value={{ cartItems: state, addToCart }}>
+    <CartContext.Provider
+      value={{ cartItems: state, addToCart, deleteFromCart }}
+    >
       {props.children}
     </CartContext.Provider>
   );

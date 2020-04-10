@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import ProductCard from "./ProductCard";
-import NavBar from "../components/NavBar";
+import CustomerNav from "../navbars/CustomerNav";
 import { ProductContext, CartProvider } from "./ProductContext";
 
 import { CardColumns, Card, Container } from "react-bootstrap";
@@ -9,7 +9,7 @@ const Listing = () => {
 
   return (
     <React.Fragment>
-      <NavBar />
+      <CustomerNav />
       <Container className="mt-5">
         <h1>Our Products For Sale:</h1>
 

@@ -2,8 +2,10 @@ import React, { useContext } from "react";
 import { CartContext } from "../listings/ProductContext";
 
 const List = () => {
-  const { cartItems } = useContext(CartContext);
-  console.log(cartItems);
+  const { cartItems, deleteFromCart } = useContext(CartContext);
+  const onSubmit = (cartItem) => {
+    deleteFromCart(cartItem);
+  };
   return (
     <div>
       <h3>Products in Cart</h3>
@@ -14,6 +16,7 @@ const List = () => {
             <button
               className="delete-btn"
               style={{ backgroundColor: "#c0392b" }}
+              onClick={(e) => onSubmit(cartItem)}
             >
               X
             </button>

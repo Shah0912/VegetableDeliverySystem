@@ -2,7 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 //import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import NavBar from "./pages/components/NavBar";
+import NavBar from "./pages/navbars/NavBar";
 import { DeliveryDash } from "./pages/deliverydash/DeliveryDash";
 import { FarmerDash } from "./pages/farmerdash/FarmerDash";
 import Listing from "./pages/listings/Listing";
@@ -11,6 +11,9 @@ import Login from "./pages/components/Login";
 import Register from "./pages/components/Register";
 import { ProductProvider, CartProvider } from "./pages/listings/ProductContext";
 import { UserProvider } from "./pages/context/UserContext";
+import Feedback from "./pages/Feedback";
+import Storage from "./pages/Storage";
+
 function App() {
   return (
     <Router>
@@ -27,6 +30,8 @@ function App() {
         </CartProvider>
         <Route exact path="/delivery" component={DeliveryDash} />
         <Route exact path="/farmer" component={FarmerDash} />
+        <Route exact path="/feedback" component={Feedback} />
+        <Route exact path="/storage" component={Storage} />
       </React.Fragment>
     </Router>
   );
