@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
 const pool = require("../db");
 
 
 router.use(express.json());
 
 
+=======
+const pool = require("./db");
+
+
+>>>>>>> Growing routes started
 //Dashboard
 /* router.get('/',(req,res)=>{
 
@@ -32,6 +38,7 @@ router.post('/growing',async (req,res)=>{
     } catch (error) {
         console.error(error.message)
     }
+
 });
 
 
