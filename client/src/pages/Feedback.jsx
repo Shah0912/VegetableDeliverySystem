@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Card, Container } from "react-bootstrap";
+import { InputGroup } from "react-bootstrap";
 // import './s.css'
 
 import { UserContext } from "./context/UserContext";
@@ -17,7 +17,7 @@ function Review() {
   const mStyle = {
     background: "black",
     width: "800px",
-    height: "800px",
+    margin: "auto",
     color: "white",
   };
 
@@ -81,43 +81,44 @@ function Review() {
               placeholder="Enter Type "
             />
           </div> */}
-              <p>Type</p>
-              <div className="custom-control custom-radio">
-                <label>
+              <h6>Type</h6>
+
+              <div className="form-group">
+                <div className="custom-control custom-radio">
                   <input
-                    className="custom-control-input"
                     type="radio"
-                    value="small"
+                    id="customRadio1"
+                    name="customRadio"
+                    className="custom-control-input"
                   />
-                  Farmer
-                </label>
-
-                <input
-                  type="radio"
-                  id="customRadio1"
-                  name="customRadio"
-                  class="custom-control-input"
-                  checked=""
-                />
-                <label class="custom-control-label" for="customRadio1">
-                  Toggle this custom radio
-                </label>
-
-                <br />
-
-                <label>
-                  <input type="radio" value="small" />
-                  Delivery Person
-                </label>
-
-                <br />
-
-                <span>
-                  <input type="radio" value="small" font="20px" />
-                  Customer
-                </span>
-                <br />
+                  <label className="custom-control-label" for="customRadio1">
+                    Farmer
+                  </label>
+                </div>
+                <div className="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    id="customRadio2"
+                    name="customRadio"
+                    className="custom-control-input"
+                  />
+                  <label className="custom-control-label" for="customRadio2">
+                    Delivery Person
+                  </label>
+                </div>
+                <div className="custom-control custom-radio">
+                  <input
+                    type="radio"
+                    id="customRadio3"
+                    name="customRadio"
+                    class="custom-control-input"
+                  />
+                  <label className="custom-control-label" for="customRadio3">
+                    Customer
+                  </label>
+                </div>
               </div>
+
               {/* <div className="form-group">
             <span className="badge badge-warning m-2">Quality</span>
             <br/>
