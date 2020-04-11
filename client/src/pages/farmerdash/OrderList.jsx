@@ -7,15 +7,16 @@ const StorageList = () => {
   return (
     <Container>
       <Card
+        className="card border-success mb-3"
         style={{
           width: "18rem",
-          display: "flex"
+          display: "flex",
         }}
       >
         <Card.Body>
           <Card.Title className="text-center">Orders</Card.Title>
           <ul id="list" className="list">
-            {orders.map(order => (
+            {orders.map((order) => (
               <Order key={order.id} order={order} />
             ))}
           </ul>

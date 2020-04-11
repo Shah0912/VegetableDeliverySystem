@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import { Card, Container } from "react-bootstrap";
+// import './s.css'
 
-//import { GlobalContext } from "../context/GlobalContext";
+import { UserContext } from "./context/UserContext";
 
-function Feedback() {
+function Review() {
+  const { addReview } = useContext(UserContext);
   const [ID, setID] = useState("");
   const [Type, setType] = useState("");
   const [Quality, setQuality] = useState("");
@@ -12,14 +14,11 @@ function Feedback() {
   const [Comment, setComment] = useState("");
   const [Efficiency, setEfficiency] = useState("");
 
-  //const { addReview } = useContext(GlobalContext);
-
   const mStyle = {
-    background: "#fcfcfc",
+    background: "black",
     width: "800px",
-    margin: "auto",
-    marginBottom: "15px",
-    color: "black",
+    height: "800px",
+    color: "white",
   };
 
   const onSubmit = (e) => {
@@ -35,7 +34,7 @@ function Feedback() {
       Efficiency,
     };
 
-    //addReview(newreDetails);
+    addReview(newreDetails);
     console.log("ID:", ID);
     console.log("Type:", Type);
     console.log("Quality:", Quality);
@@ -51,12 +50,12 @@ function Feedback() {
         <div className="col-md-1000">
           <div className="card card-body" style={mStyle}>
             <h1 className="text-center mb-3">
-              <i className="fas fa-sign-in-alt "></i> Feedback
+              <i className="fas fa-sign-in-alt "></i> Review
             </h1>
 
             <form onSubmit={onSubmit} method="POST">
               <div className="form-group">
-                <span className="badge badge-dark m-2">ID</span>
+                <span className="badge badge-warning m-2">ID</span>
                 <br />
                 <input
                   value={ID}
@@ -70,7 +69,7 @@ function Feedback() {
               </div>
 
               {/* <div className="form-group">
-            <span  className="badge badge-dark m-2">Type</span>
+            <span  className="badge badge-warning m-2">Type</span>
             <br/>
             <input 
               value={Type}
@@ -83,27 +82,44 @@ function Feedback() {
             />
           </div> */}
               <p>Type</p>
-              <label>
-                <input type="radio" value="small" />
-                Farmer
-              </label>
+              <div className="custom-control custom-radio">
+                <label>
+                  <input
+                    className="custom-control-input"
+                    type="radio"
+                    value="small"
+                  />
+                  Farmer
+                </label>
 
-              <br />
+                <input
+                  type="radio"
+                  id="customRadio1"
+                  name="customRadio"
+                  class="custom-control-input"
+                  checked=""
+                />
+                <label class="custom-control-label" for="customRadio1">
+                  Toggle this custom radio
+                </label>
 
-              <label>
-                <input type="radio" value="small" />
-                Delivery Person
-              </label>
+                <br />
 
-              <br />
+                <label>
+                  <input type="radio" value="small" />
+                  Delivery Person
+                </label>
 
-              <span>
-                <input type="radio" value="small" font="20px" />
-                Customer
-              </span>
-              <br />
+                <br />
+
+                <span>
+                  <input type="radio" value="small" font="20px" />
+                  Customer
+                </span>
+                <br />
+              </div>
               {/* <div className="form-group">
-            <span className="badge badge-dark m-2">Quality</span>
+            <span className="badge badge-warning m-2">Quality</span>
             <br/>
             <input
               value={Quality}
@@ -115,7 +131,7 @@ function Feedback() {
               placeholder="Enter  Quality"
             />
           </div> */}
-              <p className="badge badge-dark">Quality</p>
+              <p className="badge badge-primary">Quality</p>
               <span className="m-2">
                 <input type="radio" value="small" />1
               </span>
@@ -137,7 +153,7 @@ function Feedback() {
               </span>
 
               {/* <div className="form-group">
-            <span className="badge badge-dark m-2" >Friendliness</span>
+            <span className="badge badge-warning m-2" >Friendliness</span>
             <br/>
             <input 
               value={Friendliness}
@@ -150,7 +166,7 @@ function Feedback() {
             />
           </div> */}
               <br />
-              <p className="badge badge-dark">Friendliness</p>
+              <p className="badge badge-primary">Friendliness</p>
               <span className="m-2">
                 <input type="radio" value="small" font="20px" />1
               </span>
@@ -172,7 +188,7 @@ function Feedback() {
               </span>
 
               {/* <div className="form-group">
-            <span className="badge badge-dark m-2">Knowledge</span>
+            <span className="badge badge-warning m-2">Knowledge</span>
             <br/>
             <input 
               value={Knowledge}
@@ -185,7 +201,7 @@ function Feedback() {
             />
           </div> */}
               <br />
-              <p className="badge badge-dark">Knowledge</p>
+              <p className="badge badge-primary">Knowledge</p>
               <span className="m-2">
                 <input type="radio" value="small" font="20px" />1
               </span>
@@ -206,7 +222,7 @@ function Feedback() {
               </span>
 
               {/* <div className="form-group">
-            <span className="badge badge-dark m-2">Efficiency</span>
+            <span className="badge badge-warning m-2">Efficiency</span>
             <br/>
             <input
               value={Efficiency}
@@ -219,7 +235,7 @@ function Feedback() {
             />
           </div> */}
               <br />
-              <p className="badge badge-dark">Efficiency</p>
+              <p className="badge badge-primary">Efficiency</p>
 
               <span className="m-2">
                 <input type="radio" value="small" font="20px" />1
@@ -241,7 +257,7 @@ function Feedback() {
               </span>
 
               <div className="form-group">
-                <span className="badge badge-dark m-2">Comment</span>
+                <span className="badge badge-warning m-2">Comment</span>
                 <br />
                 <input
                   value={Comment}
@@ -254,11 +270,7 @@ function Feedback() {
                 />
               </div>
 
-              <button
-                style={{ width: "50%", margin: "auto" }}
-                type="submit"
-                className="btn btn-primary btn-block "
-              >
+              <button type="submit" className="btn btn-warning btn-block ">
                 Submit
               </button>
             </form>
@@ -270,4 +282,4 @@ function Feedback() {
     </div>
   );
 }
-export default Feedback;
+export default Review;

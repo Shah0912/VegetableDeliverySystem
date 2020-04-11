@@ -5,6 +5,19 @@ import { Card, Container } from "react-bootstrap";
 import { UserContext } from "../context/UserContext";
 
 function Register() {
+   
+  const state={
+    variety:"Farmer"
+  }
+   
+  const radioChangeHandler = (event) => {
+    this.setState({
+        variety: event.target.value
+    });
+}
+
+
+
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [DoB, setDoB] = useState("");
@@ -173,17 +186,29 @@ function Register() {
               </div>
 
               <label>
-                <input type="radio" value="small" />
+                <input type="radio" value="Farmer"
+                changed={ radioChangeHandler } 
+                isSelected={ state.variety === "Farmer" } 
+                id="1"
+                />
                 Farmer
               </label>
               <br />
               <label>
-                <input type="radio" value="small" />
+                <input type="radio" value="Delivery"
+                 changed={ radioChangeHandler } 
+                 isSelected={ state.variety === "Delivery" } 
+                 id="2" 
+                />
                 Delivery Person
               </label>
               <br />
               <span className="badge badge-primary ">
-                <input type="radio" value="small" font="20px" />
+                <input type="radio" value="Customer" 
+                 changed={ radioChangeHandler } 
+                 isSelected={state.variety === "Customer" } 
+                 id="3"
+                />
                 Customer
               </span>
 

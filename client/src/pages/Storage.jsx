@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Card, Container } from "react-bootstrap";
-//import './s.css'
+import './s.css'
 
-//import { GlobalContext } from '../context/GlobalContext';
+import { UserContext } from './context/UserContext';
 
 function Storage() {
   const [ID, setID] = useState("");
@@ -12,13 +12,13 @@ function Storage() {
   const [PinCode, setPinCode] = useState("");
   const [Locality, setLocality] = useState("");
 
-  //const {addStorage}=useContext(GlobalContext);
-
+  const {addStorage}=useContext(UserContext);
+ 
   const mStyle = {
-    background: "#fcfcfc",
+    background: "Black",
     width: "800px",
     margin: "auto",
-    color: "black",
+    color: "White",
     marginBottom: "20px",
   };
 
@@ -34,7 +34,7 @@ function Storage() {
       Locality,
     };
 
-    //addStorage(newsDetails);
+    addStorage(newsDetails);
     console.log("ID:", ID);
     console.log("Capacity:", Capacity);
     console.log("State:", State);
