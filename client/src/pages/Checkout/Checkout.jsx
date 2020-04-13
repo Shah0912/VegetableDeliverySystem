@@ -2,10 +2,12 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Expense from "./Expense";
 import List from "./List";
+import CustomerNav from "../navbars/CustomerNav";
 
 const Checkout = () => {
   return (
     <div>
+      <CustomerNav />
       <Container
         md="30"
         className="mt-5 rounded"

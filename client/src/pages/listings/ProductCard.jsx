@@ -65,7 +65,7 @@ const ProductCard = ({ product }) => {
                   <ListGroup.Item>
                     <Form>
                       <Form.Group as={Row}>
-                        <Col sm={10}>
+                        <Col sm={10} style={{ margin: "auto" }}>
                           <Form.Control
                             type="number"
                             placeholder="Quantity"
@@ -74,10 +74,10 @@ const ProductCard = ({ product }) => {
                             }}
                           />
                         </Col>
-                        <Col sm={10}>
+                        <Col sm={10} style={{ width: "50%", margin: "auto" }}>
                           <Button
+                            className="mt-2"
                             variant="success"
-                            style={{ width: "50%" }}
                             onClick={onSubmit}
                           >
                             Add To Cart

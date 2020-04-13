@@ -96,28 +96,6 @@ export const StorageProvider = (props) => {
   );
 };
 
-/* export const StorageProvider = (props) => {
-  const storageCrops = [];
-  const [state, dispatch] = useReducer(StorageReducer, storageCrops);
-  function addStorage(crop) {
-    dispatch({
-      type: "ADD_CROP",
-      payload: crop,
-    });
-  }
-
-  return (
-    <StorageContext.Provider
-      value={{
-        addStorage,
-        crops: state,
-      }}
-    >
-      {props.children}
-    </StorageContext.Provider>
-  );
-};
- */
 export const OrderContext = createContext();
 
 export const OrderProvider = (props) => {

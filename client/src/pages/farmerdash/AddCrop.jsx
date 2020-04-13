@@ -125,14 +125,15 @@ const AddCrop = () => {
                   onChange={(e) => setFarm_size(e.target.value)}
                 />
               </Col>
+              <Button
+                className="mt-3"
+                variant="success"
+                style={{ width: "50%", margin: "auto" }}
+                onClick={onSubmit}
+              >
+                Add Crop
+              </Button>
             </Form.Group>
-            <Button
-              variant="success"
-              style={{ margin: "auto", width: "50%" }}
-              onClick={onSubmit}
-            >
-              Add Crop
-            </Button>
           </Form>
         </Modal.Body>
       </Modal>

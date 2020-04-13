@@ -8,6 +8,7 @@ const CropsList = () => {
   return (
     <Container>
       <Card
+        className="card border-success mb-3"
         style={{
           width: "18rem",
           display: "flex",
