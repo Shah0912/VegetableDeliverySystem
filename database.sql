@@ -166,9 +166,9 @@ CREATE TABLE Grown_By
 
 );
 
-CREATE TABLE Cultivating
+/* CREATE TABLE stored_in
 (
-  CropId INT NOT NULL,
+  CropId VARCHAR(255) NOT NULL,
   FarmerId VARCHAR(255) NOT NULL,
   Size INT NOT NULL,
   PRIMARY KEY (CropId, FarmerId),
@@ -176,7 +176,7 @@ CREATE TABLE Cultivating
   FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
 
 );
-
+ */
 CREATE TABLE Ordered
 (
   CropId VARCHAR(255) NOT NULL,
