@@ -23,7 +23,7 @@ router.post('/growing',async (req,res)=>{
         {
 
         }
-        else
+        //else
         {
             console.log("Farmer doesnt exist in the database, Please register first");
         }
