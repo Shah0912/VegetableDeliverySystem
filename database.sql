@@ -71,7 +71,7 @@ CREATE TABLE Delivery_Person
   PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
-  vehicleno VARCHAR(255),
+  vehicleid VARCHAR(255),
   FOREIGN KEY (Vehicleid) REFERENCES Vehicles(VehicleId),
   PRIMARY KEY (DeliveryId)
 );
@@ -81,7 +81,7 @@ CREATE TABLE Vehicles
   Vehicleid VARCHAR(255) DEFAULT 'V' || nextval('vehicle_id')  NOT NULL,
   VehicleNo VARCHAR(255) NOT NULL,
   Volume_Capacity INT NOT NULL,
-  Licence_Number VARCHAR(10) NOT NULL,
+  Licence_Number VARCHAR(255) NOT NULL,
   Type VARCHAR(20) NOT NULL,
   PRIMARY KEY (VehicleId)
 );
