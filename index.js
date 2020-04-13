@@ -122,6 +122,7 @@ app.post('/auth', async (req,res)=>{
     {
         const {id,password} = req.body;
         console.log(id);
+        console.log(password);
         let hash;
         if(id[0]=="F")
         {
@@ -129,7 +130,12 @@ app.post('/auth', async (req,res)=>{
             //console.log(hash.rows[0].password);     
             //console.log('hash', typeof(hash));
             //console.log('password', typeof(password));
-            const ans = bcrypt.compareSync(password, hash.rows[0].password);   
+            let ans;
+            //console.log(hash.rows[0]);
+            if(hash.rows[0])
+            {
+                ans = bcrypt.compareSync(password, hash.rows[0].password);
+            }    
             if(ans)
             //Send to the dashboard
             {
@@ -149,7 +155,12 @@ app.post('/auth', async (req,res)=>{
             //console.log(hash.rows[0].password);     
             //console.log('hash', typeof(hash));
             //console.log('password', typeof(password));
-            const ans = bcrypt.compareSync(password, hash.rows[0].password);   
+            let ans;
+            //console.log(hash.rows[0]);
+            if(hash.rows[0])
+            {
+                ans = bcrypt.compareSync(password, hash.rows[0].password);
+            }     
             if(ans)
             //Send to the dashboard
             {
@@ -164,11 +175,19 @@ app.post('/auth', async (req,res)=>{
         }   
         else
         {
+            console.log(req.body);
             hash = await pool.query("SELECT password FROM delivery_person WHERE DeliveryId = $1",[id]);
+            console.log(hash.rows);
             //console.log(hash.rows[0].password);     
             //console.log('hash', typeof(hash));
             //console.log('password', typeof(password));
-            const ans = bcrypt.compareSync(password, hash.rows[0].password);   
+            let ans;
+            //console.log(hash.rows[0]);
+            if(hash.rows[0])
+            {
+                ans = bcrypt.compareSync(password, hash.rows[0].password);
+            }   
+            console.log(ans);
             if(ans)
             //Send to the dashboard
             {
