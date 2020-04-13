@@ -72,7 +72,7 @@ CREATE TABLE Delivery_Person
   Locality VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   vehicleno VARCHAR(255),
-  FOREIGN KEY (Vehicleid) REFERENCES Vehicles(VehicleNo),
+  FOREIGN KEY (Vehicleid) REFERENCES Vehicles(VehicleId),
   PRIMARY KEY (DeliveryId)
 );
 
