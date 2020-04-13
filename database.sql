@@ -42,8 +42,8 @@ CREATE TABLE Crop
   FarmSize INT NOT NULL,
   FarmAge INT NOT NULL,
   Season VARCHAR(255) NOT NULL,
-  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
-  PRIMARY KEY (CropId,FarmerId)
+  PRIMARY KEY (CropId,FarmerId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
 );
 
 CREATE TABLE Storage
