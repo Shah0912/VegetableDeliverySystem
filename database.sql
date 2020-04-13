@@ -10,12 +10,13 @@ GRANT ALL PRIVILEGES ON DATABASE deliverysystem TO dbadmin;
 CREATE SEQUENCE farmer_id_seq;
 CREATE SEQUENCE delivery_person_id_seq;
 CREATE SEQUENCE customer_id_seq;
+CREATE SEQUENCE crop_id_seq;
 
 
 SELECT setval('farmer_id_seq',100);
 SELECT setval('delivery_person_id_seq',100);
 SELECT setval('customer_id_seq',100);
-
+SELECT setval('crop_id_seq',100);
 
 CREATE TABLE Farmer
 (
@@ -34,16 +35,15 @@ CREATE TABLE Farmer
 
 CREATE TABLE Crop
 (
-  CropId INT NOT NULL,
+  CropId VARCHAR(255) DEFAULT 'C' || nextval('crop_id_seq') NOT NULL,
   FarmerId VARCHAR(255),
   Rate INT NOT NULL,
   Name VARCHAR(255) NOT NULL,
   FarmSize INT NOT NULL,
   FarmAge INT NOT NULL,
   Season VARCHAR(255) NOT NULL,
-  FOREIGN KEY(Location) REFERENCES Farmer(location),
   FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
-  PRIMARY KEY (CropId,FarmerId),
+  PRIMARY KEY (CropId,FarmerId)
 );
 
 CREATE TABLE Storage
