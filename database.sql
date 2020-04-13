@@ -20,7 +20,6 @@ SELECT setval('customer_id_seq',100);
 CREATE TABLE Farmer
 (
   FarmerId VARCHAR(255) DEFAULT 'F' || nextval('farmer_id_seq') NOT NULL,
-  Nor INT NOT NULL,
   Name VARCHAR(255) NOT NULL,
   Date_Of_Birth DATE NOT NULL,
   Farmer_Rating VARCHAR(10) DEFAULT('0'),
