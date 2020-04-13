@@ -11,12 +11,14 @@ CREATE SEQUENCE farmer_id_seq;
 CREATE SEQUENCE delivery_person_id_seq;
 CREATE SEQUENCE customer_id_seq;
 CREATE SEQUENCE crop_id_seq;
+CREATE SEQUENCE vehicle_id;
 
 
 SELECT setval('farmer_id_seq',100);
 SELECT setval('delivery_person_id_seq',100);
 SELECT setval('customer_id_seq',100);
 SELECT setval('crop_id_seq',100);
+SELECT setval('vehicle_id', 100);
 
 CREATE TABLE Farmer
 (
@@ -69,12 +71,14 @@ CREATE TABLE Delivery_Person
   PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  vehicleno VARCHAR(255),
+  FOREIGN KEY (VehicleNo) REFERENCES Vehicles(VehicleNo),
   PRIMARY KEY (DeliveryId)
 );
 
 CREATE TABLE Vehicles
 (
-  VehicleNo INT NOT NULL,
+  VehicleNo VARCHAR(255) DEFAULT 'V' || nextval('vehicle_id')  NOT NULL,
   Volume_Capacity INT NOT NULL,
   Licence_Number VARCHAR(10) NOT NULL,
   Type VARCHAR(20) NOT NULL,
