@@ -38,4 +38,29 @@ router.post('/growing',async (req,res)=>{
 });
 
 
+//MOVE TO STORAGE
+router.put('/cropstore', async (req,res)=>{
+    try {
+        
+        const {farmerid,cropid} = req.body;
+        //CHECK IF CROP exists
+        const check = await pool.query("SELECT exists(SELECT 1 FROM crop c where c.farmerid = $1 AND c.cropid = $2 AND c.completed = 0)",[farmerid,cropid]);
+        console.log(check.rows[0]);
+        if(check.rows[0].exists)
+        {
+            const update = await pool.query("UPDATE crop SET completed = 1 WHERE farmerid = $1 AND cropid = $2",[farmerid,cropid]);
+            console.log(update.rows);
+            res.json(update);
+        }
+        else
+        {
+            console.log("Crop or farmer doesn't exist OR crop already cultivated");
+            res.json({"exists":"false"})
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+
 module.exports = router;
