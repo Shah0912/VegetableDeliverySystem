@@ -46,6 +46,7 @@ CREATE TABLE Crop
   Name VARCHAR(255) NOT NULL,
   FarmSize INT NOT NULL,
   FarmAge INT NOT NULL,
+  Type VARCHAR(255) NOT NULL,
   Season VARCHAR(255) NOT NULL,
   PRIMARY KEY (CropId,FarmerId),
   FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
