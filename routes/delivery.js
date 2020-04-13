@@ -32,5 +32,10 @@ router.post('/vehicle', async (req,res)=>{
 });
 
 
+//Route for Pickup
+
+
+
+
 
 module.exports = router;
