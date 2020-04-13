@@ -72,17 +72,18 @@ CREATE TABLE Delivery_Person
   Locality VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
   vehicleno VARCHAR(255),
-  FOREIGN KEY (VehicleNo) REFERENCES Vehicles(VehicleNo),
+  FOREIGN KEY (Vehicleid) REFERENCES Vehicles(VehicleNo),
   PRIMARY KEY (DeliveryId)
 );
 
 CREATE TABLE Vehicles
 (
-  VehicleNo VARCHAR(255) DEFAULT 'V' || nextval('vehicle_id')  NOT NULL,
+  Vehicleid VARCHAR(255) DEFAULT 'V' || nextval('vehicle_id')  NOT NULL,
+  VehicleNo VARCHAR(255) NOT NULL,
   Volume_Capacity INT NOT NULL,
   Licence_Number VARCHAR(10) NOT NULL,
   Type VARCHAR(20) NOT NULL,
-  PRIMARY KEY (VehicleNo)
+  PRIMARY KEY (VehicleId)
 );
 
 CREATE TABLE Orders
