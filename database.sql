@@ -12,13 +12,16 @@ CREATE SEQUENCE delivery_person_id_seq;
 CREATE SEQUENCE customer_id_seq;
 CREATE SEQUENCE crop_id_seq;
 CREATE SEQUENCE vehicle_id;
-
+CREATE SEQUENCE order_id_seq;
 
 SELECT setval('farmer_id_seq',100);
 SELECT setval('delivery_person_id_seq',100);
 SELECT setval('customer_id_seq',100);
 SELECT setval('crop_id_seq',100);
 SELECT setval('vehicle_id', 100);
+SELECT setval('order_id_seq', 100);
+
+
 
 CREATE TABLE Farmer
 (
@@ -88,7 +91,7 @@ CREATE TABLE Vehicles
 
 CREATE TABLE Orders
 (
-  OrderId INT NOT NULL,
+  OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
   Quantity INT NOT NULL,
   Price INT NOT NULL,
   PRIMARY KEY (OrderId)
@@ -175,12 +178,13 @@ CREATE TABLE Cultivating
 
 CREATE TABLE Ordered
 (
-  CropId INT NOT NULL,
-  OrderId INT NOT NULL,
+  CropId VARCHAR(255) NOT NULL,
+  FarmerId VARCHAR(255) NOT NULL,
+  OrderId VARCHAR(255) NOT NULL,
   PRIMARY KEY (CropId, OrderId),
-  FOREIGN KEY (CropId) REFERENCES Crop(CropId),
+  FOREIGN KEY (CropId, FarmerId) REFERENCES Crop(CropId, FarmerId),
+  --FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
   FOREIGN KEY (OrderId) REFERENCES Orders(OrderId)
-
 );
 
 CREATE TABLE Gives_to
