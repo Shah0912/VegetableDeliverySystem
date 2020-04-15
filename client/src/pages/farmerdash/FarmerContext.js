@@ -1,6 +1,7 @@
 import React, { useReducer, useState, createContext } from "react";
 import CultivationReducer from "./CultivationReducer";
 import StorageReducer from "./StorageReducer";
+import axios from "axios";
 
 export const CultivationContext = createContext();
 export const StorageContext = createContext();
@@ -47,11 +48,42 @@ export const CultivationProvider = (props) => {
 
   const [state, dispatch] = useReducer(CultivationReducer, crops);
 
-  function addCrop(crop) {
-    dispatch({
-      type: "ADD_CROP",
-      payload: crop,
-    });
+  //Actions
+  async function getCrops() {
+    try {
+      const res = await axios.get("/farmer");
+
+      dispatch({
+        type: "GET_CROPS",
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "CROP_ERROR",
+        payload: err.response.data,
+      });
+    }
+  }
+
+  async function addCrop(crop) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post("/farmer/growing", crop, config);
+      dispatch({
+        type: "ADD_CROP",
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: "CROP_ERROR",
+        payload: err.response.data,
+      });
+    }
   }
   function moveCrop(crop) {
     dispatch({
@@ -65,6 +97,7 @@ export const CultivationProvider = (props) => {
         crops: state,
         addCrop,
         moveCrop,
+        getCrops,
       }}
     >
       {props.children}

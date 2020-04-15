@@ -8,20 +8,20 @@ const AddCrop = () => {
   const [rate, setRate] = useState(0);
   const [type, setType] = useState("");
   const [season, setSeason] = useState("");
-  const [farm_age, setFarm_age] = useState("");
-  const [farm_size, setFarm_size] = useState("");
+  const [farmage, setFarm_age] = useState(0);
+  const [farmsize, setFarm_size] = useState(0);
   const { addCrop } = useContext(CultivationContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
     const newCrop = {
-      id: Math.floor(Math.random() * 100000000),
+      farmerid: "F104", //Math.floor(Math.random() * 100000000),
       name,
       rate,
       type,
       season,
-      farm_age,
-      farm_size,
+      farmage,
+      farmsize,
     };
     addCrop(newCrop);
   };
@@ -106,8 +106,8 @@ const AddCrop = () => {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  value={farm_age}
-                  type="text"
+                  value={farmage}
+                  type="number"
                   placeholder="Farm Age"
                   onChange={(e) => setFarm_age(e.target.value)}
                 />
@@ -119,8 +119,8 @@ const AddCrop = () => {
               </Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  value={farm_size}
-                  type="text"
+                  value={farmsize}
+                  type="number"
                   placeholder="Farm Size"
                   onChange={(e) => setFarm_size(e.target.value)}
                 />
