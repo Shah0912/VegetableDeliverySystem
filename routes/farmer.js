@@ -10,7 +10,32 @@ router.use(express.json());
 
 }); */
 
+
+
+
 //Cultivating
+router.get('/', async (req,res)=>{
+    try {
+        
+        //console.log(req.body);
+        const {farmerid} = req.body;
+        const cultCrops = await pool.query("SELECT * FROM crop WHERE farmerid = $1 AND completed = 0;",[farmerid]);
+        const compCrops = await pool.query("SELECT * FROM crop WHERE farmerid = $1 AND completed = 1;",[farmerid]);
+        //console.log(cultCrops.rows);
+        //console.log(compCrops.rows);
+
+        //Need to add orders
+
+        
+        res.json({cultCrops,compCrops});
+
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+
+
 router.post('/growing',async (req,res)=>{
     try {
         const {farmerid,name,rate,type,farmage,farmsize,season} = req.body;
