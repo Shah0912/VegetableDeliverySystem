@@ -15,6 +15,7 @@ const DeliveryNav = () => {
           <Nav className="mr-auto">
             <Nav.Link href="/delivery">Dashboard</Nav.Link>
             <Nav.Link href="/listing">Add Phone Number</Nav.Link>
+            <Nav.Link href="/Vdetails">Add Vehicle Details</Nav.Link>
             <Nav.Link href="/feedback">Feedback</Nav.Link>
           </Nav>
           <Nav className="ml-auto">

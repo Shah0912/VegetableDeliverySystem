@@ -14,12 +14,13 @@ export const CultivationProvider = (props) => {
   //Actions
   async function getCrops() {
     try {
-      const res = await axios.get("/farmer");
-      console.log(res.data.cultCrops); //giving empty array UGHH
+      const res = await axios.get("/farmer?farmerid=F104");
       dispatch({
         type: "GET_CROPS",
-        payload: res.data,
+        payload: res.data.cultCrops,
       });
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
     } catch (err) {
       dispatch({
         type: "CROP_ERROR",

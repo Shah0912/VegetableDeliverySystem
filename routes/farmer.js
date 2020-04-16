@@ -13,7 +13,7 @@ router.use(express.json());
 router.get("/", async (req, res) => {
   try {
     //console.log(req.body);
-    const { farmerid } = req.body;
+    const { farmerid } = req.query;
     const cultCrops = await pool.query(
       "SELECT * FROM crop WHERE farmerid = $1 AND completed = 0;",
       [farmerid]
@@ -46,11 +46,11 @@ router.post("/growing", async (req, res) => {
     if (check.rows[0].exists) {
       console.log("farmer exists proceed");
       const newCrop = await pool.query(
-        "INSERT INTO crop (farmerid,name,rate,type,farmage,farmsize,season) values($1,$2,$3,$4,$5,$6,$7);",
+        "INSERT INTO crop (farmerid,name,rate,type,farmage,farmsize,season) values($1,$2,$3,$4,$5,$6,$7) RETURNING *;",
         [farmerid, name, rate, type, farmage, farmsize, season]
       );
       console.log(newCrop.rows);
-      res.json(newCrop);
+      res.json(newCrop.rows[0]);
     } else {
       console.log("Farmer doesnt exist in the database, Please register first");
       res.json({ Farmer: "false" });

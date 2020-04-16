@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import DeliveryNav from "../navbars/DeliveryNav";
 import { Card, Container } from "react-bootstrap";
 /* import "./s.css"; */
 import link from "react-router-dom";
@@ -25,18 +26,22 @@ function VehicleDetails() {
     e.preventDefault();
     const newvDetails = {
       id: Math.floor(Math.random() * 100000000),
-      vno,cap,lis,vtype
+      vno,
+      cap,
+      lis,
+      vtype,
     };
 
     addVdetails(newvDetails);
     console.log("Vehicle Number:", vno);
     console.log("Vehicle Capacity:", cap);
-    console.log('License:',lis)
-    console.log("Vehicle Type:",vtype)
+    console.log("License:", lis);
+    console.log("Vehicle Type:", vtype);
   };
 
   return (
     <div>
+      <DeliveryNav />
       <div className="row-md-100 mt-5">
         <div className="col-md-1000">
           <div className="card card-body" style={mStyle}>
@@ -105,8 +110,6 @@ function VehicleDetails() {
                   placeholder="Enter Type"
                 />
               </div>
-              
-              
 
               <button
                 link="true"
@@ -115,10 +118,9 @@ function VehicleDetails() {
                 className="btn btn-danger
             btn-block"
               >
-               submit
+                Submit
               </button>
             </form>
-            
           </div>
         </div>
       </div>

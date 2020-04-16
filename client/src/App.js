@@ -10,10 +10,11 @@ import Checkout from "./pages/Checkout/Checkout";
 import Login from "./pages/components/Login";
 import Register from "./pages/components/Register";
 import { ProductProvider, CartProvider } from "./pages/listings/ProductContext";
-import {UserProvider} from "./pages/context/UserContext"
+import { UserProvider } from "./pages/context/UserContext";
 import Storage from "./pages/Storage";
-import VehicleDetails from './pages/deliverydash/Vdetails'
-import Review from './pages/Feedback'
+//import VehicleDetails from "./pages/deliverydash/Vdetails";
+import Review from "./pages/Feedback";
+import VehicleDetails from "./pages/deliverydash/VehicleDetails";
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <UserProvider>
           <Route exact path="/" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/VehicleDetails" component={VehicleDetails}/>
+          <Route exact path="/vdetails" component={VehicleDetails} />
           <Route exact path="/storage" component={Storage} />
           <Route exact path="/feedback" component={Review} />
         </UserProvider>
@@ -34,8 +35,6 @@ function App() {
         </CartProvider>
         <Route exact path="/delivery" component={DeliveryDash} />
         <Route exact path="/farmer" component={FarmerDash} />
-        
-        
       </React.Fragment>
     </Router>
   );

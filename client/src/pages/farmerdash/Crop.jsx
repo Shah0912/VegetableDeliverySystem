@@ -4,6 +4,7 @@ import { CultivationContext } from "./FarmerContext";
 import { StorageContext } from "./FarmerContext";
 
 export default function Crop({ crop }) {
+  console.log(crop);
   const [lgShow, setLgShow] = useState(false);
   const { addCrop } = useContext(StorageContext);
   const { moveCrop } = useContext(CultivationContext);
@@ -37,8 +38,8 @@ export default function Crop({ crop }) {
             <ListGroup.Item>Rate: {crop.rate}</ListGroup.Item>
             <ListGroup.Item>Type: {crop.type}</ListGroup.Item>
             <ListGroup.Item>Season: {crop.season}</ListGroup.Item>
-            <ListGroup.Item>Farm age: {crop.farm_age}</ListGroup.Item>
-            <ListGroup.Item>Farm size: {crop.farm_size}</ListGroup.Item>
+            <ListGroup.Item>Farm age: {crop.farmage}</ListGroup.Item>
+            <ListGroup.Item>Farm size: {crop.farmsize}</ListGroup.Item>
             <Button
               className="mt-3"
               style={{ width: "50%", margin: "auto" }}
