@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, Container } from "react-bootstrap";
 import AddCrop from "./AddCrop";
 import { CultivationContext } from "./FarmerContext";
 import Crop from "./Crop";
 const CropsList = () => {
-  const { crops } = useContext(CultivationContext);
+  const { crops, getCrops } = useContext(CultivationContext);
+  useEffect(() => {
+    getCrops();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Container>
       <Card

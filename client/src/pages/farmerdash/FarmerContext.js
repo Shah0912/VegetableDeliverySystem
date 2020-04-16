@@ -7,44 +7,7 @@ export const CultivationContext = createContext();
 export const StorageContext = createContext();
 
 export const CultivationProvider = (props) => {
-  const crops = [
-    {
-      id: 1,
-      name: "Potato",
-      rate: 30,
-      type: "Seasonal",
-      season: "Summer",
-      farm_age: "5 months",
-      farm_size: "10 hectare",
-    },
-    {
-      id: 2,
-      name: "Onion",
-      rate: 30,
-      type: "Seasonal",
-      season: "Summer",
-      farm_age: "5 months",
-      farm_size: "10 hectare",
-    },
-    {
-      id: 3,
-      name: "Apple",
-      rate: 30,
-      type: "Seasonal",
-      season: "Summer",
-      farm_age: "5 months",
-      farm_size: "10 hectare",
-    },
-    {
-      id: 4,
-      name: "Tomato",
-      rate: 30,
-      type: "Seasonal",
-      season: "Summer",
-      farm_age: "5 months",
-      farm_size: "10 hectare",
-    },
-  ];
+  const crops = [];
 
   const [state, dispatch] = useReducer(CultivationReducer, crops);
 
@@ -52,7 +15,7 @@ export const CultivationProvider = (props) => {
   async function getCrops() {
     try {
       const res = await axios.get("/farmer");
-
+      console.log(res.data.cultCrops); //giving empty array UGHH
       dispatch({
         type: "GET_CROPS",
         payload: res.data,
