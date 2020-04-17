@@ -9,7 +9,10 @@ export default (state, action) => {
       return [...state, action.payload];
 
     case "MOVE_CROP":
-      const newState = state.filter((crop) => crop.id !== action.payload.id);
+      const newState = state.filter(
+        (crop) => crop.cropid !== action.payload.cropid
+      );
+      console.log(newState);
       return newState;
 
     default:

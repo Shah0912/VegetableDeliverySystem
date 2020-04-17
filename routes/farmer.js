@@ -72,7 +72,7 @@ router.put("/cropstore", async (req, res) => {
     console.log(check.rows[0]);
     if (check.rows[0].exists) {
       const update = await pool.query(
-        "UPDATE crop SET completed = 1 WHERE farmerid = $1 AND cropid = $2",
+        "UPDATE crop SET completed = 1 WHERE farmerid = $1 AND cropid = $2 RETURNING *",
         [farmerid, cropid]
       );
       console.log(update.rows);

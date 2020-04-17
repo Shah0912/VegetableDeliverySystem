@@ -4,7 +4,6 @@ import { CultivationContext } from "./FarmerContext";
 import { StorageContext } from "./FarmerContext";
 
 export default function Crop({ crop }) {
-  console.log(crop);
   const [lgShow, setLgShow] = useState(false);
   const { addCrop } = useContext(StorageContext);
   const { moveCrop } = useContext(CultivationContext);

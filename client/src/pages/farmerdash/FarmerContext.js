@@ -49,11 +49,26 @@ export const CultivationProvider = (props) => {
       });
     }
   }
-  function moveCrop(crop) {
-    dispatch({
-      type: "MOVE_CROP",
-      payload: crop,
-    });
+  async function moveCrop(crop) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    /* const sub = {
+      farmerid: "F104",
+      cropid: crop.cropid,
+    }; */
+    try {
+      const res = await axios.put("/farmer/cropstore", crop, config);
+      console.log(res.data.rows[0]);
+      dispatch({
+        type: "MOVE_CROP",
+        payload: res.data.rows[0],
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
   return (
     <CultivationContext.Provider
@@ -73,6 +88,22 @@ export const StorageProvider = (props) => {
   const crops = [];
 
   const [state, dispatch] = useReducer(StorageReducer, crops);
+  async function getCrops() {
+    try {
+      const res = await axios.get("/farmer?farmerid=F104");
+      dispatch({
+        type: "GET_CROPS",
+        payload: res.data.compCrops,
+      });
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      dispatch({
+        type: "CROP_ERROR",
+        payload: err.response.data,
+      });
+    }
+  }
 
   function addCrop(crop) {
     dispatch({
@@ -86,6 +117,7 @@ export const StorageProvider = (props) => {
       value={{
         crops: state,
         addCrop,
+        getCrops,
       }}
     >
       {props.children}
