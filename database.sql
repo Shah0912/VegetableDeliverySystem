@@ -13,6 +13,8 @@ CREATE SEQUENCE customer_id_seq;
 CREATE SEQUENCE crop_id_seq;
 CREATE SEQUENCE vehicle_id;
 CREATE SEQUENCE order_id_seq;
+CREATE SEQUENCE cart_id_seq;
+
 
 SELECT setval('farmer_id_seq',100);
 SELECT setval('delivery_person_id_seq',100);
@@ -20,6 +22,7 @@ SELECT setval('customer_id_seq',100);
 SELECT setval('crop_id_seq',100);
 SELECT setval('vehicle_id', 100);
 SELECT setval('order_id_seq', 100);
+SELECT setval('cart_id_seq', 100);
 
 
 
@@ -48,6 +51,7 @@ CREATE TABLE Crop
   FarmAge INT NOT NULL,
   Type VARCHAR(255) NOT NULL,
   Season VARCHAR(255) NOT NULL,
+  completed INT DEFAULT 0,
   PRIMARY KEY (CropId,FarmerId),
   FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
 );
@@ -182,6 +186,7 @@ CREATE TABLE Ordered
   CropId VARCHAR(255) NOT NULL,
   FarmerId VARCHAR(255) NOT NULL,
   OrderId VARCHAR(255) NOT NULL,
+  amount INT NOT NULL,
   PRIMARY KEY (CropId, OrderId),
   FOREIGN KEY (CropId, FarmerId) REFERENCES Crop(CropId, FarmerId),
   --FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
@@ -197,6 +202,7 @@ CREATE TABLE Gives_to
   FOREIGN KEY (DeliveryId) REFERENCES  Delivery_Person(DeliveryId),
 );
 
+/*
 CREATE TABLE DEvaluates
 (
   DeliveryId VARCHAR(255) NOT NULL,
@@ -219,6 +225,8 @@ CREATE TABLE FEvaluates
    FOREIGN KEY (FarmerId) REFERENCES  Farmer(FarmerId)
 );
 
+*/
+
 CREATE TABLE Delivers_To
 (
   DeliveryId VARCHAR(255) NOT NULL,
@@ -227,3 +235,28 @@ CREATE TABLE Delivers_To
   FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId),
   FOREIGN KEY (DeliveryId) REFERENCES Delivery_Person(DeliveryId)
 );
+
+
+
+
+CREATE TABLE cart
+(
+  CustomerId VARCHAR(255) NOT NULL,
+  PRIMARY KEY(CustomerId),
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+);
+
+CREATE TABLE temporder
+(
+  CropId VARCHAR(255) NOT NULL,
+  FarmerId VARCHAR(255) NOT NULL,
+  --OrderId VARCHAR(255) NOT NULL,
+  cartid VARCHAR(255) NOT NULL,
+  amount INT NOT NULL,
+  PRIMARY KEY (CropId, cartid),
+  FOREIGN KEY (CropId, FarmerId) REFERENCES Crop(CropId, FarmerId),
+  --FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
+  --FOREIGN KEY (OrderId) REFERENCES Orders(OrderId)
+  FOREIGN KEY (cartid) REFERENCES cart(cartid)
+);
+
