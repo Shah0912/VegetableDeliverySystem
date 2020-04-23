@@ -251,12 +251,12 @@ CREATE TABLE temporder
   CropId VARCHAR(255) NOT NULL,
   FarmerId VARCHAR(255) NOT NULL,
   --OrderId VARCHAR(255) NOT NULL,
-  cartid VARCHAR(255) NOT NULL,
+  CustomerId VARCHAR(255) NOT NULL,
   amount INT NOT NULL,
-  PRIMARY KEY (CropId, cartid),
+  PRIMARY KEY (CropId, CustomerId),
   FOREIGN KEY (CropId, FarmerId) REFERENCES Crop(CropId, FarmerId),
   --FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId),
   --FOREIGN KEY (OrderId) REFERENCES Orders(OrderId)
-  FOREIGN KEY (cartid) REFERENCES cart(cartid)
+  FOREIGN KEY (CustomerId) REFERENCES cart(CustomerId)
 );
 
