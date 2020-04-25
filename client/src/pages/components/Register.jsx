@@ -1,22 +1,19 @@
 import React, { useState, useContext } from "react";
-import { Card, Container } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 /* import './s.css' */
 
 import { UserContext } from "../context/UserContext";
 
 function Register() {
-   
-  const state={
-    variety:"Farmer"
-  }
-   
+  const state = {
+    variety: "Farmer",
+  };
+
   const radioChangeHandler = (event) => {
     this.setState({
-        variety: event.target.value
+      variety: event.target.value,
     });
-}
-
-
+  };
 
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
@@ -185,29 +182,32 @@ function Register() {
                 />
               </div>
 
-              <label>
-                <input type="radio" value="Farmer"
-                changed={ radioChangeHandler } 
-                isSelected={ state.variety === "Farmer" } 
-                id="1"
-                />
-                Farmer
-              </label>
+              <Form>
+                <div key={`default-radio`} className="mb-3">
+                  <Form.Check type="radio" id="1" label={`Farmer`} />
+                  <Form.Check type="radio" id="2" label={`Customer`} />
+                  <Form.Check type="radio" id="3" label={`Delivery Person`} />
+                </div>
+              </Form>
               <br />
               <label>
-                <input type="radio" value="Delivery"
-                 changed={ radioChangeHandler } 
-                 isSelected={ state.variety === "Delivery" } 
-                 id="2" 
+                <input
+                  type="radio"
+                  value="Delivery"
+                  changed={radioChangeHandler}
+                  isSelected={state.variety === "Delivery"}
+                  id="2"
                 />
                 Delivery Person
               </label>
               <br />
               <span className="badge badge-primary ">
-                <input type="radio" value="Customer" 
-                 changed={ radioChangeHandler } 
-                 isSelected={state.variety === "Customer" } 
-                 id="3"
+                <input
+                  type="radio"
+                  value="Customer"
+                  changed={radioChangeHandler}
+                  isSelected={state.variety === "Customer"}
+                  id="3"
                 />
                 Customer
               </span>

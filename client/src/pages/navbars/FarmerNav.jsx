@@ -13,7 +13,8 @@ const FarmerNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/delivery">Dashboard</Nav.Link>
+            <Nav.Link href="/farmer">Dashboard</Nav.Link>
+            <Nav.Link href="/pages">View All Crops</Nav.Link>
             <Nav.Link href="#">Add Phone Number</Nav.Link>
             <Nav.Link href="/feedback">Feedback</Nav.Link>
           </Nav>

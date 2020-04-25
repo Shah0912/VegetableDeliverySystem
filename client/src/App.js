@@ -15,7 +15,7 @@ import Storage from "./pages/Storage";
 //import VehicleDetails from "./pages/deliverydash/Vdetails";
 import Review from "./pages/Feedback";
 import VehicleDetails from "./pages/deliverydash/VehicleDetails";
-
+import Page from "./pages/farmerdash/AllCrops/Page";
 function App() {
   return (
     <Router>
@@ -27,6 +27,7 @@ function App() {
           <Route exact path="/storage" component={Storage} />
           <Route exact path="/feedback" component={Review} />
         </UserProvider>
+        <Route exact path="/pages" component={Page} />
         <CartProvider>
           <ProductProvider>
             <Route exact path="/listing" component={Listing} />
