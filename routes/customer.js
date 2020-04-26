@@ -66,6 +66,53 @@ router.post('/addtocart', async (req,res)=>{
     *AND IT is added as an order: orders and ordered tables 
 */
 
+/*
+    NOW we'll write the routes for checkout
+    When the customer checks out. We need to add cart to the order and place the order.
+*/
 
+//SEND CART DATA
+router.get('/checkout', async (req,res)=> {
+    try {
+            console.log(req.body);
+            const {customerid} = req.body;
+            const cart = await pool.query("SELECT EXISTS(SELECT 1 FROM temporder WHERE customerid = $1);",[customerid]);
+            console.log(cart.rows[0].exists);
+            const orders = await pool.query("SELECT crop.name, temporder.amount FROM crop, temporder WHERE temporder.farmerid = crop.farmerid AND temporder.cropid = crop.cropid AND temporder.customerid = $1 ",[customerid]);
+            console.log(orders.rows);
+            res.json(orders.rows);
+
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+//PLACE ORDER
+router.post('/placeorder', async (req,res) => {
+    try {
+        const {customerid} = req.body;
+        const cart = await pool.query("SELECT EXISTS(SELECT 1 FROM temporder WHERE customerid = $1);",[customerid]);
+        if(cart.rows[0].exists) {
+            const temporder = await pool.query("SELECT * FROM temporder where customerid = $1;",[customerid]);
+            console.log(temporder.rows);
+            let price = 0;
+            for(i in temporder.rows){
+                const cost = await pool.query("SELECT rate from crop where cropid = $1",[temporder.rows[i].cropid]);
+                console.log(cost.rows[0]);
+                price += parseInt(temporder.rows[i].amount)*parseInt(cost.rows[0].rate);
+            }
+            console.log(price);
+            const order = await pool.query("INSERT INTO orders (price,customerid) values ($1,$2) RETURNING *;",[price,customerid]);
+            console.log(order.rows[0]);
+            delcart = await pool.query("DELETE FROM temporder WHERE customerid = $1 RETURNING *",[customerid]);
+            res.json(order.rows[0]);
+        }
+        else {
+            res.json({"cart":"false"});
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+});
 
 module.exports = router;
