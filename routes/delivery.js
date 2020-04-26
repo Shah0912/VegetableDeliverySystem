@@ -9,7 +9,10 @@ router.get('/vehicledetails', async (req,res)=>{
     try {
         const {deliveryid} = req.body;
         const vehicleid = await pool.query("SELECT vehicleid FROM delivery_person WHERE deliveryid = $1;",[deliveryid]);
-        console.log(vehicleid);
+        console.log(vehicleid.rows[0]);
+        const vehicle = await pool.query("SELECT * FROM vehicles WHERE vehicleid = $1;",[vehicleid.rows[0].vehicleid]);
+        // console.log(vehicle.rows[0]);
+        res.json(vehicle.rows[0]);
     } catch (error) {
         console.error(error.message);
     }
@@ -33,7 +36,7 @@ router.post('/vehicle', async (req,res)=>{
 
             const delivery = await pool.query("UPDATE delivery_person SET vehicleid = $1 WHERE deliveryid = $2;",[newVehicle.rows[0].vehicleid,deliveryid]);
             console.log(delivery);
-            res.json(newVehicle);
+            res.json(newVehicle.rows[0]);
         }
         else{
             console.log("THE VEHICLE IS ALREADY REGISTERED");
