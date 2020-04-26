@@ -8,11 +8,18 @@ router.use(express.json());
 router.get('/vehicledetails', async (req,res)=>{
     try {
         const {deliveryid} = req.body;
-        const vehicleid = await pool.query("SELECT vehicleid FROM delivery_person WHERE deliveryid = $1;",[deliveryid]);
-        console.log(vehicleid.rows[0]);
-        const vehicle = await pool.query("SELECT * FROM vehicles WHERE vehicleid = $1;",[vehicleid.rows[0].vehicleid]);
-        // console.log(vehicle.rows[0]);
-        res.json(vehicle.rows[0]);
+        const check = await pool.query("SELECT EXISTS (SELECT 1 FROM delivery_person WHERE deliveryid = $1);",[deliveryid]);
+        if(check.rows[0].exists) {
+
+            const vehicleid = await pool.query("SELECT vehicleid FROM delivery_person WHERE deliveryid = $1;",[deliveryid]);
+            if(vehicleid.rows[0].vehicleid)
+                console.log(vehicleid.rows[0]);
+                const vehicle = await pool.query("SELECT * FROM vehicles WHERE vehicleid = $1;",[vehicleid.rows[0].vehicleid]);
+                // console.log(vehicle.rows[0]);
+                res.json(vehicle.rows[0]);
+        } else {
+            res.json("Delivery Person doesnt exist");
+        }
     } catch (error) {
         console.error(error.message);
     }
