@@ -97,9 +97,10 @@ CREATE TABLE Vehicles
 CREATE TABLE Orders
 (
   OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
-  Quantity INT NOT NULL,
+  Customerid VARCHAR(255),
   Price INT NOT NULL,
-  PRIMARY KEY (OrderId)
+  PRIMARY KEY (OrderId),
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
 );
 
 CREATE TABLE Customer
