@@ -70,6 +70,8 @@ router.post('/addtocart', async (req,res)=>{
     NOW we'll write the routes for checkout
     When the customer checks out. We need to add cart to the order and place the order.
 */
+
+//SEND CART DATA
 router.get('/checkout', async (req,res)=> {
     try {
             console.log(req.body);
