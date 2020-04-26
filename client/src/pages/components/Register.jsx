@@ -18,18 +18,20 @@ function Register() {
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [DoB, setDoB] = useState("");
-  const [Contact, setContact] = useState("");
-  const [Address, setAddress] = useState("");
+  const [Street, setStreet] = useState("");
+  const [State, setState] = useState("");
+  const [Locality, setLocality] = useState("");
   const [Pincode, setPincode] = useState("");
   const [Password, setPassword] = useState("");
   const [Cpassword, setCpassword] = useState("");
+  const [type, setType] = useState("");
 
   const { addRegister } = useContext(UserContext);
 
   const mStyle = {
     background: "black",
     width: "800px",
-    height: "1050px",
+    height: "1270px",
     color: "white",
     margin: "auto",
   };
@@ -37,23 +39,26 @@ function Register() {
   const onSubmit = (e) => {
     e.preventDefault();
     const newrDetails = {
-      id: Math.floor(Math.random() * 100000000),
+      //id: Math.floor(Math.random() * 100000000),
       Name,
       Email,
       DoB,
-      Contact,
-      Address,
+      Street,
+      State,
+      Locality,
       Pincode,
       Password,
       Cpassword,
+      type,
     };
 
     addRegister(newrDetails);
     console.log("Name:", Name);
     console.log("email:", Email);
     console.log("Date of Birth:", DoB);
-    console.log("Contact Details:", Contact);
-    console.log("Address:", Address);
+    console.log("Street:", Street);
+    console.log("State:", State);
+    console.log("Locality:", Locality);
     console.log("Pincode", Pincode);
     console.log("password:", Password);
     console.log("Confirm Password", Cpassword);
@@ -112,30 +117,42 @@ function Register() {
               </div>
 
               <div className="form-group">
-                <span className="badge badge-warning m-2">Contact Details</span>
+                <span className="badge badge-warning m-2">Street</span>
                 <br />
                 <input
-                  value={Contact}
-                  onChange={(e) => setContact(e.target.value)}
-                  type="num"
-                  id="ContactDetails"
-                  name="ContactDetails"
+                  value={Street}
+                  onChange={(e) => setStreet(e.target.value)}
+                  type="text"
+                  id="Street"
+                  name="Street"
                   className="form-control"
-                  placeholder="Enter Contact Details"
+                  placeholder="Enter Street"
                 />
               </div>
-
               <div className="form-group">
-                <span className="badge badge-warning m-2">Address</span>
+                <span className="badge badge-warning m-2">State</span>
                 <br />
                 <input
-                  value={Address}
-                  onChange={(e) => setAddress(e.target.value)}
+                  value={State}
+                  onChange={(e) => setState(e.target.value)}
                   type="text"
-                  id="Address"
-                  name="Address"
+                  id="State"
+                  name="State"
                   className="form-control"
-                  placeholder="Enter Address"
+                  placeholder="Enter State"
+                />
+              </div>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Locality</span>
+                <br />
+                <input
+                  value={Locality}
+                  onChange={(e) => setLocality(e.target.value)}
+                  type="text"
+                  id="Locality"
+                  name="Locality"
+                  className="form-control"
+                  placeholder="Enter Locality"
                 />
               </div>
               <div className="form-group">
@@ -149,6 +166,19 @@ function Register() {
                   name="ContactDetails"
                   className="form-control"
                   placeholder="Enter Pin Code"
+                />
+              </div>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Type</span>
+                <br />
+                <input
+                  value={type}
+                  onChange={(e) => setType(e.target.value)}
+                  type="text"
+                  id="Type"
+                  name="Type"
+                  className="form-control"
+                  placeholder="Enter Type"
                 />
               </div>
 
