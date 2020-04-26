@@ -13,11 +13,14 @@ function Login() {
   // console.log(setldetails)
 
   const mStyle = {
-    background: "black",
+    // background: "black",
+    background:"White" ,
+    marginLeft:"800px",
     width: "500px",
     height: "500px",
-    color: "white",
-    margin: "auto",
+    
+    color: "Black"
+    
   };
   const onSubmit = (e) => {
     e.preventDefault();
@@ -31,19 +34,37 @@ function Login() {
     console.log("email:", edetails);
     console.log("password:", pdetails);
   };
+  const imgStyle ={
+    width:"450px",
+    height:"600px",
+    marginLeft:"200px",
+    marginTop:"10px",
+    
+  }
+  
+  const textStyle ={
+    marginTop:"20px"
+  }
+
 
   return (
-    <div>
-      <div className="row-md-100 mt-5">
+    <div >
+      
+       <h1 className="text-center mb-3" style={textStyle}>
+              <i className="fas fa-sign-in-alt"></i> Welcome to Delivery App
+            </h1>
+      <img src="/images/phones.png" className="m-2" style={imgStyle} alt=""
+      
+      className="float-left"
+      />
+      <div className="row-md-100 mt-5"  >
         <div className="col-md-1000">
           <div className="card card-body" style={mStyle}>
-            <h1 className="text-center mb-3">
-              <i className="fas fa-sign-in-alt"></i> Login
-            </h1>
-
-            <form onSubmit={onSubmit} action="/NavBars" method="POST">
+            
+           
+            <form  onSubmit={onSubmit} action="/NavBars" method="POST">
               <div className="form-group">
-                <span className="badge badge-danger m-2">Email</span>
+                <span className="badge badge-danger m-2" >Email</span>
                 <br />
                 <input
                   type="email"
@@ -86,6 +107,7 @@ function Login() {
           </div>
         </div>
       </div>
+     
     </div>
     //  {ldetails.map(ldetail =>(
     //   <li>{ldetail.email}</li>
