@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Modal, ListGroup, Button } from "react-bootstrap";
 import { PickupContext, DeliveryContext } from "./DeliveryContext";
+import Map from "../farmerdash/AllCrops/Map";
 
 export default function Pickup({ pickup }) {
   const { isPickedup } = useContext(PickupContext);
@@ -44,9 +45,8 @@ export default function Pickup({ pickup }) {
             </ListGroup.Item>
             <ListGroup.Item>Farmer Name: {pickup.farmer_name}</ListGroup.Item>
             <ListGroup.Item>Pickup Address: {pickup.pickup_add}</ListGroup.Item>
-            <ListGroup.Item>MAP WILL BE SHOWN HERE</ListGroup.Item>
+            <ListGroup.Item>Map Will be Shown</ListGroup.Item>
           </ListGroup>
-
           <Button
             disabled={pickup.isPickedup}
             variant="success"

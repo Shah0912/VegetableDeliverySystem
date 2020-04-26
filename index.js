@@ -63,16 +63,17 @@ app.get("/", (req, res) => {
 }); */
 
 //REGISTRATION WITHOUT PHONE NUMBERS......
+
 app.post("/reg", async (req, res) => {
   try {
     console.log("Here");
-    const name = req.body.name;
-    const dob = req.body.dateofBirth;
-    const street = req.body.street;
-    const state = req.body.state;
-    const locality = req.body.locality;
-    const pin = req.body.pinCode;
-    let p = req.body.password;
+    const name = req.body.Name;
+    const dob = req.body.DoB;
+    const street = req.body.Street;
+    const state = req.body.State;
+    const locality = req.body.Locality;
+    const pin = req.body.Pincode;
+    let p = req.body.Password;
 
     let password = p.slice(0, p.length - 20);
     const h = bcrypt.hashSync(password, saltRounds);
