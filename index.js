@@ -74,28 +74,27 @@ app.post("/reg", async (req, res) => {
     const locality = req.body.Locality;
     const pin = req.body.Pincode;
     let p = req.body.Password;
-
     let password = p.slice(0, p.length - 20);
     const h = bcrypt.hashSync(password, saltRounds);
     //console.log('THis is ',h);
     let newEntry;
     if (req.body.type == "F")
       newEntry = await pool.query(
-        "INSERT INTO farmer (name,date_of_birth,farmer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7);",
+        "INSERT INTO farmer (name,date_of_birth,farmer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7)  RETURNING *;",
         [name, dob, street, state, locality, pin, h]
       );
     else if (req.body.type == "C")
       newEntry = await pool.query(
-        "INSERT INTO customer (name,date_of_birth,customer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7);",
+        "INSERT INTO customer (name,date_of_birth,customer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7) RETURNING *;",
         [name, dob, street, state, locality, pin, h]
       );
     else
       newEntry = await pool.query(
-        "INSERT INTO delivery_person (name,date_of_birth,delivery_person_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7);",
+        "INSERT INTO delivery_person (name,date_of_birth,delivery_person_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7) RETURNING *;",
         [name, dob, street, state, locality, pin, h]
       );
 
-    res.json(newEntry);
+    res.json(newEntry.rows);
   } catch (error) {
     console.error(error.message);
   }
