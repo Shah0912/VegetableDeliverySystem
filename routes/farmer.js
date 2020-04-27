@@ -31,6 +31,7 @@ router.get("/", async (req, res) => {
     res.json({ cultCrops: cultCrops.rows, compCrops: compCrops.rows });
   } catch (error) {
     console.error(error.message);
+    res.json(error.message);
   }
 });
 
@@ -58,6 +59,7 @@ router.post("/growing", async (req, res) => {
     }
   } catch (error) {
     console.error(error.message);
+    res.json(error.message);
   }
 });
 
@@ -77,13 +79,14 @@ router.put("/cropstore", async (req, res) => {
         [farmerid, cropid]
       );
       console.log(update.rows);
-      res.json(update);
+      res.json(update.rows);
     } else {
       console.log("Crop or farmer doesn't exist OR crop already cultivated");
       res.json({ exists: "false" });
     }
   } catch (error) {
     console.error(error.message);
+    res.json(error.message);
   }
 });
 
@@ -111,6 +114,20 @@ router.post('/storage', async (req,res)=>{
   }
 });
 
+
+//Crops in storage
+router.get('/cropstored', async (req,res)=>{
+  try {
+    console.log(req.body);
+    const{farmerid} = req.body;
+    storedcrop = await pool.query("SELECT * from crop WHERE farmerid = $1 AND completed = 1;",[farmerid]);
+    res.json(storedcrop.rows);
+
+  } catch (error) {
+    console.error(error.message);
+    res.json(error.message);
+  }
+});
 
 
 module.exports = router;
