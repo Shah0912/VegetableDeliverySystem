@@ -133,7 +133,7 @@ router.get('/orders', async (req,res)=>{
   try {
     
     const {farmerid} = req.body;
-    const orders = await pool.query("SELECT * from ordered WHERE farmerid = $1",[farmerid]);
+    const orders = await pool.query("SELECT * from ordered WHERE farmerid = $1 AND orderid IN (SELECT orderid FROM orders WHERE status = 0);",[farmerid]);
     for( i in orders.rows) {
       const deliveryid = await pool.query("SELECT deliveryid FROM orders WHERE orderid = $1 ;",[orders.rows[i].orderid]);
       const deliveryPerson = await pool.query("SELECT * from delivery_person WHERE deliveryid = $1;",[deliveryid.rows[0].deliveryid]);
@@ -147,6 +147,19 @@ router.get('/orders', async (req,res)=>{
     console.log(orders.rows);
     res.json(orders.rows);
 
+  } catch (error) {
+    console.error(error.message);
+    res.json(error.message);
+  }
+});
+
+router.put("/ordercomplete", async (req,res)=>{
+  try {
+    
+    const {orderid} = req.body;
+    const order = await pool.query("UPDATE orders SET status = 1 WHERE orderid = $1 RETURNING *",[orderid]);
+    console.log(order.rows);
+    res.json(order.rows);
   } catch (error) {
     console.error(error.message);
     res.json(error.message);

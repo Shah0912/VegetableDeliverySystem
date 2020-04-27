@@ -61,7 +61,7 @@ router.post('/vehicle', async (req,res)=>{
 router.get('/pickup', async (req,res)=>{
     try {
         const {deliveryid} = req.body;
-        const orders = await pool.query("SELECT * from orders WHERE deliveryid = $1 ",[deliveryid]);
+        const orders = await pool.query("SELECT * from orders WHERE deliveryid = $1 AND status = 1 ",[deliveryid]);
         console.log(orders.rows);
         pickup = [];
         for(i in orders.rows) {
@@ -90,9 +90,53 @@ router.get('/pickup', async (req,res)=>{
     }
 });
 
+router.put('/pickupdone', async (req,res)=>{
+    try {
+        
+        const {orderid} = req.body;
+        const update = await pool.query("UPDATE orders SET status = 2 WHERE orderid = $1 RETURNING *;",[orderid]);
+        console.log(update.rows);
+        res.json(update.rows);
+    } catch (error) {
+        console.error(error.message);
+        res.json(error.message);
+    }
+})
 
 
+router.get('/deliverydetails', async (req,res)=>{
+    try {
+        
+        const {deliveryid} = req.body;
+        const deliveries = await pool.query("SELECT * from orders WHERE status = 2 AND deliveryid = $1",[deliveryid]);
+        console.log(deliveries.rows);
+        for(i in deliveries.rows) {
+            const location = await pool.query("SELECT latitude, longitude FROM customer WHERE customerid = $1",[deliveries.rows[i].customerid]);
+            deliveries.rows[i].location = location.rows[0].latitude.toString() + "," + location.rows[0].longitude.toString(); 
+        }
+        console.log(deliveries.rows);
+        res.json(deliveries.rows);
+    } catch (error) {
+        console.error(error.message);
+        res.json(error.message);
+    }
+});
 
+//DELIVERY COMPLETE
+router.put("/deliverycomplete", async (req,res)=>{
+    try {
+        
+        const {orderid} = req.body;
+        const removeData = await pool.query("DELETE FROM ordered WHERE orderid = $1 RETURNING *;",[orderid]);
+        const removeOrder = await pool.query("DELETE FROM orders WHERE orderid = $1 RETURNING *;",[orderid])
+        console.log(removeData);
+        console.log(removeOrder);
+        res.json(removeOrder.rows);
+    } catch (error) {
+        console.error(error.message);
+        res.json(error.message);
+    }
+});
 
 
 module.exports = router;
