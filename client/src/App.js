@@ -36,7 +36,7 @@ function App() {
           <Route exact path="/checkout" component={Checkout} />
         </CartProvider>
         <Route exact path="/delivery" component={DeliveryDash} />
-        <Route exact path="/delivery/map" component={Maps} />
+        <Route exact path="/delivery/maps" component={Maps} />
         <Route exact path="/farmer" component={FarmerDash} />
       </React.Fragment>
     </Router>

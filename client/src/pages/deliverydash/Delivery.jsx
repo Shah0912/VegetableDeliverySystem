@@ -41,7 +41,21 @@ export default function Delivery({ delivery }) {
             </ListGroup.Item>
             <ListGroup.Item>MAP WILL BE SHOWN HERE</ListGroup.Item>
           </ListGroup>
-
+          <Button
+            //disabled={pickup.isPickedup}
+            variant="success"
+            size="lg"
+            //onClick={onSubmit}
+            href="delivery/maps"
+            style={{
+              width: "50%",
+              margin: "auto",
+              marginTop: "15px",
+              paddingRight: "2px",
+            }}
+          >
+            View Map
+          </Button>
           <Button
             disabled={delivery.isDelivered}
             variant="success"
