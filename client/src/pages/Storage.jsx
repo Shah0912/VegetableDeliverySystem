@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { Card, Container } from "react-bootstrap";
-import './s.css'
+import "./s.css";
 
-import { UserContext } from './context/UserContext';
+import { UserContext } from "./context/UserContext";
 
 function Storage() {
   const [ID, setID] = useState("");
@@ -12,8 +12,8 @@ function Storage() {
   const [PinCode, setPinCode] = useState("");
   const [Locality, setLocality] = useState("");
 
-  const {addStorage}=useContext(UserContext);
- 
+  const { addStorage } = useContext(UserContext);
+
   const mStyle = {
     background: "Black",
     width: "800px",
@@ -25,13 +25,14 @@ function Storage() {
   const onSubmit = (e) => {
     e.preventDefault();
     const newsDetails = {
-      id: Math.floor(Math.random() * 100000000),
-      ID,
-      Capacity,
-      State,
-      Street,
-      PinCode,
-      Locality,
+      //id: Math.floor(Math.random() * 100000000),
+      //ID,
+      farmerid: "F104",
+      capacity: Capacity,
+      state: State,
+      street: Street,
+      pincode: PinCode,
+      locality: Locality,
     };
 
     addStorage(newsDetails);
@@ -53,20 +54,6 @@ function Storage() {
             </h1>
 
             <form onSubmit={onSubmit} method="POST">
-              <div className="form-group">
-                <span className="badge badge-dark m-2">Storage ID</span>
-                <br />
-                <input
-                  value={ID}
-                  onChange={(e) => setID(e.target.value)}
-                  type="Name"
-                  id="ID"
-                  name="ID"
-                  className="form-control"
-                  placeholder="Enter Storage ID "
-                />
-              </div>
-
               <div className="form-group">
                 <span className="badge badge-dark m-2">Capacity</span>
                 <br />

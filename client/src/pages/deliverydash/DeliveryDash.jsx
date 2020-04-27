@@ -3,7 +3,11 @@ import Vehicle from "./Vehicle";
 import DeliveryList from "./DeliveryList";
 import PickupList from "./PickupList";
 import DeliveryNav from "../navbars/DeliveryNav";
-import { DeliveryProvider, PickupProvider } from "./DeliveryContext";
+import {
+  DeliveryProvider,
+  PickupProvider,
+  VehicleProvider,
+} from "./DeliveryContext";
 import Map from "./Map";
 
 import "./DeliveryDash.css";
@@ -15,7 +19,9 @@ export const DeliveryDash = () => {
       <DeliveryNav />
       <Container className="mt-5">
         <CardDeck>
-          <Vehicle />
+          <VehicleProvider>
+            <Vehicle />
+          </VehicleProvider>
           <DeliveryProvider>
             <DeliveryList />
             <PickupProvider>

@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, ListGroup } from "react-bootstrap";
+import { VehicleContext } from "./DeliveryContext";
+
 const Vehicle = () => {
+  const { vehicle, getDetails } = useContext(VehicleContext);
+  useEffect(() => {
+    getDetails();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Card style={{ width: "18rem", display: "flex" }}>
       <Card.Body>
         <Card.Title className="text-center">Vehicle Details</Card.Title>
         <ListGroup variant="flush">
-          <ListGroup.Item>Vehicle No.: MH 01 AF 6077 </ListGroup.Item>
-          <ListGroup.Item>Type: Tempo</ListGroup.Item>
-          <ListGroup.Item>Licence No.: MH034523233</ListGroup.Item>
+          <ListGroup.Item>Vehicle No.: {vehicle.vehicleno} </ListGroup.Item>
+          <ListGroup.Item>Type: {vehicle.type}</ListGroup.Item>
+          <ListGroup.Item>Licence No.: {vehicle.licence_number}</ListGroup.Item>
+          <ListGroup.Item>Capacity.: {vehicle.volume_capacity}</ListGroup.Item>
         </ListGroup>
       </Card.Body>
     </Card>

@@ -11,8 +11,8 @@ export default function Pickup({ pickup }) {
   const onSubmit = (e) => {
     e.preventDefault();
     isPickedup(pickup);
-    addDelivery(pickup);
-    pickup.isPickedup = true;
+    //addDelivery(pickup);
+    //pickup.isPickedup = true;
     setLgShow(false);
   };
   return (
@@ -22,7 +22,8 @@ export default function Pickup({ pickup }) {
         onClick={() => setLgShow(true)}
         style={{ textDecoration: pickup.isPickedup ? "line-through" : "" }}
       >
-        Pickup Number: {pickup.id} <button className="delete-btn">+</button>
+        Pickup Number: {pickup.orderid}{" "}
+        <button className="delete-btn">+</button>
       </li>
       <Modal
         size="lg"
@@ -37,15 +38,11 @@ export default function Pickup({ pickup }) {
         </Modal.Header>
         <Modal.Body>
           <ListGroup variant="flush">
-            <ListGroup.Item>Pickup id: {pickup.id}</ListGroup.Item>
+            <ListGroup.Item>Pickup id: {pickup.orderid}</ListGroup.Item>
             <ListGroup.Item>
-              Delivery Contents:
-              {pickup.content.map((item) => (
-                <li>{item}</li>
-              ))}
+              Delivery Contents: {pickup.cropname}
             </ListGroup.Item>
-            <ListGroup.Item>Farmer Name: {pickup.farmer_name}</ListGroup.Item>
-            <ListGroup.Item>Pickup Address: {pickup.pickup_add}</ListGroup.Item>
+            <ListGroup.Item>Farmer Name: {pickup.farmername}</ListGroup.Item>
           </ListGroup>
           <Button
             disabled={pickup.isPickedup}

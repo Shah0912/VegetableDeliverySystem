@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Modal, ListGroup, Button } from "react-bootstrap";
+import { DeliveryContext } from "./DeliveryContext";
 
 export default function Delivery({ delivery }) {
   const [lgShow, setLgShow] = useState(false);
-
+  const { isDelivered } = useContext(DeliveryContext);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    isDelivered(delivery);
+    //addDelivery(pickup);
+    //pickup.isPickedup = true;
+    setLgShow(false);
+  };
   return (
     <div>
       <li
@@ -28,18 +36,14 @@ export default function Delivery({ delivery }) {
         </Modal.Header>
         <Modal.Body>
           <ListGroup variant="flush">
-            <ListGroup.Item>Delivery id: {delivery.id}</ListGroup.Item>
+            <ListGroup.Item>Delivery id: {delivery.orderid}</ListGroup.Item>
             <ListGroup.Item>
-              Delivery Contents:{" "}
-              {delivery.content.map((item) => (
-                <li>{item}</li>
-              ))}
+              Delivery Contents: {delivery.cropname}
             </ListGroup.Item>
             <ListGroup.Item>Customer Name: {delivery.cust_name}</ListGroup.Item>
             <ListGroup.Item>
               Delivery Address: {delivery.cust_add}
             </ListGroup.Item>
-            <ListGroup.Item>MAP WILL BE SHOWN HERE</ListGroup.Item>
           </ListGroup>
           <Button
             //disabled={pickup.isPickedup}
@@ -60,10 +64,7 @@ export default function Delivery({ delivery }) {
             disabled={delivery.isDelivered}
             variant="success"
             size="lg"
-            onClick={() => {
-              delivery.isDelivered = true;
-              setLgShow(false);
-            }}
+            onClick={onSubmit}
             style={{ width: "50%", margin: "auto", marginTop: "15px" }}
           >
             Delivery Complete

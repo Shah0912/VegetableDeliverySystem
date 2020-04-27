@@ -113,18 +113,38 @@ export const UserProvider = ({ children }) => {
       console.log(err);
     }
   }
-  function addVdetails(vdetails) {
-    dispatchv({
-      type: "VEHICLE_DETAILS",
-      payload: vdetails,
-    });
+  async function addVdetails(vdetails) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/delivery/vehicle", vdetails, config);
+      dispatchv({
+        type: "VEHICLE_DETAILS",
+        payload: vdetails,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  function addStorage(sdetails) {
-    dispatches({
-      type: "STORAGE_DETAILS",
-      payload: sdetails,
-    });
+  async function addStorage(sdetails) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/farmer/storage", sdetails, config);
+      dispatches({
+        type: "STORAGE_DETAILS",
+        payload: sdetails,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
   function addReview(redetails) {
     dispatchRe({

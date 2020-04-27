@@ -1,13 +1,48 @@
 import React, { useReducer, useState, createContext } from "react";
 import PickupReducer from "./PickupReducer";
 import DeliveryReducer from "./DeliveryReducer";
+import VehicleReducer from "./VehicleReducer";
+import axios from "axios";
 
 export const PickupContext = createContext();
 export const DeliveryContext = createContext();
+export const VehicleContext = createContext();
+
+export const VehicleProvider = (props) => {
+  const vehicle = {};
+  const [state, dispatch] = useReducer(VehicleReducer, vehicle);
+
+  //actions
+  async function getDetails() {
+    try {
+      const res = await axios.get("/delivery/vehicledetails?deliveryid=D102");
+      //console.log(res.data);
+      dispatch({
+        type: "GET_DETAILS",
+        payload: res.data,
+      });
+      //state.map((s) => (s["amount"] = 0));
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return (
+    <VehicleContext.Provider
+      value={{
+        vehicle: state,
+        getDetails,
+      }}
+    >
+      {props.children}
+    </VehicleContext.Provider>
+  );
+};
 
 export const PickupProvider = (props) => {
-  const pickups = [
-    {
+  /*const pickups = [
+     {
       id: 1,
       cust_number: 123456789,
       farmer_number: 234567891,
@@ -50,29 +85,64 @@ export const PickupProvider = (props) => {
       pickup_add: "sdffsfdsfsflskfdslfk",
       isPickedup: false,
       isDelivered: false,
-    },
-  ];
+    }, 
+  ];*/
+  const pickups = [];
 
   const [state, dispatch] = useReducer(PickupReducer, pickups);
 
+  async function getPickup() {
+    try {
+      const res = await axios.get("/delivery/pickup?deliveryid=D102");
+      //console.log(res);
+      dispatch({
+        type: "GET_PICKUP",
+        payload: res.data[1],
+      });
+      console.log(state);
+      //state.map((s) => (s["amount"] = 0));
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   function addPickup(pickup) {
     dispatch({
       type: "ADD_PICKUP",
       payload: pickup,
     });
   }
-  function isPickedup(pickup) {
+  async function isPickedup(pickup) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.put("/delivery/pickupdone", pickup, config);
+      //console.log(res);
+      dispatch({
+        type: "IS_PICKEDUP",
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  /* function isPickedup(pickup) {
     dispatch({
       type: "IS_PICKEDUP",
       payload: pickup,
     });
-  }
+  } */
   return (
     <PickupContext.Provider
       value={{
         pickups: state,
         addPickup,
         isPickedup,
+        getPickup,
       }}
     >
       {props.children}
@@ -85,18 +155,56 @@ export const DeliveryProvider = (props) => {
 
   const [state, dispatch] = useReducer(DeliveryReducer, deliveries);
 
+  async function getDeliveries() {
+    try {
+      const res = await axios.get("/delivery/deliverydetails?deliveryid=D102");
+      //console.log(res);
+      dispatch({
+        type: "GET_DELIVERIES",
+        payload: res.data,
+      });
+      console.log(state);
+      //state.map((s) => (s["amount"] = 0));
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   function addDelivery(delivery) {
     dispatch({
       type: "ADD_DELIVERY",
       payload: delivery,
     });
   }
-
+  async function isDelivered(delivery) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.put(
+        "/delivery/deliverycomplete",
+        delivery,
+        config
+      );
+      //console.log(res);
+      dispatch({
+        type: "IS_DELIVERED",
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <DeliveryContext.Provider
       value={{
         deliveries: state,
         addDelivery,
+        getDeliveries,
+        isDelivered,
       }}
     >
       {props.children}

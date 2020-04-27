@@ -7,7 +7,7 @@ import { UserContext } from "../context/UserContext";
 
 function VehicleDetails() {
   const [vno, setvno] = useState("");
-  const [cap, setcap] = useState("");
+  const [cap, setcap] = useState(0);
   const [lis, setlis] = useState("");
   const [vtype, setvtype] = useState("");
   const { addVdetails } = useContext(UserContext);
@@ -25,11 +25,12 @@ function VehicleDetails() {
   const onSubmit = (e) => {
     e.preventDefault();
     const newvDetails = {
-      id: Math.floor(Math.random() * 100000000),
-      vno,
-      cap,
-      lis,
-      vtype,
+      //id: Math.floor(Math.random() * 100000000),
+      vehicle_no: vno,
+      capacity: cap,
+      licence_no: lis,
+      type: vtype,
+      deliveryid: "D102",
     };
 
     addVdetails(newvDetails);
@@ -69,6 +70,7 @@ function VehicleDetails() {
                 </span>
                 <br />
                 <input
+                  type="number"
                   value={cap}
                   onChange={(e) => setcap(e.target.value)}
                   type="Capacity"
