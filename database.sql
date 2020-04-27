@@ -30,6 +30,7 @@ CREATE TABLE Farmer
 (
   FarmerId VARCHAR(255) DEFAULT 'F' || nextval('farmer_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
+  email CITEXT UNIQUE,
   Date_Of_Birth DATE NOT NULL,
   Farmer_Rating VARCHAR(10) DEFAULT('0'),
   nor INT DEFAULT(0),
@@ -77,6 +78,7 @@ CREATE TABLE Delivery_Person
   nor INT DEFAULT(0),
   DeliveryId VARCHAR(255) DEFAULT 'D' || nextval('delivery_person_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
+  email CITEXT UNIQUE,
   Date_of_Birth DATE NOT NULL,
   Street VARCHAR(255) NOT NULL,
   State VARCHAR(255) NOT NULL,
@@ -100,15 +102,6 @@ CREATE TABLE Vehicles
   PRIMARY KEY (VehicleId)
 );
 
-CREATE TABLE Orders
-(
-  OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
-  Customerid VARCHAR(255),
-  Price INT NOT NULL,
-  status INT DEFAULT(0),
-  PRIMARY KEY (OrderId),
-  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
-);
 
 CREATE TABLE Customer
 (
@@ -116,6 +109,7 @@ CREATE TABLE Customer
   nor INT DEFAULT(0),
   CustomerId VARCHAR(255) DEFAULT 'C' || nextval('customer_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
+  email CITEXT UNIQUE,
   Date_of_Birth DATE NOT NULL,
   Street VARCHAR(255) NOT NULL,
   State VARCHAR(255) NOT NULL,
@@ -166,6 +160,15 @@ CREATE TABLE Customer_Phone_Number
 
 
 
+CREATE TABLE Orders
+(
+  OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
+  Customerid VARCHAR(255),
+  Price INT NOT NULL,
+  status INT DEFAULT(0),
+  PRIMARY KEY (OrderId),
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+);
 
 
 
