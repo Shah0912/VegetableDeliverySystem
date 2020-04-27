@@ -129,5 +129,19 @@ router.get('/cropstored', async (req,res)=>{
   }
 });
 
+router.get('/orders', async (req,res)=>{
+  try {
+    
+    const {farmerid} = req.body;
+    const orders = await pool.query("SELECT * from ordered WHERE farmerid = $1",[farmerid]);
+    console.log(orders.rows);
+    res.json(orders.rows);
+
+  } catch (error) {
+    console.error(error.message);
+    res.json(error.message);
+  }
+});
+
 
 module.exports = router;
