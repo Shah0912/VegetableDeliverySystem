@@ -160,10 +160,25 @@ app.post("/reg", async (req, res) => {
 
 app.post("/auth", async (req, res) => {
   try {
-    const { id, password } = req.body;
-    console.log(id);
+    const { email, password } = req.body;
+    console.log(email);
     console.log(password);
     let hash;
+    farmerid = await pool.query("SELECT farmerid FROM farmer WHERE email = $1;",[email]);
+    customerid = await pool.query("SELECT customerid FROM customer WHERE email = $1;",[email]);
+    deliveryid = await pool.query("SELECT deliveryid FROM delivery_person WHERE email = $1;",[email]);
+    console.log(farmerid.rows[0]);
+    console.log(customerid.rows[0]);
+    console.log(deliveryid.rows[0]);
+    let id;
+    if(customerid.rows[0] != null)
+      id = customerid.rows[0].customerid;
+    else if(deliveryid.rows[0] != null)
+      id = deliveryid.rows[0];
+    else if(farmerid.rows[0])
+      id = farmerid.rows[0].farmerid;
+    else
+      res.json(false);
     if (id[0] == "F") {
       hash = await pool.query(
         "SELECT password FROM farmer WHERE farmerid = $1",
