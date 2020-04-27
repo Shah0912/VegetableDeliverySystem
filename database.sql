@@ -85,6 +85,8 @@ CREATE TABLE Delivery_Person
   password VARCHAR(255) NOT NULL,
   vehicleid VARCHAR(255),
   FOREIGN KEY (Vehicleid) REFERENCES Vehicles(VehicleId),
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
   PRIMARY KEY (DeliveryId)
 );
 
