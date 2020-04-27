@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, Container } from "react-bootstrap";
 import { OrderContext } from "./FarmerContext";
 import Order from "./Order";
 const StorageList = () => {
-  const [orders, setOrders] = useContext(OrderContext);
+  const { orders, getOrders } = useContext(OrderContext);
+  useEffect(() => {
+    getOrders();
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Container>
       <Card

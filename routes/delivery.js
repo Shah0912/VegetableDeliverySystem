@@ -71,7 +71,7 @@ router.get("/pickup", async (req, res) => {
   try {
     const { deliveryid } = req.query;
     const orders = await pool.query(
-      "SELECT * from orders WHERE deliveryid = $1 AND status = 0 ", //ASK ADITYA
+      "SELECT * from orders WHERE deliveryid = $1 AND status = 1 ", //ASK ADITYA
       [deliveryid]
     );
     console.log(orders.rows);

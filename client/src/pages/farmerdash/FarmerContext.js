@@ -1,6 +1,7 @@
 import React, { useReducer, useState, createContext } from "react";
 import CultivationReducer from "./CultivationReducer";
 import StorageReducer from "./StorageReducer";
+import OrderReducer from "./OrderReducer";
 import axios from "axios";
 
 export const CultivationContext = createContext();
@@ -128,7 +129,45 @@ export const StorageProvider = (props) => {
 export const OrderContext = createContext();
 
 export const OrderProvider = (props) => {
-  const [orders, setOrders] = useState([
+  const orders = [];
+  const [state, dispatch] = useReducer(OrderReducer, orders);
+  //actions
+  async function getOrders() {
+    try {
+      const res = await axios.get("/farmer/orders?farmerid=F104");
+      //console.log(res);
+      dispatch({
+        type: "GET_ORDERS",
+        payload: res.data,
+      });
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function orderComplete(order) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    /* const sub = {
+      farmerid: "F104",
+      cropid: crop.cropid,
+    }; */
+    try {
+      const res = await axios.put("/farmer/ordercomplete", order, config);
+      console.log(res);
+      /* dispatch({
+        type: "MOVE_CROP",
+        payload: res.data.rows[0],
+      }); */
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  /* const [orders, setOrders] = useState([
     {
       id: 1,
       content: [
@@ -205,10 +244,10 @@ export const OrderProvider = (props) => {
       del_name: "Arthur",
       total_cost: "500",
     },
-  ]);
+  ]); */
 
   return (
-    <OrderContext.Provider value={[orders, setOrders]}>
+    <OrderContext.Provider value={{ orders: state, getOrders, orderComplete }}>
       {props.children}
     </OrderContext.Provider>
   );

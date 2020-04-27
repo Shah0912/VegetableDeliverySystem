@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../db");
-const axios = require('axios').default;
+const axios = require("axios").default;
 
 router.use(express.json());
 
@@ -90,53 +90,75 @@ router.put("/cropstore", async (req, res) => {
   }
 });
 
-router.post('/storage', async (req,res)=>{
+router.post("/storage", async (req, res) => {
   try {
-    const{farmerid,capacity,street,state,pincode,locality} = req.body;
-    let url = "https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=" + street.split(' ').join("%20") + ",%20" + locality.split(' ').join("%20") + ",%20" + state.split(' ').join("%20") + ",%20" + "India&format=json";
-      console.log(url);
-      const location = await axios.get(url)
-      .then( (res) =>{
+    const { farmerid, capacity, street, state, pincode, locality } = req.body;
+    let url =
+      "https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=" +
+      street.split(" ").join("%20") +
+      ",%20" +
+      locality.split(" ").join("%20") +
+      ",%20" +
+      state.split(" ").join("%20") +
+      ",%20" +
+      "India&format=json";
+    console.log(url);
+    const location = await axios
+      .get(url)
+      .then((res) => {
         //console.log(res.data[0].lat);
         //console.log(res.data[0].lon);
         return res.data[0];
-      }).catch( error => {
+      })
+      .catch((error) => {
         console.error(error.message);
       });
-      const lat = location.lat;
-      const lon = location.lon;
-      const storage = await pool.query("INSERT INTO storage (farmerid,capacity,street,state,pincode,locality, latitude,longitude) values ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;",[farmerid,capacity,street,state,pincode,locality,lat,lon])
-      console.log(storage);
-      res.json(storage.rows[0]);
+    const lat = location.lat;
+    const lon = location.lon;
+    const storage = await pool.query(
+      "INSERT INTO storage (farmerid,capacity,street,state,pincode,locality, latitude,longitude) values ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;",
+      [farmerid, capacity, street, state, pincode, locality, lat, lon]
+    );
+    console.log(storage);
+    res.json(storage.rows[0]);
   } catch (error) {
     console.error(error.message);
     res.json(error.message);
   }
 });
-
 
 //Crops in storage
-router.get('/cropstored', async (req,res)=>{
+router.get("/cropstored", async (req, res) => {
   try {
     console.log(req.body);
-    const{farmerid} = req.body;
-    storedcrop = await pool.query("SELECT * from crop WHERE farmerid = $1 AND completed = 1;",[farmerid]);
+    const { farmerid } = req.body;
+    storedcrop = await pool.query(
+      "SELECT * from crop WHERE farmerid = $1 AND completed = 1;",
+      [farmerid]
+    );
     res.json(storedcrop.rows);
-
   } catch (error) {
     console.error(error.message);
     res.json(error.message);
   }
 });
 
-router.get('/orders', async (req,res)=>{
+router.get("/orders", async (req, res) => {
   try {
-    
-    const {farmerid} = req.body;
-    const orders = await pool.query("SELECT * from ordered WHERE farmerid = $1 AND orderid IN (SELECT orderid FROM orders WHERE status = 0);",[farmerid]);
-    for( i in orders.rows) {
-      const deliveryid = await pool.query("SELECT deliveryid FROM orders WHERE orderid = $1 ;",[orders.rows[i].orderid]);
-      const deliveryPerson = await pool.query("SELECT * from delivery_person WHERE deliveryid = $1;",[deliveryid.rows[0].deliveryid]);
+    const { farmerid } = req.query;
+    const orders = await pool.query(
+      "SELECT * from ordered WHERE farmerid = $1 AND orderid IN (SELECT orderid FROM orders WHERE status = 0);",
+      [farmerid]
+    );
+    for (i in orders.rows) {
+      const deliveryid = await pool.query(
+        "SELECT deliveryid FROM orders WHERE orderid = $1 ;",
+        [orders.rows[i].orderid]
+      );
+      const deliveryPerson = await pool.query(
+        "SELECT * from delivery_person WHERE deliveryid = $1;",
+        [deliveryid.rows[0].deliveryid]
+      );
       //console.log(deliveryPerson.rows);
       //console.log(deliveryPerson.rows[0].deliveryid);
       // console.log(deliveryPerson.deliveryid);
@@ -146,18 +168,19 @@ router.get('/orders', async (req,res)=>{
 
     console.log(orders.rows);
     res.json(orders.rows);
-
   } catch (error) {
     console.error(error.message);
     res.json(error.message);
   }
 });
 
-router.put("/ordercomplete", async (req,res)=>{
+router.put("/ordercomplete", async (req, res) => {
   try {
-    
-    const {orderid} = req.body;
-    const order = await pool.query("UPDATE orders SET status = 1 WHERE orderid = $1 RETURNING *",[orderid]);
+    const { orderid } = req.body;
+    const order = await pool.query(
+      "UPDATE orders SET status = 1 WHERE orderid = $1 RETURNING *",
+      [orderid]
+    );
     console.log(order.rows);
     res.json(order.rows);
   } catch (error) {
@@ -165,6 +188,5 @@ router.put("/ordercomplete", async (req,res)=>{
     res.json(error.message);
   }
 });
-
 
 module.exports = router;
