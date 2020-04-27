@@ -61,7 +61,6 @@ CREATE TABLE Crop
 
 CREATE TABLE Storage
 (
-  StorageId INT NOT NULL,
   Capacity INT NOT NULL,
   State VARCHAR(255) NOT NULL,
   Street VARCHAR(255) NOT NULL,
@@ -69,7 +68,10 @@ CREATE TABLE Storage
   Locality VARCHAR(255) NOT NULL,
   latitude VARCHAR(255),
   longitude VARCHAR(255),
-  PRIMARY KEY (StorageId)
+  FarmerId VARCHAR(255),
+  PRIMARY KEY (FarmerId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
+
 );
 
 CREATE TABLE Vehicles
