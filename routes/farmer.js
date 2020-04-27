@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../db");
+const axios = require('axios').default;
 
 router.use(express.json());
 
@@ -85,5 +86,31 @@ router.put("/cropstore", async (req, res) => {
     console.error(error.message);
   }
 });
+
+router.post('/storage', async (req,res)=>{
+  try {
+    const{farmerid,capacity,street,state,pincode,locality} = req.body;
+    let url = "https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=" + street.split(' ').join("%20") + ",%20" + locality.split(' ').join("%20") + ",%20" + state.split(' ').join("%20") + ",%20" + "India&format=json";
+      console.log(url);
+      const location = await axios.get(url)
+      .then( (res) =>{
+        //console.log(res.data[0].lat);
+        //console.log(res.data[0].lon);
+        return res.data[0];
+      }).catch( error => {
+        console.error(error.message);
+      });
+      const lat = location.lat;
+      const lon = location.lon;
+      const storage = await pool.query("INSERT INTO storage (farmerid,capacity,street,state,pincode,locality, latitude,longitude) values ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *;",[farmerid,capacity,street,state,pincode,locality,lat,lon])
+      console.log(storage);
+      res.json(storage.rows[0]);
+  } catch (error) {
+    console.error(error.message);
+    res.json(error.message);
+  }
+});
+
+
 
 module.exports = router;

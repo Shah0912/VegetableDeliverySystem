@@ -117,7 +117,7 @@ app.post("/reg", async (req, res) => {
     
     let url = "https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=" + street.split(' ').join("%20") + ",%20" + locality.split(' ').join("%20") + ",%20" + state.split(' ').join("%20") + ",%20" + "India&format=json";
     console.log(url);
-    const l = await axios.get("https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=Sane%20Guruji%20Marg,%20Tardeo,%20Mumbai,%20Maharashtra,%20India&format=json")
+    const l = await axios.get(url)
     .then( (res) =>{
       //console.log(res.data[0].lat);
       //console.log(res.data[0].lon);
