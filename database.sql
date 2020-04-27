@@ -30,6 +30,7 @@ CREATE TABLE Farmer
 (
   FarmerId VARCHAR(255) DEFAULT 'F' || nextval('farmer_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
+  email CITEXT UNIQUE,
   Date_Of_Birth DATE NOT NULL,
   Farmer_Rating VARCHAR(10) DEFAULT('0'),
   nor INT DEFAULT(0),
@@ -38,6 +39,8 @@ CREATE TABLE Farmer
   Locality VARCHAR(255) NOT NULL,
   PinCode VARCHAR(7) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
   PRIMARY KEY (FarmerId)
 );
 
@@ -58,30 +61,17 @@ CREATE TABLE Crop
 
 CREATE TABLE Storage
 (
-  StorageId INT NOT NULL,
   Capacity INT NOT NULL,
   State VARCHAR(255) NOT NULL,
   Street VARCHAR(255) NOT NULL,
   PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
-  PRIMARY KEY (StorageId)
-);
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
+  FarmerId VARCHAR(255),
+  PRIMARY KEY (FarmerId),
+  FOREIGN KEY (FarmerId) REFERENCES Farmer(FarmerId)
 
-CREATE TABLE Delivery_Person
-(
-  Delivery_Person_Rating VARCHAR(10) DEFAULT('0'),
-  nor INT DEFAULT(0),
-  DeliveryId VARCHAR(255) DEFAULT 'D' || nextval('delivery_person_id_seq') NOT NULL,
-  Name VARCHAR(255) NOT NULL,
-  Date_of_Birth DATE NOT NULL,
-  Street VARCHAR(255) NOT NULL,
-  State VARCHAR(255) NOT NULL,
-  PinCode VARCHAR(7) NOT NULL,
-  Locality VARCHAR(255) NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  vehicleid VARCHAR(255),
-  FOREIGN KEY (Vehicleid) REFERENCES Vehicles(VehicleId),
-  PRIMARY KEY (DeliveryId)
 );
 
 CREATE TABLE Vehicles
@@ -94,14 +84,28 @@ CREATE TABLE Vehicles
   PRIMARY KEY (VehicleId)
 );
 
-CREATE TABLE Orders
+CREATE TABLE Delivery_Person
 (
-  OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
-  Customerid VARCHAR(255),
-  Price INT NOT NULL,
-  PRIMARY KEY (OrderId),
-  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+  Delivery_Person_Rating VARCHAR(10) DEFAULT('0'),
+  nor INT DEFAULT(0),
+  DeliveryId VARCHAR(255) DEFAULT 'D' || nextval('delivery_person_id_seq') NOT NULL,
+  Name VARCHAR(255) NOT NULL,
+  email CITEXT UNIQUE,
+  Date_of_Birth DATE NOT NULL,
+  Street VARCHAR(255) NOT NULL,
+  State VARCHAR(255) NOT NULL,
+  PinCode VARCHAR(7) NOT NULL,
+  Locality VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  vehicleid VARCHAR(255),
+  FOREIGN KEY (Vehicleid) REFERENCES Vehicles(VehicleId),
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
+  PRIMARY KEY (DeliveryId)
 );
+
+
+
 
 CREATE TABLE Customer
 (
@@ -109,12 +113,15 @@ CREATE TABLE Customer
   nor INT DEFAULT(0),
   CustomerId VARCHAR(255) DEFAULT 'C' || nextval('customer_id_seq') NOT NULL,
   Name VARCHAR(255) NOT NULL,
+  email CITEXT UNIQUE,
   Date_of_Birth DATE NOT NULL,
   Street VARCHAR(255) NOT NULL,
   State VARCHAR(255) NOT NULL,
   PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
   PRIMARY KEY (CustomerId)
 );
 
@@ -157,6 +164,15 @@ CREATE TABLE Customer_Phone_Number
 
 
 
+CREATE TABLE Orders
+(
+  OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
+  Customerid VARCHAR(255),
+  Price INT NOT NULL,
+  status INT DEFAULT(0),
+  PRIMARY KEY (OrderId),
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+);
 
 
 
