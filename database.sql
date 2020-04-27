@@ -38,6 +38,8 @@ CREATE TABLE Farmer
   Locality VARCHAR(255) NOT NULL,
   PinCode VARCHAR(7) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
   PRIMARY KEY (FarmerId)
 );
 
@@ -64,6 +66,8 @@ CREATE TABLE Storage
   Street VARCHAR(255) NOT NULL,
   PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
   PRIMARY KEY (StorageId)
 );
 
@@ -99,6 +103,7 @@ CREATE TABLE Orders
   OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
   Customerid VARCHAR(255),
   Price INT NOT NULL,
+  status INT DEFAULT(0),
   PRIMARY KEY (OrderId),
   FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
 );
@@ -115,6 +120,8 @@ CREATE TABLE Customer
   PinCode VARCHAR(7) NOT NULL,
   Locality VARCHAR(255) NOT NULL,
   password VARCHAR(255) NOT NULL,
+  latitude VARCHAR(255),
+  longitude VARCHAR(255),
   PRIMARY KEY (CustomerId)
 );
 
