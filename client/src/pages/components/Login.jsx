@@ -2,7 +2,22 @@ import React, { useContext, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 /* import "./s.css"; */
 import link from "react-router-dom";
+import axios from "axios";
 import { UserContext } from "../context/UserContext";
+
+function stringToHash(string) {
+  var hash = 0;
+
+  if (string.length == 0) return hash;
+
+  for (let i = 0; i < string.length; i++) {
+    let char = string.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash;
+  }
+  console.log(hash);
+  return hash;
+}
 
 function Login() {
   const [edetails, setedetails] = useState("");
@@ -24,9 +39,9 @@ function Login() {
   const onSubmit = (e) => {
     e.preventDefault();
     const newDetails = {
-      id: Math.floor(Math.random() * 100000000),
-      edetails,
-      pdetails,
+      //id: Math.floor(Math.random() * 100000000),
+      email: edetails,
+      password: pdetails,
     };
 
     addDetails(newDetails);

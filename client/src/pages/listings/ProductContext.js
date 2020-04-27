@@ -1,10 +1,11 @@
 import React, { createContext, useReducer } from "react";
 import ProductReducer from "./ProductReducer";
 import CartReducer from "./CartReducer";
+import axios from "axios";
 export const ProductContext = createContext();
 
 export const ProductProvider = (props) => {
-  const products = [
+  /* const products = [
     {
       id: 1,
       name: "Potato",
@@ -101,11 +102,27 @@ export const ProductProvider = (props) => {
       image:
         "https://cdn.theatlantic.com/thumbor/TxEw_yjPER1uluJjP8qc0nNRHpw=/0x72:1000x635/720x405/media/img/mt/2015/05/shutterstock_247399801/original.jpg",
     },
-  ];
+  ]; */
+  const products = [];
   const [state, dispatch] = useReducer(ProductReducer, products);
 
+  //actions
+  async function getProducts() {
+    try {
+      const res = await axios.get("/customer");
+      dispatch({
+        type: "GET_PRODUCTS",
+        payload: res.data.rows,
+      });
+      state.map((s) => (s["amount"] = 0));
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
-    <ProductContext.Provider value={{ products: state }}>
+    <ProductContext.Provider value={{ products: state, getProducts }}>
       {props.children}
     </ProductContext.Provider>
   );
@@ -114,8 +131,8 @@ export const ProductProvider = (props) => {
 export const CartContext = createContext();
 
 export const CartProvider = (props) => {
-  const cartItems = [
-    {
+  /*const cartItems = [
+     {
       id: 1,
       name: "Potato",
       price: 50,
@@ -139,17 +156,61 @@ export const CartProvider = (props) => {
       image:
         "https://cdn1.sph.harvard.edu/wp-content/uploads/sites/30/2014/01/potatoes-411975_1280.jpg",
     },
-  ];
+  ];*/
+  const cartItems = [];
   const [state, dispatch] = useReducer(CartReducer, cartItems);
 
-  function addToCart(product) {
-    dispatch({
-      type: "ADD_TO_CART",
-      payload: product,
-    });
-  }
+  async function addToCart(product) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/customer/addtocart", product, config);
 
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: res.data,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function getCart() {
+    try {
+      const res = await axios.get("/customer/checkout?customerid=C101");
+      console.log(res.data);
+      dispatch({
+        type: "GET_CART",
+        payload: res.data,
+      });
+      //state.map((s) => (s["amount"] = 0));
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  async function addOrder(order) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/customer/placeorder", order, config);
+
+      /* dispatch({
+        type: "ADD_TO_CART",
+        payload: res.data,
+      }); */
+    } catch (err) {
+      console.log(err);
+    }
+  }
   function deleteFromCart(product) {
+    product["customerid"] = "C101";
     dispatch({
       type: "DELETE_FROM_CART",
       payload: product,
@@ -158,7 +219,7 @@ export const CartProvider = (props) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems: state, addToCart, deleteFromCart }}
+      value={{ cartItems: state, addToCart, deleteFromCart, getCart, addOrder }}
     >
       {props.children}
     </CartContext.Provider>

@@ -4,10 +4,7 @@ import axios from "axios";
 
 // Initial state
 const initialState = {
-  details: [
-    { id: 1, email: "asd2@gmail.com", password: "123456" },
-    { id: 2, email: "asd3@gmail.com", password: "1323456" },
-  ],
+  details: [],
 };
 const registerdetails = {
   rdetails: [
@@ -77,7 +74,23 @@ export const UserProvider = ({ children }) => {
   const [stateSt, dispatches] = useReducer(UserReducer, storagedetails);
   const [stateRe, dispatchRe] = useReducer(UserReducer, review);
   // Actions
-  function addDetails(details) {
+  async function addDetails(details) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/auth", details, config);
+      console.log(res.data);
+      details["url"] = res.data;
+      dispatch({
+        type: "ADD_DETAILS",
+        payload: details,
+      });
+    } catch (err) {
+      console.log(err);
+    }
     dispatch({
       type: "ADD_DETAILS",
       payload: details,

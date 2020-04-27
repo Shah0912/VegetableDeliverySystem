@@ -14,8 +14,10 @@ import {
 
 const ProductCard = ({ product }) => {
   const [show, setShow] = useState(false);
+
   const { addToCart } = useContext(CartContext);
   const onSubmit = (e) => {
+    product["customerid"] = "C101";
     e.preventDefault();
     addToCart(product);
     setShow(true);
@@ -70,7 +72,7 @@ const ProductCard = ({ product }) => {
                             type="number"
                             placeholder="Quantity"
                             onChange={(e) => {
-                              product.quantity = e.target.value;
+                              product.amount = e.target.value;
                             }}
                           />
                         </Col>
