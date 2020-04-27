@@ -94,16 +94,25 @@ router.post('/placeorder', async (req,res) => {
         const cart = await pool.query("SELECT EXISTS(SELECT 1 FROM temporder WHERE customerid = $1);",[customerid]);
         if(cart.rows[0].exists) {
             const temporder = await pool.query("SELECT * FROM temporder where customerid = $1;",[customerid]);
-            console.log(temporder.rows);
+            //console.log(temporder.rows);
             let price = 0;
             for(i in temporder.rows){
                 const cost = await pool.query("SELECT rate from crop where cropid = $1",[temporder.rows[i].cropid]);
                 console.log(cost.rows[0]);
                 price += parseInt(temporder.rows[i].amount)*parseInt(cost.rows[0].rate);
             }
-            console.log(price);
+            //console.log(price);
             const order = await pool.query("INSERT INTO orders (price,customerid) values ($1,$2) RETURNING *;",[price,customerid]);
-            console.log(order.rows[0]);
+            //console.log(order.rows[0]);
+            for(i in temporder.rows) {
+                console.log(temporder.rows[i]);
+                const ordered = await pool.query(
+                    "INSERT INTO ordered (farmerid, cropid, orderid, amount) values($1,$2,$3,$4) RETURNING *",
+                    [temporder.rows[i].farmerid,temporder.rows[i].cropid,order.rows[0].orderid,temporder.rows[i].amount]
+                );
+                console.log(ordered.rows);
+            }
+            
             delcart = await pool.query("DELETE FROM temporder WHERE customerid = $1 RETURNING *",[customerid]);
             res.json(order.rows[0]);
         }
