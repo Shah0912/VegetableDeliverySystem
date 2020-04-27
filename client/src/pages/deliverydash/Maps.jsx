@@ -1,11 +1,11 @@
 import React from "react";
 import Map from "./Map";
 //import Map1 from "./Map1";
-import FarmerNav from "../../navbars/FarmerNav";
+import DeliveryNav from "../navbars/DeliveryNav";
 const Page = () => {
   return (
     <div>
-      <FarmerNav />
+      <DeliveryNav />
       <Map />
     </div>
   );

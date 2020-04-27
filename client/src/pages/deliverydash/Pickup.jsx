@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
-import { Modal, ListGroup, Button } from "react-bootstrap";
+import React, { useContext, useState, useEffect } from "react";
+import { Modal, ListGroup, Button, Jumbotron } from "react-bootstrap";
 import { PickupContext, DeliveryContext } from "./DeliveryContext";
-import Map from "../farmerdash/AllCrops/Map";
+import Maps from "./Maps";
 
 export default function Pickup({ pickup }) {
   const { isPickedup } = useContext(PickupContext);
   const { addDelivery } = useContext(DeliveryContext);
   const [lgShow, setLgShow] = useState(false);
+
   const onSubmit = (e) => {
     e.preventDefault();
     isPickedup(pickup);
@@ -45,8 +46,22 @@ export default function Pickup({ pickup }) {
             </ListGroup.Item>
             <ListGroup.Item>Farmer Name: {pickup.farmer_name}</ListGroup.Item>
             <ListGroup.Item>Pickup Address: {pickup.pickup_add}</ListGroup.Item>
-            <ListGroup.Item>Map Will be Shown</ListGroup.Item>
           </ListGroup>
+          <Button
+            disabled={pickup.isPickedup}
+            variant="success"
+            size="lg"
+            //onClick={onSubmit}
+            href="delivery/maps"
+            style={{
+              width: "50%",
+              margin: "auto",
+              marginTop: "15px",
+              paddingRight: "2px",
+            }}
+          >
+            View Map
+          </Button>
           <Button
             disabled={pickup.isPickedup}
             variant="success"

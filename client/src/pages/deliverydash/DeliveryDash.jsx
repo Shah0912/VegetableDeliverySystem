@@ -4,9 +4,10 @@ import DeliveryList from "./DeliveryList";
 import PickupList from "./PickupList";
 import DeliveryNav from "../navbars/DeliveryNav";
 import { DeliveryProvider, PickupProvider } from "./DeliveryContext";
+import Map from "./Map";
 
 import "./DeliveryDash.css";
-import { CardDeck, Container } from "react-bootstrap";
+import { CardDeck, Container, Card } from "react-bootstrap";
 
 export const DeliveryDash = () => {
   return (

@@ -16,6 +16,7 @@ import Storage from "./pages/Storage";
 import Review from "./pages/Feedback";
 import VehicleDetails from "./pages/deliverydash/VehicleDetails";
 import Page from "./pages/farmerdash/AllCrops/Page";
+import Maps from "./pages/deliverydash/Maps";
 function App() {
   return (
     <Router>
@@ -35,6 +36,7 @@ function App() {
           <Route exact path="/checkout" component={Checkout} />
         </CartProvider>
         <Route exact path="/delivery" component={DeliveryDash} />
+        <Route exact path="/delivery/map" component={Maps} />
         <Route exact path="/farmer" component={FarmerDash} />
       </React.Fragment>
     </Router>
