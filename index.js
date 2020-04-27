@@ -4,6 +4,8 @@ const pool = require("./db");
 const randomstring = require("randomstring");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
+const https = require('https');
+const axios = require('axios').default;
 const saltRounds = 10;
 let length = 20;
 
@@ -29,6 +31,40 @@ function randomGen() {
     charset: "0123456789",
   });
 }
+
+/* var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=Empire%20State%20Building&format=json",
+  "method": "GET"
+} */
+
+/* axios.get("https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=Sane%20Guruji%20Marg,%20Tardeo,%20Mumbai,%20Maharashtra,%20India&format=json")
+.then( (res) =>{
+  console.log(res.data[0]);
+}).catch( error => {
+  console.error(error.message);
+});
+ */
+/* const req = https.get(settings, (res) => {
+  try {
+    console.log(res);
+  } catch (error) {
+    console.error(error.message);
+  }
+}); */
+
+/* req.on('error', (e) => {
+  console.error(`problem with request: ${e.message}`);
+}); */
+
+
+
+/* $.ajax(settings).done(function (response) {
+  console.log(response);
+}); */
+
+
 
 //Add this function to login and register page too
 function stringToHash(string) {
@@ -74,29 +110,47 @@ app.post("/reg", async (req, res) => {
     const locality = req.body.Locality;
     const pin = req.body.Pincode;
     let p = req.body.Password;
+    const email = req.body.email;
     let password = p.slice(0, p.length - 20);
     const h = bcrypt.hashSync(password, saltRounds);
-    //console.log('THis is ',h);
+    //var lat,lon;
+    
+    let url = "https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=" + street.split(' ').join("%20") + ",%20" + locality.split(' ').join("%20") + ",%20" + state.split(' ').join("%20") + ",%20" + "India&format=json";
+    console.log(url);
+    const l = await axios.get("https://us1.locationiq.com/v1/search.php?key=b63d71d9d444f7&q=Sane%20Guruji%20Marg,%20Tardeo,%20Mumbai,%20Maharashtra,%20India&format=json")
+    .then( (res) =>{
+      //console.log(res.data[0].lat);
+      //console.log(res.data[0].lon);
+      return res.data[0];
+    }).catch( error => {
+      console.error(error.message);
+    });
+    console.log('THis is ',h);
+    //console.log(lat);
+    console.log(l);
+    const lat = l.lat;
+    const lon = l.lon;
     let newEntry;
     if (req.body.type == "F")
       newEntry = await pool.query(
-        "INSERT INTO farmer (name,date_of_birth,farmer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7)  RETURNING *;",
-        [name, dob, street, state, locality, pin, h]
+        "INSERT INTO farmer (name,date_of_birth,farmer_rating,nor,street,state,locality,pincode,password,latitude,longitude,email) values ($1,$2,0,0,$3,$4,$5,$6,$7,$8,$9,$10)  RETURNING *;",
+        [name, dob, street, state, locality, pin, h,lat,lon,email]
       );
     else if (req.body.type == "C")
       newEntry = await pool.query(
-        "INSERT INTO customer (name,date_of_birth,customer_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7) RETURNING *;",
-        [name, dob, street, state, locality, pin, h]
+        "INSERT INTO customer (name,date_of_birth,customer_rating,nor,street,state,locality,pincode,password,latitude,longitude,email) values ($1,$2,0,0,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;",
+        [name, dob, street, state, locality, pin, h,lat,lon,email]
       );
     else
       newEntry = await pool.query(
-        "INSERT INTO delivery_person (name,date_of_birth,delivery_person_rating,nor,street,state,locality,pincode,password) values ($1,$2,0,0,$3,$4,$5,$6,$7) RETURNING *;",
-        [name, dob, street, state, locality, pin, h]
+        "INSERT INTO delivery_person (name,date_of_birth,delivery_person_rating,nor,street,state,locality,pincode,password,latitude,longitude,email) values ($1,$2,0,0,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *;",
+        [name, dob, street, state, locality, pin, h,lat,lon,email]
       );
 
     res.json(newEntry.rows);
   } catch (error) {
     console.error(error.message);
+    res.json(error.message);
   }
 });
 

@@ -72,6 +72,16 @@ CREATE TABLE Storage
   PRIMARY KEY (StorageId)
 );
 
+CREATE TABLE Vehicles
+(
+  Vehicleid VARCHAR(255) DEFAULT 'V' || nextval('vehicle_id')  NOT NULL,
+  VehicleNo VARCHAR(255) NOT NULL,
+  Volume_Capacity INT NOT NULL,
+  Licence_Number VARCHAR(255) NOT NULL,
+  Type VARCHAR(20) NOT NULL,
+  PRIMARY KEY (VehicleId)
+);
+
 CREATE TABLE Delivery_Person
 (
   Delivery_Person_Rating VARCHAR(10) DEFAULT('0'),
@@ -92,15 +102,7 @@ CREATE TABLE Delivery_Person
   PRIMARY KEY (DeliveryId)
 );
 
-CREATE TABLE Vehicles
-(
-  Vehicleid VARCHAR(255) DEFAULT 'V' || nextval('vehicle_id')  NOT NULL,
-  VehicleNo VARCHAR(255) NOT NULL,
-  Volume_Capacity INT NOT NULL,
-  Licence_Number VARCHAR(255) NOT NULL,
-  Type VARCHAR(20) NOT NULL,
-  PRIMARY KEY (VehicleId)
-);
+
 
 
 CREATE TABLE Customer
