@@ -58,7 +58,21 @@ router.post('/vehicle', async (req,res)=>{
 
 //Route for Pickup
 
-
+router.get('/pickup', async (req,res)=>{
+    try {
+        const {deliveryid} = req.body;
+        const orders = await pool.query("SELECT * from orders WHERE deliveryid = $1",[deliveryid]);
+        console.log(orders.rows);
+        var crops = {};
+        for(i in orders.rows) {
+            console.log("hello");
+            const ordered = await pool.query("SELECT * from ordered where orderid = $1", [orders.rows[i].orderid]);
+            console.log(ordered.rows);
+        }
+    } catch (error) {
+        console.error(error.message);
+    }
+});
 
 
 

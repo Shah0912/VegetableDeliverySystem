@@ -98,22 +98,28 @@ router.post('/placeorder', async (req,res) => {
             let price = 0;
             for(i in temporder.rows){
                 const cost = await pool.query("SELECT rate from crop where cropid = $1",[temporder.rows[i].cropid]);
-                console.log(cost.rows[0]);
+                //console.log(cost.rows[0]);
                 price += parseInt(temporder.rows[i].amount)*parseInt(cost.rows[0].rate);
             }
+            //DELIVERY PERSON 
+            const deliveryPerson = await pool.query("SELECT * from delivery_person Limit 1;");
+            console.log(deliveryPerson.rows[0]);
+
             //console.log(price);
-            const order = await pool.query("INSERT INTO orders (price,customerid) values ($1,$2) RETURNING *;",[price,customerid]);
+            const order = await pool.query("INSERT INTO orders (price,customerid,deliveryid) values ($1,$2,$3) RETURNING *;",[price,customerid,deliveryPerson.rows[0].deliveryid]);
             //console.log(order.rows[0]);
             for(i in temporder.rows) {
-                console.log(temporder.rows[i]);
+                //console.log(temporder.rows[i]);
                 const ordered = await pool.query(
                     "INSERT INTO ordered (farmerid, cropid, orderid, amount) values($1,$2,$3,$4) RETURNING *",
                     [temporder.rows[i].farmerid,temporder.rows[i].cropid,order.rows[0].orderid,temporder.rows[i].amount]
                 );
-                console.log(ordered.rows);
+                //console.log(ordered.rows);
             }
             
             delcart = await pool.query("DELETE FROM temporder WHERE customerid = $1 RETURNING *",[customerid]);
+            
+
             res.json(order.rows[0]);
         }
         else {

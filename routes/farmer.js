@@ -134,6 +134,16 @@ router.get('/orders', async (req,res)=>{
     
     const {farmerid} = req.body;
     const orders = await pool.query("SELECT * from ordered WHERE farmerid = $1",[farmerid]);
+    for( i in orders.rows) {
+      const deliveryid = await pool.query("SELECT deliveryid FROM orders WHERE orderid = $1 ;",[orders.rows[i].orderid]);
+      const deliveryPerson = await pool.query("SELECT * from delivery_person WHERE deliveryid = $1;",[deliveryid.rows[0].deliveryid]);
+      //console.log(deliveryPerson.rows);
+      //console.log(deliveryPerson.rows[0].deliveryid);
+      // console.log(deliveryPerson.deliveryid);
+      orders.rows[i].deliveryid = deliveryPerson.rows[0].deliveryid;
+      orders.rows[i].deliveryPersonName = deliveryPerson.rows[0].name;
+    }
+
     console.log(orders.rows);
     res.json(orders.rows);
 
