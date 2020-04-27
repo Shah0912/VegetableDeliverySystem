@@ -61,18 +61,37 @@ router.post('/vehicle', async (req,res)=>{
 router.get('/pickup', async (req,res)=>{
     try {
         const {deliveryid} = req.body;
-        const orders = await pool.query("SELECT * from orders WHERE deliveryid = $1",[deliveryid]);
+        const orders = await pool.query("SELECT * from orders WHERE deliveryid = $1 ",[deliveryid]);
         console.log(orders.rows);
-        var crops = {};
+        pickup = [];
         for(i in orders.rows) {
-            console.log("hello");
-            const ordered = await pool.query("SELECT * from ordered where orderid = $1", [orders.rows[i].orderid]);
-            console.log(ordered.rows);
+            // console.log("hello");
+            const ordered = await pool.query("SELECT * from ordered where orderid = $1 ", [orders.rows[i].orderid]);
+            // console.log(ordered.rows);
+            pickup.push(ordered.rows);
         }
+        // console.log(pickup);
+        for(i in pickup) {
+            for(j in pickup[i]) {
+                // console.log(pickup[i][j]);
+                const farmername = await pool.query("SELECT name from farmer WHERE farmerid = $1;",[pickup[i][j].farmerid]);
+                const cropname = await pool.query("SELECT name from crop WHERE cropid = $1 AND farmerid = $2;",[pickup[i][j].cropid,pickup[i][j].farmerid]);
+                const location = await pool.query("SELECT latitude, longitude from storage WHERE farmerid = $1",[pickup[i][j].farmerid]);
+                const address = location.rows[0].latitude.toString() + "," + location.rows[0].longitude.toString();
+                pickup[i][j].farmername = farmername.rows[0].name;
+                pickup[i][j].cropname = cropname.rows[0].name;
+                pickup[i][j].address = address;
+            }
+        }
+        console.log(pickup);
+        res.json(pickup);
     } catch (error) {
         console.error(error.message);
     }
 });
+
+
+
 
 
 
