@@ -61,7 +61,7 @@ router.post('/vehicle', async (req,res)=>{
 router.get('/pickup', async (req,res)=>{
     try {
         const {deliveryid} = req.body;
-        const orders = await pool.query("SELECT * from orders WHERE deliveryid = $1 AND status = 0 ",[deliveryid]);
+        const orders = await pool.query("SELECT * from orders WHERE deliveryid = $1 AND status = 1 ",[deliveryid]);
         console.log(orders.rows);
         pickup = [];
         for(i in orders.rows) {
@@ -94,7 +94,7 @@ router.put('/pickupdone', async (req,res)=>{
     try {
         
         const {orderid} = req.body;
-        const update = await pool.query("UPDATE orders SET status = 1 WHERE orderid = $1 RETURNING *;",[orderid]);
+        const update = await pool.query("UPDATE orders SET status = 2 WHERE orderid = $1 RETURNING *;",[orderid]);
         console.log(update.rows);
         res.json(update.rows);
     } catch (error) {
@@ -108,7 +108,7 @@ router.get('/deliverydetails', async (req,res)=>{
     try {
         
         const {deliveryid} = req.body;
-        const deliveries = await pool.query("SELECT * from orders WHERE status = 1 AND deliveryid = $1",[deliveryid]);
+        const deliveries = await pool.query("SELECT * from orders WHERE status = 2 AND deliveryid = $1",[deliveryid]);
         console.log(deliveries.rows);
         for(i in deliveries.rows) {
             const location = await pool.query("SELECT latitude, longitude FROM customer WHERE customerid = $1",[deliveries.rows[i].customerid]);
