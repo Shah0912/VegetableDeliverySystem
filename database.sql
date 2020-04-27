@@ -4,6 +4,8 @@ CREATE USER dbadmin WITH PASSWORD 'admin';
 
 CREATE DATABASE deliverysystem;
 
+CREATE EXTENSION citext;
+
 GRANT ALL PRIVILEGES ON DATABASE deliverysystem TO dbadmin;
 
 
@@ -168,10 +170,12 @@ CREATE TABLE Orders
 (
   OrderId VARCHAR(255) DEFAULT 'O' || nextval('order_id_seq') NOT NULL,
   Customerid VARCHAR(255),
+  DeliveryId VARCHAR(255),
   Price INT NOT NULL,
   status INT DEFAULT(0),
   PRIMARY KEY (OrderId),
-  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId)
+  FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId),
+  FOREIGN KEY (DeliveryId) REFERENCES Delivery_Person(DeliveryId)
 );
 
 
