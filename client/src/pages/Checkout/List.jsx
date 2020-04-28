@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import { CartContext } from "../listings/ProductContext";
 
-const List = () => {
+const List = ({ id }) => {
   const { cartItems, deleteFromCart, getCart } = useContext(CartContext);
   useEffect(() => {
-    getCart();
+    getCart(id);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const onSubmit = (cartItem) => {

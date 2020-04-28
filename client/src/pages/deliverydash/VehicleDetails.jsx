@@ -5,7 +5,7 @@ import { Card, Container } from "react-bootstrap";
 import link from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-function VehicleDetails() {
+function VehicleDetails({ id }) {
   const [vno, setvno] = useState("");
   const [cap, setcap] = useState(0);
   const [lis, setlis] = useState("");
@@ -30,7 +30,7 @@ function VehicleDetails() {
       capacity: cap,
       licence_no: lis,
       type: vtype,
-      deliveryid: "D102",
+      deliveryid: id,
     };
 
     addVdetails(newvDetails);

@@ -22,7 +22,7 @@ function stringToHash(string) {
 function Login() {
   const [edetails, setedetails] = useState("");
   const [pdetails, setpdetails] = useState("");
-  const { addDetails } = useContext(UserContext);
+  const { addDetails, details } = useContext(UserContext);
   //console.log(addDetails)
 
   // console.log(setldetails)
@@ -47,6 +47,9 @@ function Login() {
     addDetails(newDetails);
     console.log("email:", edetails);
     console.log("password:", pdetails);
+    //if (details.value) console.log(details.value.url);
+    if (details.value)
+      window.location.replace(details.value.url + "?id=" + details.value.id);
   };
   const imgStyle = {
     width: "400px",

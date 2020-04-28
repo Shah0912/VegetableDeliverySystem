@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { CultivationContext } from "./FarmerContext";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 
-const AddCrop = () => {
+const AddCrop = ({ id }) => {
   const [lgShow, setLgShow] = useState(false);
   const [name, setName] = useState("");
   const [rate, setRate] = useState(0);
@@ -11,11 +11,10 @@ const AddCrop = () => {
   const [farmage, setFarm_age] = useState(0);
   const [farmsize, setFarm_size] = useState(0);
   const { addCrop } = useContext(CultivationContext);
-
   const onSubmit = (e) => {
     e.preventDefault();
     const newCrop = {
-      farmerid: "F104", //Math.floor(Math.random() * 100000000),
+      farmerid: id, //F104 //Math.floor(Math.random() * 100000000),
       name,
       rate,
       type,

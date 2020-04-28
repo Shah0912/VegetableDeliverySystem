@@ -82,12 +82,13 @@ export const UserProvider = ({ children }) => {
     };
     try {
       const res = await axios.post("/auth", details, config);
-      console.log(res.data);
-      details["url"] = res.data;
+      //console.log(res.data);
+      details["value"] = res.data;
       dispatch({
         type: "ADD_DETAILS",
         payload: details,
       });
+      //console.log(details);
     } catch (err) {
       console.log(err);
     }
@@ -158,7 +159,7 @@ export const UserProvider = ({ children }) => {
       value={{
         Vdetails: statev.vdetails,
         rdetails: states.rdetails,
-        details: state.details,
+        details: state,
         redetails: stateRe.redetails,
         sdetails: stateSt.sdetails,
         addDetails,

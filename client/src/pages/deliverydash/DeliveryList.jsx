@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { Card, Container } from "react-bootstrap";
 import Delivery from "./Delivery";
 import { DeliveryContext } from "./DeliveryContext";
-const Deliver = () => {
+const Deliver = ({ id }) => {
   const { deliveries, getDeliveries } = useContext(DeliveryContext);
   useEffect(() => {
-    getDeliveries();
+    getDeliveries(id);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

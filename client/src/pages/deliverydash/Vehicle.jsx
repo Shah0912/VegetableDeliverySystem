@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { VehicleContext } from "./DeliveryContext";
 
-const Vehicle = () => {
+const Vehicle = ({ id }) => {
   const { vehicle, getDetails } = useContext(VehicleContext);
   useEffect(() => {
-    getDetails();
+    getDetails(id);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

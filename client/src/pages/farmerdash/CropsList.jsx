@@ -3,10 +3,10 @@ import { Card, Container } from "react-bootstrap";
 import AddCrop from "./AddCrop";
 import { CultivationContext } from "./FarmerContext";
 import Crop from "./Crop";
-const CropsList = () => {
+const CropsList = ({ id }) => {
   const { crops, getCrops } = useContext(CultivationContext);
   useEffect(() => {
-    getCrops();
+    getCrops(id);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -27,7 +27,7 @@ const CropsList = () => {
               <Crop key={crop.id} crop={crop} />
             ))}
           </ul>
-          <AddCrop />
+          <AddCrop id={id} />
         </Card.Body>
       </Card>
     </Container>

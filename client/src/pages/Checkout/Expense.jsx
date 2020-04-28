@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Button, ListGroup } from "react-bootstrap";
 import { CartContext } from "../listings/ProductContext";
 
-const Expense = () => {
+const Expense = ({ id }) => {
   const { cartItems, addOrder } = useContext(CartContext);
   let sum = 0;
   cartItems.map((cartItem) => (sum += cartItem.amount));
@@ -10,7 +10,7 @@ const Expense = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const newOrder = {
-      customerid: "C101",
+      customerid: id,
     };
     addOrder(newOrder);
   };

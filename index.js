@@ -206,7 +206,10 @@ app.post("/auth", async (req, res) => {
       console.log(ans);
       if (ans) {
         //Send to the dashboard
-        res.send("/farmer");
+        res.json({
+          url: "/farmer",
+          id: farmerid.rows[0].farmerid,
+        });
         console.log("congratulations");
       }
       //ERROR
@@ -229,7 +232,11 @@ app.post("/auth", async (req, res) => {
       }
       if (ans) {
         //Send to the dashboard
-        res.send("/listing");
+        res.json({
+          url: "/listing",
+          id: customerid.rows[0].customerid,
+        });
+        //res.send("/listing");
         console.log("congratulations");
       }
       //ERROR
@@ -255,7 +262,11 @@ app.post("/auth", async (req, res) => {
       console.log(ans);
       if (ans) {
         //Send to the dashboard
-        res.send("/delivery");
+        //res.send("/delivery");
+        res.json({
+          url: "/delivery",
+          id: deliveryid.rows[0].deliveryid,
+        });
         console.log("congratulations");
       }
       //ERROR

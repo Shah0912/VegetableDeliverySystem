@@ -13,9 +13,9 @@ export const VehicleProvider = (props) => {
   const [state, dispatch] = useReducer(VehicleReducer, vehicle);
 
   //actions
-  async function getDetails() {
+  async function getDetails(id) {
     try {
-      const res = await axios.get("/delivery/vehicledetails?deliveryid=D102");
+      const res = await axios.get("/delivery/vehicledetails?deliveryid=" + id);
       //console.log(res.data);
       dispatch({
         type: "GET_DETAILS",
@@ -88,12 +88,11 @@ export const PickupProvider = (props) => {
     }, 
   ];*/
   const pickups = [];
-
+  var location = "";
   const [state, dispatch] = useReducer(PickupReducer, pickups);
-
-  async function getPickup() {
+  async function getPickup(id) {
     try {
-      const res = await axios.get("/delivery/pickup?deliveryid=D102");
+      const res = await axios.get("/delivery/pickup?deliveryid=" + id);
       //console.log(res);
       dispatch({
         type: "GET_PICKUP",
@@ -112,6 +111,13 @@ export const PickupProvider = (props) => {
       type: "ADD_PICKUP",
       payload: pickup,
     });
+  }
+  function map(l) {
+    location = l;
+    console.log(location);
+  }
+  function getmap() {
+    location = location;
   }
   async function isPickedup(pickup) {
     const config = {
@@ -143,6 +149,9 @@ export const PickupProvider = (props) => {
         addPickup,
         isPickedup,
         getPickup,
+        location,
+        map,
+        getmap,
       }}
     >
       {props.children}
@@ -155,9 +164,9 @@ export const DeliveryProvider = (props) => {
 
   const [state, dispatch] = useReducer(DeliveryReducer, deliveries);
 
-  async function getDeliveries() {
+  async function getDeliveries(id) {
     try {
-      const res = await axios.get("/delivery/deliverydetails?deliveryid=D102");
+      const res = await axios.get("/delivery/deliverydetails?deliveryid=" + id);
       //console.log(res);
       dispatch({
         type: "GET_DELIVERIES",

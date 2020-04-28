@@ -102,9 +102,9 @@ router.get("/pickup", async (req, res) => {
           [pickup[i][j].farmerid]
         );
         const address =
-          location.rows[0].latitude.toString() +
+          location.rows[0].longitude.toString() +
           "," +
-          location.rows[0].longitude.toString();
+          location.rows[0].latitude.toString();
         pickup[i][j].farmername = farmername.rows[0].name;
         pickup[i][j].cropname = cropname.rows[0].name;
         pickup[i][j].address = address;

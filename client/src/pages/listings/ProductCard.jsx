@@ -12,12 +12,12 @@ import {
   Toast,
 } from "react-bootstrap";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, id }) => {
   const [show, setShow] = useState(false);
 
   const { addToCart } = useContext(CartContext);
   const onSubmit = (e) => {
-    product["customerid"] = "C101";
+    product["customerid"] = id;
     e.preventDefault();
     addToCart(product);
     setShow(true);

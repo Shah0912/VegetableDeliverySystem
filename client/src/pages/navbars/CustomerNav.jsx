@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../listings/ProductContext";
 import { Navbar, Nav, Badge, NavDropdown } from "react-bootstrap";
-const CustomerNav = () => {
+const CustomerNav = ({ id }) => {
   const { cartItems } = useContext(CartContext);
   return (
     <React.Fragment>
@@ -15,7 +15,7 @@ const CustomerNav = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/checkout">
+            <Nav.Link href={"/checkout?id=" + id}>
               MyCart <Badge variant="dark">{cartItems.length}</Badge>
             </Nav.Link>
           </Nav>

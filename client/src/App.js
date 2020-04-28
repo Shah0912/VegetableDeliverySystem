@@ -27,17 +27,18 @@ function App() {
           <Route exact path="/vdetails" component={VehicleDetails} />
           <Route exact path="/storage" component={Storage} />
           <Route exact path="/feedback" component={Review} />
+
+          <Route exact path="/pages" component={Page} />
+          <CartProvider>
+            <ProductProvider>
+              <Route exact path="/listing" component={Listing} />
+            </ProductProvider>
+            <Route exact path="/checkout" component={Checkout} />
+          </CartProvider>
+          <Route exact path="/delivery" component={DeliveryDash} />
+          <Route exact path="/delivery/maps" component={Maps} />
+          <Route exact path="/farmer" component={FarmerDash} />
         </UserProvider>
-        <Route exact path="/pages" component={Page} />
-        <CartProvider>
-          <ProductProvider>
-            <Route exact path="/listing" component={Listing} />
-          </ProductProvider>
-          <Route exact path="/checkout" component={Checkout} />
-        </CartProvider>
-        <Route exact path="/delivery" component={DeliveryDash} />
-        <Route exact path="/delivery/maps" component={Maps} />
-        <Route exact path="/farmer" component={FarmerDash} />
       </React.Fragment>
     </Router>
   );

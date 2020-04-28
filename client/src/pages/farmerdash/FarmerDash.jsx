@@ -11,27 +11,29 @@ import {
 } from "./FarmerContext";
 
 import { Container, Row, Col } from "react-bootstrap";
+import querystring from "query-string";
 
-export const FarmerDash = () => {
+export const FarmerDash = (props) => {
+  const id = querystring.parse(props.location.search).id;
   return (
     <React.Fragment>
-      <FarmerNav />
+      <FarmerNav id={id} />
       <Container className="mt-5">
         <Row>
           <StorageProvider>
             <CultivationProvider>
               <Col>
-                <CropsList />
+                <CropsList id={id} />
               </Col>
             </CultivationProvider>
 
             <Col>
-              <StorageList />
+              <StorageList id={id} />
             </Col>
           </StorageProvider>
           <OrderProvider>
             <Col>
-              <OrderList />
+              <OrderList id={id} />
             </Col>
           </OrderProvider>
         </Row>

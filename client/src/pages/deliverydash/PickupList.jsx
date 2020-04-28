@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { Card, Container } from "react-bootstrap";
 import Pickup from "./Pickup";
 import { PickupContext } from "./DeliveryContext";
-const Deliver = () => {
+const Deliver = ({ id }) => {
   const { pickups, getPickup } = useContext(PickupContext);
   useEffect(() => {
-    getPickup();
+    getPickup(id);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

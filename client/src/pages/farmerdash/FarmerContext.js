@@ -13,9 +13,9 @@ export const CultivationProvider = (props) => {
   const [state, dispatch] = useReducer(CultivationReducer, crops);
 
   //Actions
-  async function getCrops() {
+  async function getCrops(id) {
     try {
-      const res = await axios.get("/farmer?farmerid=F104");
+      const res = await axios.get("/farmer?farmerid=" + id);
       dispatch({
         type: "GET_CROPS",
         payload: res.data.cultCrops,
@@ -89,9 +89,9 @@ export const StorageProvider = (props) => {
   const crops = [];
 
   const [state, dispatch] = useReducer(StorageReducer, crops);
-  async function getCrops() {
+  async function getCrops(id) {
     try {
-      const res = await axios.get("/farmer?farmerid=F104");
+      const res = await axios.get("/farmer?farmerid=" + id);
       dispatch({
         type: "GET_CROPS",
         payload: res.data.compCrops,
@@ -132,9 +132,9 @@ export const OrderProvider = (props) => {
   const orders = [];
   const [state, dispatch] = useReducer(OrderReducer, orders);
   //actions
-  async function getOrders() {
+  async function getOrders(id) {
     try {
-      const res = await axios.get("/farmer/orders?farmerid=F104");
+      const res = await axios.get("/farmer/orders?farmerid=" + id);
       //console.log(res);
       dispatch({
         type: "GET_ORDERS",

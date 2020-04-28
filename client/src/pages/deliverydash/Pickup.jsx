@@ -2,9 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import { Modal, ListGroup, Button, Jumbotron } from "react-bootstrap";
 import { PickupContext, DeliveryContext } from "./DeliveryContext";
 import Maps from "./Maps";
+import { Link } from "react-router-dom";
 
 export default function Pickup({ pickup }) {
-  const { isPickedup } = useContext(PickupContext);
+  const { isPickedup, map } = useContext(PickupContext);
+  // const [location, setLocation] = useContext(PickupContext);
   const { addDelivery } = useContext(DeliveryContext);
   const [lgShow, setLgShow] = useState(false);
 
@@ -17,6 +19,7 @@ export default function Pickup({ pickup }) {
   };
   return (
     <div>
+      {map(pickup.address)}
       <li
         className="li-item"
         onClick={() => setLgShow(true)}
@@ -44,12 +47,13 @@ export default function Pickup({ pickup }) {
             </ListGroup.Item>
             <ListGroup.Item>Farmer Name: {pickup.farmername}</ListGroup.Item>
           </ListGroup>
+          {/* <Link to="/delivery/maps?address="+pickup.address> */}
           <Button
             disabled={pickup.isPickedup}
             variant="success"
             size="lg"
+            href={"/delivery/maps?address=" + pickup.address}
             //onClick={onSubmit}
-            href="delivery/maps"
             style={{
               width: "50%",
               margin: "auto",
@@ -59,6 +63,7 @@ export default function Pickup({ pickup }) {
           >
             View Map
           </Button>
+          {/* </Link> */}
           <Button
             disabled={pickup.isPickedup}
             variant="success"

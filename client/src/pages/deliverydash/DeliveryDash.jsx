@@ -9,23 +9,25 @@ import {
   VehicleProvider,
 } from "./DeliveryContext";
 import Map from "./Map";
+import querystring from "query-string";
 
 import "./DeliveryDash.css";
 import { CardDeck, Container, Card } from "react-bootstrap";
 
-export const DeliveryDash = () => {
+export const DeliveryDash = (props) => {
+  const id = querystring.parse(props.location.search).id;
   return (
     <React.Fragment>
-      <DeliveryNav />
+      <DeliveryNav id={id} />
       <Container className="mt-5">
         <CardDeck>
           <VehicleProvider>
-            <Vehicle />
+            <Vehicle id={id} />
           </VehicleProvider>
           <DeliveryProvider>
-            <DeliveryList />
+            <DeliveryList id={id} />
             <PickupProvider>
-              <PickupList />
+              <PickupList id={id} />
             </PickupProvider>
           </DeliveryProvider>
         </CardDeck>

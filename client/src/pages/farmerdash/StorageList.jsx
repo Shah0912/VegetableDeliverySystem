@@ -2,10 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { Card, Container } from "react-bootstrap";
 import { StorageContext } from "./FarmerContext";
 import StorageCrop from "./StorageCrop";
-const StorageList = () => {
+const StorageList = ({ id }) => {
   const { crops, getCrops } = useContext(StorageContext);
   useEffect(() => {
-    getCrops();
+    getCrops(id);
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (

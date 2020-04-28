@@ -2,9 +2,11 @@ import React, { useContext, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import CustomerNav from "../navbars/CustomerNav";
 import { ProductContext, CartProvider } from "./ProductContext";
+import querystring from "query-string";
 
 import { CardColumns, Card, Container } from "react-bootstrap";
-const Listing = () => {
+const Listing = (props) => {
+  const id = querystring.parse(props.location.search).id;
   const { products, getProducts } = useContext(ProductContext);
   useEffect(() => {
     getProducts();
@@ -12,13 +14,13 @@ const Listing = () => {
   }, []);
   return (
     <React.Fragment>
-      <CustomerNav />
+      <CustomerNav id={id} />
       <Container className="mt-5">
         <h1>Our Products For Sale:</h1>
 
         <CardColumns>
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} id={id} />
           ))}
         </CardColumns>
       </Container>

@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MapGL, { GeolocateControl, Layer, Source } from "@urbica/react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import axios from "axios";
 import Direction from "./Direction";
 import { Container, CardGroup, Card } from "react-bootstrap";
+import { PickupContext } from "./DeliveryContext";
 
-const Map1 = () => {
+const Map1 = ({ address }) => {
+  //const { location, getmap } = useContext(PickupContext);
+  //console.log(address);
+
   const access_token =
     "pk.eyJ1Ijoic2hla29rYXIiLCJhIjoiY2s5OGlueHdxMDBtazNubzFzeGI4czVvNSJ9.PRkX6Oc96AJyVR6NDqg_zw";
   const [viewport, setViewport] = useState({
@@ -16,8 +20,10 @@ const Map1 = () => {
   const [route, setRoute] = useState();
   const [step, setStep] = useState([]);
   const url =
-    "https://api.mapbox.com/directions/v5/mapbox/driving/72.90387109718142,19.05877840943195;72.85614372884555,19.02291054547061?geometries=geojson&steps=true&access_token=" +
-    "pk.eyJ1Ijoic2hla29rYXIiLCJhIjoiY2s5OGh4dGZyMDJsYjN0bW5mbXI1dDZzaCJ9.AZdJdf6-5pmlbVzpfbIAVw"; //access_token;
+    "https://api.mapbox.com/directions/v5/mapbox/driving/72.90387109718142,19.05877840943195;" +
+    address +
+    "?geometries=geojson&steps=true&access_token=" +
+    "pk.eyJ1Ijoic2hla29rYXIiLCJhIjoiY2s5OGh4dGZyMDJsYjN0bW5mbXI1dDZzaCJ9.AZdJdf6-5pmlbVzpfbIAVw"; //access_token;72.85614372884555,19.02291054547061
   useEffect(async () => {
     const jsonResponse = await axios.get(url);
 
