@@ -189,4 +189,45 @@ router.put("/ordercomplete", async (req, res) => {
   }
 });
 
+//ALL THE CROPS both growing and cultivated
+router.get("/allcrops", async (req,res)=>{
+  try {
+    const allcrops = await pool.query(
+      "SELECT crop.name,farmer.latitude,farmer.longitude,crop.farmsize FROM crop,farmer WHERE crop.farmerid = farmer.farmerid;"
+    )
+    console.log(allcrops.rows);
+    res.json(allcrops.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.json(error.message);
+  }
+});
+
+router.get("/allgrowing", async (req,res)=>{
+  try {
+    const allgrowing = await pool.query(
+      "SELECT crop.name,farmer.latitude,farmer.longitude,crop.farmsize FROM crop,farmer WHERE crop.farmerid = farmer.farmerid AND crop.completed = 0;"
+    )
+    console.log(allgrowing.rows);
+    res.json(allgrowing.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.json(error.message);
+  }
+});
+
+router.get("/allcultivated", async (req,res)=>{
+  try {
+    const allcultivated = await pool.query(
+      "SELECT crop.name,farmer.latitude,farmer.longitude,crop.farmsize FROM crop,farmer WHERE crop.farmerid = farmer.farmerid AND crop.completed = 1;"
+    )
+    console.log(allcultivated.rows);
+    res.json(allcultivated.rows);
+  } catch (error) {
+    console.error(error.message);
+    res.json(error.message);
+  }
+});
+
+
 module.exports = router;
