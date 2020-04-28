@@ -63,7 +63,7 @@ const ProductCard = ({ product, id }) => {
               <Col sm={7}>
                 <ListGroup variant="flush">
                   <ListGroup.Item>{product.name}</ListGroup.Item>
-                  <ListGroup.Item>Price per kg: {product.price}</ListGroup.Item>
+                  <ListGroup.Item>Price per kg: {product.rate}</ListGroup.Item>
                   <ListGroup.Item>
                     <Form>
                       <Form.Group as={Row}>
