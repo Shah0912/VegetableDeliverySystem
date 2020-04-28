@@ -3,6 +3,7 @@ import { Modal, ListGroup, Button } from "react-bootstrap";
 import { DeliveryContext } from "./DeliveryContext";
 
 export default function Delivery({ delivery }) {
+  console.log(delivery);
   const [lgShow, setLgShow] = useState(false);
   const { isDelivered } = useContext(DeliveryContext);
   const onSubmit = (e) => {
@@ -50,7 +51,7 @@ export default function Delivery({ delivery }) {
             variant="success"
             size="lg"
             //onClick={onSubmit}
-            href="delivery/maps"
+            href={"delivery/maps?address=" + delivery.location}
             style={{
               width: "50%",
               margin: "auto",

@@ -2,11 +2,41 @@ import React, { useReducer, useState, createContext } from "react";
 import CultivationReducer from "./CultivationReducer";
 import StorageReducer from "./StorageReducer";
 import OrderReducer from "./OrderReducer";
+import MapReducer from "./MapReducer";
 import axios from "axios";
 
 export const CultivationContext = createContext();
 export const StorageContext = createContext();
+export const MapContext = createContext();
+export const MapProvider = (props) => {
+  const crops = [];
+  const [state, dispatch] = useReducer(MapReducer, crops);
 
+  async function getCrops() {
+    try {
+      const res = await axios.get("/farmer/allcrops");
+      //console.log(res);
+      dispatch({
+        type: "GET_CROPS",
+        payload: res.data,
+      });
+      //crops = res.data.cultCrops;
+      //console.log(crops[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  return (
+    <MapContext.Provider
+      value={{
+        crops: state,
+        getCrops,
+      }}
+    >
+      {props.children}
+    </MapContext.Provider>
+  );
+};
 export const CultivationProvider = (props) => {
   const crops = [];
 

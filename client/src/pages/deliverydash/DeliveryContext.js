@@ -96,9 +96,9 @@ export const PickupProvider = (props) => {
       //console.log(res);
       dispatch({
         type: "GET_PICKUP",
-        payload: res.data[1],
+        payload: res.data[0],
       });
-      console.log(state);
+      //console.log(state);
       //state.map((s) => (s["amount"] = 0));
       //crops = res.data.cultCrops;
       //console.log(crops[0]);

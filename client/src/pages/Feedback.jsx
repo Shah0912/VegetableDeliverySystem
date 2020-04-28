@@ -8,6 +8,9 @@ function Review() {
   const { addReview } = useContext(UserContext);
   const [ID, setID] = useState("");
   const [Type, setType] = useState("");
+  const [farmer, setFarmer] = useState(false);
+  const [delivery, setDelivery] = useState(false);
+  const [customer, setCustomer] = useState(false);
   const [Quality, setQuality] = useState("");
   const [Friendliness, setFriendliness] = useState("");
   const [Knowledge, setKnowledge] = useState("");
@@ -17,14 +20,15 @@ function Review() {
   const mStyle = {
     background: "black",
     width: "800px",
-    height: "800px",
+    height: "600px",
     color: "white",
+    margin: "auto",
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
     const newreDetails = {
-      id: Math.floor(Math.random() * 100000000),
+      //id: Math.floor(Math.random() * 100000000),
       ID,
       Type,
       Quality,
@@ -53,8 +57,8 @@ function Review() {
               <i className="fas fa-sign-in-alt "></i> Review
             </h1>
 
-            <form onSubmit={onSubmit} method="POST">
-              <div className="form-group">
+            <form onSubmit={onSubmit}>
+              {/* <div className="form-group">
                 <span className="badge badge-warning m-2">ID</span>
                 <br />
                 <input
@@ -66,7 +70,7 @@ function Review() {
                   className="form-control"
                   placeholder="Enter ID "
                 />
-              </div>
+              </div> */}
 
               {/* <div className="form-group">
             <span  className="badge badge-warning m-2">Type</span>
@@ -85,35 +89,47 @@ function Review() {
               <div className="custom-control custom-radio">
                 <label>
                   <input
-                    className="custom-control-input"
                     type="radio"
                     value="small"
+                    checked={farmer}
+                    onChange={() => {
+                      setFarmer(true);
+                      setCustomer(false);
+                      setDelivery(false);
+                    }}
                   />
                   Farmer
                 </label>
 
-                <input
-                  type="radio"
-                  id="customRadio1"
-                  name="customRadio"
-                  class="custom-control-input"
-                  checked=""
-                />
-                <label class="custom-control-label" for="customRadio1">
-                  Toggle this custom radio
-                </label>
-
                 <br />
-
                 <label>
-                  <input type="radio" value="small" />
+                  <input
+                    type="radio"
+                    value="small"
+                    checked={delivery}
+                    onChange={() => {
+                      setFarmer(false);
+                      setCustomer(false);
+                      setDelivery(true);
+                    }}
+                  />
                   Delivery Person
                 </label>
 
                 <br />
 
                 <span>
-                  <input type="radio" value="small" font="20px" />
+                  <input
+                    type="radio"
+                    value="small"
+                    font="20px"
+                    checked={customer}
+                    onChange={() => {
+                      setFarmer(false);
+                      setCustomer(true);
+                      setDelivery(false);
+                    }}
+                  />
                   Customer
                 </span>
                 <br />

@@ -11,11 +11,14 @@ import Login from "./pages/components/Login";
 import Register from "./pages/components/Register";
 import { ProductProvider, CartProvider } from "./pages/listings/ProductContext";
 import { UserProvider } from "./pages/context/UserContext";
+
 import Storage from "./pages/Storage";
 //import VehicleDetails from "./pages/deliverydash/Vdetails";
 import Review from "./pages/Feedback";
 import VehicleDetails from "./pages/deliverydash/VehicleDetails";
 import Page from "./pages/farmerdash/AllCrops/Page";
+import PageP from "./pages/deliverydash/All/PageP";
+import PageD from "./pages/deliverydash/All/PageD";
 import Maps from "./pages/deliverydash/Maps";
 function App() {
   return (
@@ -27,8 +30,10 @@ function App() {
           <Route exact path="/vdetails" component={VehicleDetails} />
           <Route exact path="/storage" component={Storage} />
           <Route exact path="/feedback" component={Review} />
-
           <Route exact path="/pages" component={Page} />
+
+          <Route exact path="/pageAllP" component={PageP} />
+          <Route exact path="/pageAllD" component={PageD} />
           <CartProvider>
             <ProductProvider>
               <Route exact path="/listing" component={Listing} />

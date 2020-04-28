@@ -146,9 +146,9 @@ router.get("/deliverydetails", async (req, res) => {
         [deliveries.rows[i].customerid]
       );
       deliveries.rows[i].location =
-        location.rows[0].latitude.toString() +
+        location.rows[0].longitude.toString() +
         "," +
-        location.rows[0].longitude.toString();
+        location.rows[0].latitude.toString();
     }
     console.log(deliveries.rows);
     res.json(deliveries.rows);

@@ -16,6 +16,8 @@ const DeliveryNav = ({ id }) => {
             <Nav.Link href={"/delivery?id=" + id}>Dashboard</Nav.Link>
             <Nav.Link href="/listing">Add Phone Number</Nav.Link>
             <Nav.Link href={"/Vdetails?id=" + id}>Add Vehicle Details</Nav.Link>
+            <Nav.Link href={"/pageAllP?id=" + id}>View All Pickups</Nav.Link>
+            <Nav.Link href={"/pageAllD?id=" + id}>View All Drops</Nav.Link>
             <Nav.Link href={"/feedback?id=" + id}>Feedback</Nav.Link>
           </Nav>
           <Nav className="ml-auto">

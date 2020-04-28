@@ -16,6 +16,7 @@ export default function Pickup({ pickup }) {
     //addDelivery(pickup);
     //pickup.isPickedup = true;
     setLgShow(false);
+    window.location.replace();
   };
   return (
     <div>
