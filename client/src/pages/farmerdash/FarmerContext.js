@@ -92,10 +92,10 @@ export const CultivationProvider = (props) => {
     }; */
     try {
       const res = await axios.put("/farmer/cropstore", crop, config);
-      console.log(res.data.rows[0]);
+      console.log(res);
       dispatch({
         type: "MOVE_CROP",
-        payload: res.data.rows[0],
+        payload: res.data[0],
       });
     } catch (err) {
       console.log(err);
@@ -189,10 +189,10 @@ export const OrderProvider = (props) => {
     try {
       const res = await axios.put("/farmer/ordercomplete", order, config);
       console.log(res);
-      /* dispatch({
-        type: "MOVE_CROP",
-        payload: res.data.rows[0],
-      }); */
+      dispatch({
+        type: "MOVE_ORDER",
+        payload: res.data[0],
+      });
     } catch (err) {
       console.log(err);
     }

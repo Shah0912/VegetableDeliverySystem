@@ -6,7 +6,7 @@ export default (state, action) => {
       return action.payload;
     case "IS_DELIVERED":
       const newState = state.filter(
-        (crop) => crop.cropname !== action.payload.cropname
+        (crop) => crop.deliveryid !== action.payload.deliveryid
       );
       console.log(newState);
       return newState;

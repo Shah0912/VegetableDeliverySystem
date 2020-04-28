@@ -9,13 +9,12 @@ const FarmerNav = ({ id }) => {
         expand="md"
         style={{ display: "flex" }}
       >
-        <Navbar.Brand href="#home">Delivery App</Navbar.Brand>
+        <Navbar.Brand href="#home">Aapka APMC</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href={"/farmer?id=" + id}>Dashboard</Nav.Link>
             <Nav.Link href={"/pages?id=" + id}>View All Crops</Nav.Link>
-            <Nav.Link href="#">Add Phone Number</Nav.Link>
             <Nav.Link href={"/feedback?id=" + id}>Feedback</Nav.Link>
           </Nav>
           <Nav className="ml-auto">

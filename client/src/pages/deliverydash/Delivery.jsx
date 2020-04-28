@@ -20,7 +20,7 @@ export default function Delivery({ delivery }) {
         onClick={() => setLgShow(true)}
         style={{ textDecoration: delivery.isDelivered ? "line-through" : "" }}
       >
-        Delivery to {delivery.cust_name}
+        Delivery No: {delivery.deliveryid}
         <button className="delete-btn">+</button>
       </li>
 
@@ -42,13 +42,10 @@ export default function Delivery({ delivery }) {
               Delivery Contents: {delivery.cropname}
             </ListGroup.Item>
             <ListGroup.Item>Customer Name: {delivery.cust_name}</ListGroup.Item>
-            <ListGroup.Item>
-              Delivery Address: {delivery.cust_add}
-            </ListGroup.Item>
           </ListGroup>
           <Button
             //disabled={pickup.isPickedup}
-            variant="success"
+            variant="info"
             size="lg"
             //onClick={onSubmit}
             href={"delivery/maps?address=" + delivery.location}

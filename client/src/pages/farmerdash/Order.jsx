@@ -35,7 +35,12 @@ export default function Order({ order }) {
             </ListGroup.Item>
             <ListGroup.Item>Total Cost: {order.amount}</ListGroup.Item>
           </ListGroup>
-          <Button variant="success" size="lg" onClick={onSubmit}>
+          <Button
+            style={{ width: "50%", margin: "auto" }}
+            variant="success"
+            size="lg"
+            onClick={onSubmit}
+          >
             Order Ready
           </Button>
         </Modal.Body>

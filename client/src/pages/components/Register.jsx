@@ -43,10 +43,10 @@ function Register() {
   const { addRegister } = useContext(UserContext);
 
   const mStyle = {
-    background: "black",
+    background: "White",
     width: "800px",
-    height: "1270px",
-    color: "white",
+    height: "1100px",
+    color: "Black",
     margin: "auto",
   };
 
@@ -76,6 +76,7 @@ function Register() {
     console.log("Pincode", Pincode);
     console.log("password:", Password);
     console.log("Confirm Password", Cpassword);
+    window.location.replace("/");
   };
 
   return (
@@ -192,7 +193,7 @@ function Register() {
                   id="Type"
                   name="Type"
                   className="form-control"
-                  placeholder="Enter Type"
+                  placeholder="F for Farmer; D for Delivery-Person; C for Customer"
                 />
               </div>
 
@@ -226,7 +227,7 @@ function Register() {
                 />
               </div>
 
-              <Form>
+              {/* <Form>
                 <div key={`default-radio`} className="mb-3">
                   <Form.Check type="radio" id="1" label={`Farmer`} />
                   <Form.Check type="radio" id="2" label={`Customer`} />
@@ -254,7 +255,7 @@ function Register() {
                   id="3"
                 />
                 Customer
-              </span>
+              </span> */}
 
               <button type="submit" className="btn btn-warning btn-block ">
                 Register

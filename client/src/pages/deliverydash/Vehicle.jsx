@@ -9,7 +9,10 @@ const Vehicle = ({ id }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Card style={{ width: "18rem", display: "flex" }}>
+    <Card
+      className="card border-success mb-3"
+      style={{ width: "18rem", display: "flex" }}
+    >
       <Card.Body>
         <Card.Title className="text-center">Vehicle Details</Card.Title>
         <ListGroup variant="flush">

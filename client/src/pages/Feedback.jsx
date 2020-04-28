@@ -7,20 +7,23 @@ import { UserContext } from "./context/UserContext";
 function Review() {
   const { addReview } = useContext(UserContext);
   const [ID, setID] = useState("");
+  const [reviewee, setReviewee] = useState("");
+  const [reviewer, setReviewer] = useState("");
   const [Type, setType] = useState("");
   const [farmer, setFarmer] = useState(false);
+
   const [delivery, setDelivery] = useState(false);
   const [customer, setCustomer] = useState(false);
-  const [Quality, setQuality] = useState("");
-  const [Friendliness, setFriendliness] = useState("");
-  const [Knowledge, setKnowledge] = useState("");
-  const [Comment, setComment] = useState("");
-  const [Efficiency, setEfficiency] = useState("");
+  const [Quality, setQuality] = useState(0);
+  const [Friendliness, setFriendliness] = useState(0);
+  const [Knowledge, setKnowledge] = useState(0);
+  const [Comment, setComment] = useState(0);
+  const [Efficiency, setEfficiency] = useState(0);
 
   const mStyle = {
     background: "black",
     width: "800px",
-    height: "600px",
+    height: "800px",
     color: "white",
     margin: "auto",
   };
@@ -29,13 +32,13 @@ function Review() {
     e.preventDefault();
     const newreDetails = {
       //id: Math.floor(Math.random() * 100000000),
-      ID,
-      Type,
-      Quality,
-      Friendliness,
-      Knowledge,
-      Comment,
-      Efficiency,
+      reviewer,
+      reviewee,
+      quality: Quality,
+      friendliness: Friendliness,
+      knowlodge: Knowledge,
+      comment: Comment,
+      efficiency: Efficiency,
     };
 
     addReview(newreDetails);
@@ -58,219 +61,80 @@ function Review() {
             </h1>
 
             <form onSubmit={onSubmit}>
-              {/* <div className="form-group">
-                <span className="badge badge-warning m-2">ID</span>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Reviewee Type</span>
                 <br />
                 <input
-                  value={ID}
-                  onChange={(e) => setID(e.target.value)}
+                  value={reviewee}
+                  onChange={(e) => setReviewee(e.target.value)}
                   type="text"
-                  id="ID"
-                  name="ID"
+                  id="Reviewee"
+                  name="Reviewee"
                   className="form-control"
-                  placeholder="Enter ID "
+                  placeholder="F for Farmer; D for Delivery-Person; C for Customer"
                 />
-              </div> */}
-
-              {/* <div className="form-group">
-            <span  className="badge badge-warning m-2">Type</span>
-            <br/>
-            <input 
-              value={Type}
-              onChange={(e) => setType(e.target.value)}
-              type="text"
-              id="Type"
-              name="Type"
-              className="form-control"
-              placeholder="Enter Type "
-            />
-          </div> */}
-              <p>Type</p>
-              <div className="custom-control custom-radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="small"
-                    checked={farmer}
-                    onChange={() => {
-                      setFarmer(true);
-                      setCustomer(false);
-                      setDelivery(false);
-                    }}
-                  />
-                  Farmer
-                </label>
-
-                <br />
-                <label>
-                  <input
-                    type="radio"
-                    value="small"
-                    checked={delivery}
-                    onChange={() => {
-                      setFarmer(false);
-                      setCustomer(false);
-                      setDelivery(true);
-                    }}
-                  />
-                  Delivery Person
-                </label>
-
-                <br />
-
-                <span>
-                  <input
-                    type="radio"
-                    value="small"
-                    font="20px"
-                    checked={customer}
-                    onChange={() => {
-                      setFarmer(false);
-                      setCustomer(true);
-                      setDelivery(false);
-                    }}
-                  />
-                  Customer
-                </span>
-                <br />
               </div>
-              {/* <div className="form-group">
-            <span className="badge badge-warning m-2">Quality</span>
-            <br/>
-            <input
-              value={Quality}
-              onChange={(e) => setQuality(e.target.value)} 
-              type="text"
-              id="Quality"
-              name="Quality"
-              className="form-control"
-              placeholder="Enter  Quality"
-            />
-          </div> */}
-              <p className="badge badge-primary">Quality</p>
-              <span className="m-2">
-                <input type="radio" value="small" />1
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" />2
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />3
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />4
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />5
-              </span>
-
-              {/* <div className="form-group">
-            <span className="badge badge-warning m-2" >Friendliness</span>
-            <br/>
-            <input 
-              value={Friendliness}
-              onChange={(e) => setFriendliness(e.target.value)} 
-              type="text"
-              id="Friendliness"
-              name="Friendliness"
-              className="form-control"
-              placeholder="Enter Friendliness"
-            />
-          </div> */}
-              <br />
-              <p className="badge badge-primary">Friendliness</p>
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />1
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />2
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />3
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />4
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />5
-              </span>
-
-              {/* <div className="form-group">
-            <span className="badge badge-warning m-2">Knowledge</span>
-            <br/>
-            <input 
-              value={Knowledge}
-              onChange={(e) => setKnowledge(e.target.value)} 
-              type="num"
-              id="Knowledge"
-              name="Knowledge"
-              className="form-control"
-              placeholder="Enter Knowledge"
-            />
-          </div> */}
-              <br />
-              <p className="badge badge-primary">Knowledge</p>
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />1
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />2
-              </span>
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />3
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />4
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />5
-              </span>
-
-              {/* <div className="form-group">
-            <span className="badge badge-warning m-2">Efficiency</span>
-            <br/>
-            <input
-              value={Efficiency}
-              onChange={(e) => setEfficiency(e.target.value)}  
-              type="text"
-              id="Efficiency"
-              name="Efficiency"
-              className="form-control"
-              placeholder="Enter Efficiency"
-            />
-          </div> */}
-              <br />
-              <p className="badge badge-primary">Efficiency</p>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />1
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />2
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />3
-              </span>
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />4
-              </span>
-
-              <span className="m-2">
-                <input type="radio" value="small" font="20px" />5
-              </span>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Reviewer Type</span>
+                <br />
+                <input
+                  value={reviewer}
+                  onChange={(e) => setReviewer(e.target.value)}
+                  type="text"
+                  id="Reviewer"
+                  name="Reviewer"
+                  className="form-control"
+                  placeholder="F for Farmer; D for Delivery-Person; C for Customer"
+                />
+              </div>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Quality</span>
+                <br />
+                <input
+                  value={Quality}
+                  onChange={(e) => setQuality(e.target.value)}
+                  type="number"
+                  id="Quality"
+                  name="Quality"
+                  className="form-control"
+                />
+              </div>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Friendliness</span>
+                <br />
+                <input
+                  value={Friendliness}
+                  onChange={(e) => setFriendliness(e.target.value)}
+                  type="number"
+                  id="Friendliness"
+                  name="Friendliness"
+                  className="form-control"
+                />
+              </div>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Knowledge</span>
+                <br />
+                <input
+                  value={Knowledge}
+                  onChange={(e) => setKnowledge(e.target.value)}
+                  type="number"
+                  id="Knowledge"
+                  name="Knowledge"
+                  className="form-control"
+                />
+              </div>
+              <div className="form-group">
+                <span className="badge badge-warning m-2">Efficiency</span>
+                <br />
+                <input
+                  value={Efficiency}
+                  onChange={(e) => setEfficiency(e.target.value)}
+                  type="number"
+                  id="Efficiency"
+                  name="Efficiency"
+                  className="form-control"
+                />
+              </div>
 
               <div className="form-group">
                 <span className="badge badge-warning m-2">Comment</span>

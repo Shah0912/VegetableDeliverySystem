@@ -147,11 +147,21 @@ export const UserProvider = ({ children }) => {
       console.log(err);
     }
   }
-  function addReview(redetails) {
-    dispatchRe({
-      type: "REVIEW",
-      payload: redetails,
-    });
+  async function addReview(redetails) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const res = await axios.post("/feedback", redetails, config);
+      dispatchRe({
+        type: "REVIEW",
+        payload: redetails,
+      });
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

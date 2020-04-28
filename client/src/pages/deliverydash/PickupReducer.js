@@ -8,7 +8,7 @@ export default (state, action) => {
 
     case "IS_PICKEDUP":
       const newState = state.filter(
-        (crop) => crop.cropname !== action.payload.cropname
+        (crop) => crop.orderid !== action.payload.orderid
       );
       console.log(newState);
       return newState;

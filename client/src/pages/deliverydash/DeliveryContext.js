@@ -198,7 +198,7 @@ export const DeliveryProvider = (props) => {
         delivery,
         config
       );
-      //console.log(res);
+      console.log(res);
       dispatch({
         type: "IS_DELIVERED",
         payload: res.data,

@@ -11,7 +11,7 @@ const CustomerNav = ({ id }) => {
         expand="md"
         style={{ display: "flex" }}
       >
-        <Navbar.Brand href="/listing">Delivery App</Navbar.Brand>
+        <Navbar.Brand href="/listing">Aapka APMC</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

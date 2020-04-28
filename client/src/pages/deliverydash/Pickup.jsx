@@ -16,7 +16,6 @@ export default function Pickup({ pickup }) {
     //addDelivery(pickup);
     //pickup.isPickedup = true;
     setLgShow(false);
-    window.location.replace();
   };
   return (
     <div>
@@ -51,7 +50,7 @@ export default function Pickup({ pickup }) {
           {/* <Link to="/delivery/maps?address="+pickup.address> */}
           <Button
             disabled={pickup.isPickedup}
-            variant="success"
+            variant="info"
             size="lg"
             href={"/delivery/maps?address=" + pickup.address}
             //onClick={onSubmit}

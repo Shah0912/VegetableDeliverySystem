@@ -65,7 +65,7 @@ function Login() {
   return (
     <div>
       <h1 className="text-center mb-3" style={textStyle}>
-        <i className="fas fa-sign-in-alt"></i> Welcome to Delivery App
+        <i className="fas fa-sign-in-alt"></i> Aapka APMC
       </h1>
       <img
         src="/webapp1.png"
@@ -77,6 +77,9 @@ function Login() {
       <div className="row-md-100 mt-5">
         <div className="col-md-1000">
           <div className="card card-body" style={mStyle}>
+            <h1 className="text-center mb-3">
+              <i className="fas fa-sign-in-alt "></i> Login
+            </h1>
             <form onSubmit={onSubmit} action="/NavBars" method="POST">
               <div className="form-group">
                 <span className="badge badge-danger m-2">Email</span>

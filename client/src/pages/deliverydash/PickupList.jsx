@@ -9,7 +9,10 @@ const Deliver = ({ id }) => {
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Card style={{ width: "18rem", display: "flex" }}>
+    <Card
+      className="card border-success mb-3"
+      style={{ width: "18rem", display: "flex" }}
+    >
       {console.log(pickups)}
       <Card.Body>
         <Card.Title className="text-center">Pickup Details</Card.Title>
