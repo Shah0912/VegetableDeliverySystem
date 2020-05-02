@@ -187,9 +187,10 @@ app.post("/auth", async (req, res) => {
     console.log(deliveryid.rows[0]);
     let id;
     if (customerid.rows[0] != null) id = customerid.rows[0].customerid;
-    else if (deliveryid.rows[0] != null) id = deliveryid.rows[0];
+    else if (deliveryid.rows[0] != null) id = deliveryid.rows[0].deliveryid;
     else if (farmerid.rows[0]) id = farmerid.rows[0].farmerid;
     else res.json(false);
+    console.log("id:" + id);
     if (id[0] == "F") {
       hash = await pool.query(
         "SELECT password FROM farmer WHERE farmerid = $1",
@@ -245,9 +246,36 @@ app.post("/auth", async (req, res) => {
       }
       res.json(ans);
     } else {
-      console.log(req.body);
       hash = await pool.query(
-        "SELECT password FROM delivery_person WHERE DeliveryId = $1",
+        "SELECT password FROM delivery_person WHERE deliveryid = $1",
+        [id]
+      );
+      //console.log(hash.rows[0].password);
+      //console.log('hash', typeof(hash));
+      //console.log('password', typeof(password));
+      let ans;
+      //console.log(hash.rows[0]);
+      if (hash.rows[0]) {
+        ans = bcrypt.compareSync(password, hash.rows[0].password);
+      }
+      console.log(ans);
+      if (ans) {
+        //Send to the dashboard
+        res.json({
+          url: "/delivery",
+          id: deliveryid.rows[0].deliveryid,
+        });
+        console.log("congratulations");
+      }
+      //ERROR
+      else {
+        console.log("AUTHENTICATION FAILED");
+      }
+      res.json(ans);
+
+      /* console.log(req.body);
+      hash = await pool.query(
+        "SELECT password FROM delivery_person WHERE deliveryid = $1",
         [id]
       );
       console.log(hash.rows);
@@ -273,7 +301,7 @@ app.post("/auth", async (req, res) => {
       else {
         console.log("AUTHENTICATION FAILED");
       }
-      res.json(ans);
+      res.json(ans); */
     }
   } catch (error) {
     console.error(error.message);
