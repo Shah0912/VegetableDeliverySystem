@@ -951,7 +951,9 @@ COPY public.customer_phone_number (phone_number, customerid) FROM stdin;
 --
 
 COPY public.delivery_person (delivery_person_rating, nor, deliveryid, name, date_of_birth, street, state, pincode, locality, password, vehicleid, email, latitude, longitude) FROM stdin;
-0	0	D102	d	1999-10-21	RNA Continental	Maharashtra	400071	Chembur	$2b$10$Uyw6HhtB7Z/b5ldqYGWQx.107o.IHMKeXUP.PAJlQ924o5U28EbZK	V101	d@gmail.com	19.0588813	72.9041631693269
+0	0	D104	testd	1999-10-21	RNA Continental	Maharashtra	400071	c	$2b$10$iw4Mr/syo2YKE893hwfT8eMsjClMb/8MybhByPYxrjIFCaLXYkLay	\N	d1@gmail.com	19.0588813	72.9041631693269
+0	0	D106	testd	1999-10-21	RNA Continental	Maharashtra	400071	Chembur	$2b$10$1yMKuEEEb19/PHdUCdJvIOGDUu1.yE9Dmb8ipbk63669nwMWc3jZS	\N	d2@gmail.com	19.0588813	72.9041631693269
+0	0	D102	d	1999-10-21	RNA Continental	Maharashtra	400071	Chembur	$2b$10$1yMKuEEEb19/PHdUCdJvIOGDUu1.yE9Dmb8ipbk63669nwMWc3jZS	V101	d@gmail.com	19.0588813	72.9041631693269
 \.
 
 
@@ -960,7 +962,6 @@ COPY public.delivery_person (delivery_person_rating, nor, deliveryid, name, date
 --
 
 COPY public.farmer (farmerid, name, date_of_birth, farmer_rating, nor, street, state, locality, pincode, password, email, latitude, longitude) FROM stdin;
-F104	Farmer1	1999-10-21	0	0	s1	maharashtra	local1	400091	$2b$10$oecsVjsS.GIUd7nnz615c.DXSAx6ARXxXC6htSP.7EJdppYfgL20y	\N	\N	\N
 F105	fadmin	2000-01-01	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$U9mgCRACG1xdy8fQPzmLrezxKyLVyJbvX2se3pLc8EF3hglROCddq	\N	\N	\N
 F106	Sarang	1999-10-21	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$sDDTTCd6Ge78DRUR0dNdt.YQEp1w4ZPg1MVUX70dBfLBGhLHlfT/S	\N	\N	\N
 F107	Test	2000-08-21	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$penR2jLukWGu7spI.E/5mul2U6jayCsMtbbML3hjBdBHN9zQlWOM.	test@gmail.com	19.0588813	72.9041631693269
@@ -968,6 +969,8 @@ F108	t	1999-10-21	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$0Ur8vkZK
 F110	a	1999-10-21	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$Aonf2Zyz3JR0zRBiMB3usONPQVQu6qjKGH7VSlISHEr37RYrOqWdO	a@gmail.com	19.0588813	72.9041631693269
 F111	a	1999-10-21	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$deZnpHZ1dgcPjU4x/JiCo.jUhs1.6.T7ZO026LEeZ9tCjMsu41KBy	a1@gmail.com	19.0588813	72.9041631693269
 F112	b	1999-10-21	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$diEndmg9PzyJCOroaMM0T.JlyJe9S.HvQgW.C70AQMhaAWZKOP0C2	b@gmail.com	19.0588813	72.9041631693269
+F113	Farmer1	1999-10-21	0	0	RNA Continental	Maharashtra	Chembur	400071	$2b$10$QQremVd9BrBx1WaXmDRzau9bHdKoWLw2bz37YNklqXfH5vvfIhLa2	f1@gmail.com	19.0588813	72.9041631693269
+F104	Farmer1	1999-10-21	0	0	s1	maharashtra	local1	400091	$2b$10$QQremVd9BrBx1WaXmDRzau9bHdKoWLw2bz37YNklqXfH5vvfIhLa2	f@gmail.com	\N	\N
 \.
 
 
@@ -1069,14 +1072,14 @@ SELECT pg_catalog.setval('public.customer_id_seq', 105, true);
 -- Name: delivery_person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dbadmin
 --
 
-SELECT pg_catalog.setval('public.delivery_person_id_seq', 102, true);
+SELECT pg_catalog.setval('public.delivery_person_id_seq', 106, true);
 
 
 --
 -- Name: farmer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: dbadmin
 --
 
-SELECT pg_catalog.setval('public.farmer_id_seq', 112, true);
+SELECT pg_catalog.setval('public.farmer_id_seq', 113, true);
 
 
 --
