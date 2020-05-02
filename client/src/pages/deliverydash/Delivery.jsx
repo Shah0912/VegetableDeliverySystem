@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Modal, ListGroup, Button } from "react-bootstrap";
 import { DeliveryContext } from "./DeliveryContext";
 
-export default function Delivery({ delivery }) {
+export default function Delivery({ delivery, id }) {
   console.log(delivery);
   const [lgShow, setLgShow] = useState(false);
   const { isDelivered } = useContext(DeliveryContext);
@@ -48,7 +48,7 @@ export default function Delivery({ delivery }) {
             variant="info"
             size="lg"
             //onClick={onSubmit}
-            href={"delivery/maps?address=" + delivery.location}
+            href={"delivery/maps?address=" + delivery.location + "&id=" + id}
             style={{
               width: "50%",
               margin: "auto",

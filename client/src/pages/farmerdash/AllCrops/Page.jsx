@@ -1,8 +1,9 @@
 import React from "react";
-//import Map from "./Map";
+import Map from "./Map";
 import Map1 from "./Map1";
 import FarmerNav from "../../navbars/FarmerNav";
 import querystring from "query-string";
+import Direction from "../../deliverydash/Direction";
 import { MapProvider } from "../FarmerContext";
 const Page = (props) => {
   const id = querystring.parse(props.location.search).id;
@@ -10,7 +11,7 @@ const Page = (props) => {
     <div>
       <FarmerNav id={id} />
       <MapProvider>
-        <Map1 id={id} />
+        <Map id={id} />
       </MapProvider>
     </div>
   );

@@ -4,7 +4,7 @@ import { PickupContext, DeliveryContext } from "./DeliveryContext";
 import Maps from "./Maps";
 import { Link } from "react-router-dom";
 
-export default function Pickup({ pickup }) {
+export default function Pickup({ pickup, id }) {
   const { isPickedup, map } = useContext(PickupContext);
   // const [location, setLocation] = useContext(PickupContext);
   const { addDelivery } = useContext(DeliveryContext);
@@ -52,7 +52,7 @@ export default function Pickup({ pickup }) {
             disabled={pickup.isPickedup}
             variant="info"
             size="lg"
-            href={"/delivery/maps?address=" + pickup.address}
+            href={"/delivery/maps?address=" + pickup.address + "&id=" + id}
             //onClick={onSubmit}
             style={{
               width: "50%",

@@ -36,7 +36,6 @@ const Map1 = ({ address }) => {
   }, []);
   /* async function getMatch() {
     const jsonResponse = await axios.get(url);
-
     var distance = jsonResponse.data.routes[0].distance * 0.001;
     var duration = jsonResponse.data.routes[0].duration / 60;
     var steps = jsonResponse.data.routes[0].legs[0].steps;

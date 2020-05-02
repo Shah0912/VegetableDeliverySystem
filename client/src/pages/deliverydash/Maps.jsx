@@ -10,7 +10,7 @@ const Page = (props) => {
   console.log(values);
   return (
     <div>
-      <DeliveryNav />
+      <DeliveryNav id={values.id} />
       <PickupProvider>
         <Map address={values.address} />
       </PickupProvider>

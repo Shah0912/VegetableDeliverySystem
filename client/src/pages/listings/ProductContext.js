@@ -177,9 +177,9 @@ export const CartProvider = (props) => {
       console.log(err);
     }
   }
-  async function getCart() {
+  async function getCart(id) {
     try {
-      const res = await axios.get("/customer/checkout?customerid=C101");
+      const res = await axios.get("/customer/checkout?customerid=" + id);
       console.log(res.data);
       dispatch({
         type: "GET_CART",

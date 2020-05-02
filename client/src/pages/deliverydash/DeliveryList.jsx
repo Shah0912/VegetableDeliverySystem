@@ -18,7 +18,7 @@ const Deliver = ({ id }) => {
         <ul id="list" className="list">
           {deliveries &&
             deliveries.map((delivery) => (
-              <Delivery key={delivery.id} delivery={delivery} />
+              <Delivery key={delivery.id} delivery={delivery} id={id} />
             ))}
         </ul>
       </Card.Body>

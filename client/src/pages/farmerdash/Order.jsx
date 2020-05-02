@@ -9,6 +9,7 @@ export default function Order({ order }) {
     e.preventDefault();
     orderComplete(order);
   };
+  //console.log(order);
   return (
     <div>
       <li className="li-item" onClick={() => setLgShow(true)}>
@@ -29,7 +30,7 @@ export default function Order({ order }) {
         </Modal.Header>
         <Modal.Body>
           <ListGroup variant="flush">
-            <ListGroup.Item>Order Contents: </ListGroup.Item>
+            <ListGroup.Item>Order Contents: Potato</ListGroup.Item>
             <ListGroup.Item>
               Delivery Person Name: {order.deliveryPersonName}
             </ListGroup.Item>

@@ -18,7 +18,7 @@ const FarmerNav = ({ id }) => {
             <Nav.Link href={"/feedback?id=" + id}>Feedback</Nav.Link>
           </Nav>
           <Nav className="ml-auto">
-            <NavDropdown title="Welcome Michael Scott!">
+            <NavDropdown title="Welcome!">
               <NavDropdown.Item href="/">LogOut</NavDropdown.Item>
             </NavDropdown>
           </Nav>

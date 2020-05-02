@@ -19,7 +19,7 @@ const Deliver = ({ id }) => {
         <ul id="list" className="list">
           {pickups &&
             pickups.map((pickup) => (
-              <Pickup key={pickup.orderid} pickup={pickup} />
+              <Pickup key={pickup.orderid} pickup={pickup} id={id} />
             ))}
         </ul>
       </Card.Body>
